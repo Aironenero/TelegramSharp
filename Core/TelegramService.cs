@@ -54,8 +54,13 @@ namespace TelegramSharp.Core {
                     Console.WriteLine("Missing configuration, compile the generated config file and restart the program or pass a reference to a CFG class containing all the fields");
                 }
                 BotIdentity = JSON.DeserializeAndParseGetMe(NetworkSender.GetMe(Cfg.BotToken), this);
+                string s = NetworkSender.GetUpdates(Cfg.BotToken, -1, 60);
+                if (s != null)
+                {
+                    JSON.DeserializeAndParseMessages(s, this);
+                }
                 while (true) {
-                    string s = NetworkSender.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
+                    s = NetworkSender.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
                     if (s != null) {
                         JSON.DeserializeAndParseMessages(s, this);
                     }
