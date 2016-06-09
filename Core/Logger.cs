@@ -27,8 +27,18 @@ namespace TelegramSharp{
 		/// </summary>
 		/// <param name="msgToLog">Message to log.</param>
 		public static void LogConsoleWrite (Message msgToLog, User Bot) {
-			Console.WriteLine (String.Format("{0},{4}|INFO|{1}|From chat {2}, by {5} Message: {3}", DateTime.Now.ToString(), Bot.Username, (msgToLog.Chat.Title + " " + msgToLog.Chat.Username), msgToLog.Text, DateTime.Now.Millisecond, msgToLog.From.Id+" "+msgToLog.From.FirstName+" "+msgToLog.From.LastName));
-		}
+            Console.ForegroundColor = ConsoleColor.Green;
+			Console.Write(String.Format("{0},", DateTime.Now.ToString()));
+            Console.Write(String.Format("{0}|INFO|", DateTime.Now.Millisecond));
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write(String.Format("{0}|", Bot.Username));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(String.Format("From chat {0},", msgToLog.Chat.Title + " " + msgToLog.Chat.Username));
+            Console.Write(String.Format("by {0}|", msgToLog.From.Id + " " + msgToLog.From.FirstName + " " + msgToLog.From.LastName));
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(String.Format("Message: {0}", msgToLog.Text));
+            Console.ForegroundColor = ConsoleColor.Green;
+        }
 
 		/// <summary>
 		/// Logs the bot identity.
