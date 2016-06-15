@@ -33,6 +33,11 @@ namespace TelegramSharp.Core.Objects.NetAPI {
 		/// <value>The message.</value>
 		[DataMember (Name = "message", IsRequired = false)] public Message Message{ get; set; }
 
+        /// <summary>
+        /// An edited message.
+        /// </summary>
+        [DataMember (Name = "edited_message", IsRequired = false)] public Message EditedMessage { get; set; }
+
 		/// <summary>
 		/// Gets or sets the bot info.
 		/// </summary>

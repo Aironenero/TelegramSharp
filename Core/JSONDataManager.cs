@@ -33,20 +33,29 @@ namespace TelegramSharp.Core {
 		/// <param name="inJson">JSON to deserialize.</param>
 		/// <param name="bot">Bot that should parse the message.</param>
 		public void DeserializeAndParseMessages (string inJson, TelegramService bot) {
-			//try {
+			try {
 				MessageServerUpdate serverUpdate = JsonConvert.DeserializeObject<MessageServerUpdate> (inJson);
 				if (serverUpdate.Result != null) {
 					foreach (Update upd in serverUpdate.Result) {
 						Offset = upd.UpdateId;
-                        bot.Parser.ParseMessage(upd.Message, bot);
-						Logger.LogConsoleWrite (upd.Message, bot.BotIdentity);
+                        if (upd.Message != null)
+                        {
+                            bot.Parser.ParseMessage(upd.Message, bot);
+                            Logger.LogConsoleWrite (upd.Message, bot.BotIdentity);
+                        }
+                        if (upd.EditedMessage != null) {
+                            bot.Parser.ParseMessage(upd.EditedMessage, bot);
+                            Logger.LogConsoleWrite(upd.EditedMessage, bot.BotIdentity);
+                        } 
 					}
 				}
-			//}
-            /*catch (JsonReaderException) {
-				Console.WriteLine ("ERROR: Server not returned a valid JSON, chek your token and connection.");
+			}
+            catch (JsonReaderException e) {
+				Console.WriteLine ("ERROR: Server not returned a valid JSON, check your token and connection. A newer version of this library may be needed");
 				Console.WriteLine ("Returned from the website: " + inJson);
-			}*/
+                System.IO.File.AppendAllText("Error" + DateTime.Now.ToString() + ".log", "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.IO.File.WriteAllText("FaultyJSON.log", inJson);
+            }
 		}
 
 		/// <summary>
