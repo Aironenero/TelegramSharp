@@ -14,6 +14,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
+using System;
 
 namespace TelegramSharp.Core.Objects.NetAPI {
 	/// <summary>
@@ -175,7 +176,7 @@ namespace TelegramSharp.Core.Objects.NetAPI {
 		/// Gets or sets the migrate to chat identifier.
 		/// </summary>
 		/// <value>The migrate to chat identifier.</value>
-		[DataMember (Name = "migrate_to_chat_id", IsRequired = false)] public int MigrateToChatId{ get; set; }
+		[DataMember (Name = "migrate_to_chat_id", IsRequired = false)] public Int64 MigrateToChatId{ get; set; }
 
 		/// <summary>
 		/// Gets or sets the migrate from chat identifier.

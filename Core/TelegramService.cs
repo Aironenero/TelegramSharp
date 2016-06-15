@@ -46,7 +46,7 @@ namespace TelegramSharp.Core {
         /// Start the bot. Use this method as thread, as is going to use an infinite loop.
         /// </summary>
         public void Start() {
-            Console.WriteLine("Loaded TelegramSharp V0.2!");
+            Console.WriteLine("Loaded TelegramSharp V0.3!");
             Console.WriteLine("Listener Started");
             UpTimeCounter.Start();
             try {
@@ -67,7 +67,7 @@ namespace TelegramSharp.Core {
                 }
             } catch (Exception e) {
                 Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" + DateTime.Now.ToString() + ".log", "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.IO.File.AppendAllText("Error" + DateTime.Now.Day.ToString() + ".log", "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
         }
 

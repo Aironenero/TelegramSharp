@@ -53,7 +53,15 @@ namespace TelegramSharp.Core {
             catch (JsonReaderException e) {
 				Console.WriteLine ("ERROR: Server not returned a valid JSON, check your token and connection. A newer version of this library may be needed");
 				Console.WriteLine ("Returned from the website: " + inJson);
-                System.IO.File.AppendAllText("Error" + DateTime.Now.ToString() + ".log", "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.IO.File.AppendAllText("Error" +
+                                            DateTime.Now.Day.ToString() + "-" +
+                                            DateTime.Now.Month.ToString() +"-" +
+                                            DateTime.Now.Year.ToString() + "_" +
+                                            DateTime.Now.Hour.ToString() + "-" +
+                                            DateTime.Now.Minute.ToString() + "-" +
+                                            DateTime.Now.Second.ToString() + "-" +
+                                            DateTime.Now.Millisecond.ToString() + ".log",
+                                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
                 System.IO.File.WriteAllText("FaultyJSON.log", inJson);
             }
 		}
