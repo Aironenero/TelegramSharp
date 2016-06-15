@@ -68,17 +68,18 @@ namespace TelegramSharp.Core {
         /// <param name="bot"></param>
         /// <returns></returns>
         public bool CheckForString(string trigger, string msg, TelegramService bot, bool onlyCommand = false) {
-            trigger = trigger.ToLower();
-            Regex alone = new Regex(String.Format(@"^\/{0}", trigger), RegexOptions.IgnoreCase);
-            if (alone.IsMatch(msg))
+            string _trigger = trigger.ToLower();
+            string _msg = msg.ToLower();
+            Regex alone = new Regex(String.Format(@"^\/{0}", _trigger), RegexOptions.IgnoreCase);
+            if (alone.IsMatch(_msg))
                 return true;
-            Regex alonePlusUser = new Regex(String.Format(@"^\/({0})({1})", trigger, "@" + bot.BotIdentity.Username), RegexOptions.IgnoreCase);
-            if (alonePlusUser.IsMatch(msg))
+            Regex alonePlusUser = new Regex(String.Format(@"^\/({0})({1})", _trigger, "@" + bot.BotIdentity.Username), RegexOptions.IgnoreCase);
+            if (alonePlusUser.IsMatch(_msg))
                 return true;
             if (!onlyCommand)
             {
-                Regex singleWord = new Regex(String.Format(@"\b({0})\b", trigger));
-                if (singleWord.IsMatch(msg))
+                Regex singleWord = new Regex(String.Format(@"\b({0})\b", _trigger));
+                if (singleWord.IsMatch(_msg))
                     return true;
             }
             return false;
