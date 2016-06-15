@@ -43,7 +43,7 @@ namespace TelegramSharp.Core {
 				Stream dataStream = request.GetRequestStream (); // Get the request stream.
 				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
 				dataStream.Close (); // Close the Stream object.
-				WebResponse response = request.GetResponse (); // Get the response.
+			    WebResponse response = request.GetResponse (); // Get the response.
 				Console.WriteLine ("Request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
 				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
 				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
