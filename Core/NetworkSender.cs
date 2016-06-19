@@ -44,7 +44,7 @@ namespace TelegramSharp.Core {
 				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
 				dataStream.Close (); // Close the Stream object.
 			    WebResponse response = request.GetResponse (); // Get the response.
-				Console.WriteLine ("Request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
+				Console.WriteLine ("GetUpdates request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
 				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
 				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
 				string _out = reader.ReadToEnd (); // Read the content.
@@ -52,9 +52,17 @@ namespace TelegramSharp.Core {
 				response.Close ();
 				return _out; // Return the value
 			} catch (WebException e) {
-				Console.WriteLine ("WebException generated, see Error.log");
-				File.AppendAllText ("Error.log", "\nError generated on " + DateTime.Now.ToString () + "\n" + e.ToString ());
-			}
+                Console.WriteLine("Exception generated, see Error.log");
+                System.IO.File.AppendAllText("Error" +
+                            DateTime.Now.Day.ToString() + "-" +
+                            DateTime.Now.Month.ToString() + "-" +
+                            DateTime.Now.Year.ToString() + "_" +
+                            DateTime.Now.Hour.ToString() + "-" +
+                            DateTime.Now.Minute.ToString() + "-" +
+                            DateTime.Now.Second.ToString() + "-" +
+                            DateTime.Now.Millisecond.ToString() + ".log",
+                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+            }
 			return null;
 		}
 
@@ -79,16 +87,25 @@ namespace TelegramSharp.Core {
 				Stream dataStream = request.GetRequestStream (); // Get the request stream.
 				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
 				dataStream.Close (); // Close the Stream object.
+                Console.WriteLine("Sending message...");
 				WebResponse response = request.GetResponse (); // Get the response.
-				Console.WriteLine ("Request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
+				Console.WriteLine ("Send message request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
 				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
 				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
 				reader.Close (); // Clean up the streams.
 				response.Close ();
 			} catch (WebException e) {
-				Console.WriteLine ("WebException generated, see Error.log");
-				File.AppendAllText ("Error.log", "\nError generated on " + DateTime.Now.ToString () + "\n" + e.ToString ());
-			}
+                Console.WriteLine("Exception generated, see Error.log");
+                System.IO.File.AppendAllText("Error" +
+                            DateTime.Now.Day.ToString() + "-" +
+                            DateTime.Now.Month.ToString() + "-" +
+                            DateTime.Now.Year.ToString() + "_" +
+                            DateTime.Now.Hour.ToString() + "-" +
+                            DateTime.Now.Minute.ToString() + "-" +
+                            DateTime.Now.Second.ToString() + "-" +
+                            DateTime.Now.Millisecond.ToString() + ".log",
+                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+            }
 		}
 
         /// <summary>
@@ -108,8 +125,9 @@ namespace TelegramSharp.Core {
 				Stream dataStream = request.GetRequestStream (); // Get the request stream.
 				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
 				dataStream.Close (); // Close the Stream object.
+                Console.WriteLine("Getting Bot infos");
 				WebResponse response = request.GetResponse (); // Get the response.
-				Console.WriteLine ("Request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
+				Console.WriteLine ("GetMe request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
 				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
 				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
 				string _out = reader.ReadToEnd (); // Read the content.
@@ -117,9 +135,17 @@ namespace TelegramSharp.Core {
 				response.Close ();
 				return _out; // Return the value
 			} catch (WebException e) {
-				Console.WriteLine ("WebException generated, see Error.log");
-				File.AppendAllText ("Error.log", "\nError generated on " + DateTime.Now.ToString () + "\n" + e.ToString ());
-			}
+                Console.WriteLine("Exception generated, see Error.log");
+                System.IO.File.AppendAllText("Error" +
+                            DateTime.Now.Day.ToString() + "-" +
+                            DateTime.Now.Month.ToString() + "-" +
+                            DateTime.Now.Year.ToString() + "_" +
+                            DateTime.Now.Hour.ToString() + "-" +
+                            DateTime.Now.Minute.ToString() + "-" +
+                            DateTime.Now.Second.ToString() + "-" +
+                            DateTime.Now.Millisecond.ToString() + ".log",
+                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+            }
 			return null;
 		}
 

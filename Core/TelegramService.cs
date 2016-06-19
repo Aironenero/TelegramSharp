@@ -67,7 +67,15 @@ namespace TelegramSharp.Core {
                 }
             } catch (Exception e) {
                 Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" + DateTime.Now.Day.ToString() + ".log", "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.IO.File.AppendAllText("Error" +
+                            DateTime.Now.Day.ToString() + "-" +
+                            DateTime.Now.Month.ToString() + "-" +
+                            DateTime.Now.Year.ToString() + "_" +
+                            DateTime.Now.Hour.ToString() + "-" +
+                            DateTime.Now.Minute.ToString() + "-" +
+                            DateTime.Now.Second.ToString() + "-" +
+                            DateTime.Now.Millisecond.ToString() + ".log",
+                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
         }
 
