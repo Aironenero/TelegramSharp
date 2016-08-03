@@ -36,8 +36,8 @@ namespace TelegramSharp.Core {
 				// Create a request
 				WebRequest request = WebRequest.Create (CombineUri ("https://api.telegram.org/bot", token) + "/getUpdates");
 				request.Method = "POST"; // Set the Method property of the request to POST.
-				string postData = CombineParams (offset: offset, limit: limit, timeout: timeout); // Create POST data
-				byte[] byteArray = Encoding.UTF8.GetBytes (postData); //Convert it to a byte array.
+                string postData = "offset=" + offset + "&limit=" + limit + "&timeout=" + timeout; // Create POST data
+                byte[] byteArray = Encoding.UTF8.GetBytes (postData); //Convert it to a byte array.
 				request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
 				request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
 				Stream dataStream = request.GetRequestStream (); // Get the request stream.
@@ -80,7 +80,7 @@ namespace TelegramSharp.Core {
 				// Create a request
 				WebRequest request = WebRequest.Create (CombineUri ("https://api.telegram.org/bot", token) + "/sendMessage");
 				request.Method = "POST"; // Set the Method property of the request to POST.
-				string postData = CombineParams (chatId, text, parseMode, disableWebPagePreview, replyToMessageId); // Create POST data
+				string postData = SendMessagePostData (chatId, text, parseMode, disableWebPagePreview, replyToMessageId); // Create POST data
 				byte[] byteArray = Encoding.UTF8.GetBytes (postData); //Convert it to a byte array.
 				request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
 				request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
@@ -155,11 +155,7 @@ namespace TelegramSharp.Core {
 		}
 
 		//chat_id text parse_mode disable_web_page_preview reply_to_message_id offset limit timeout from_chat_id message_id
-		private static string CombineParams (long chatId = 0, string text = "", string parseMode = "", bool disableWebPagePreview = false, int replyToMessageId = 0, int offset = 0, int limit = 0, int timeout = 0, int fromChatId = 0, int messageId = 0) {
-			//get update offset, limit, timeout
-			if (chatId == 0 && text == "" && parseMode == "" && disableWebPagePreview == false && replyToMessageId == 0 && fromChatId == 0 && messageId == 0) {
-				return "offset=" + offset + "&limit=" + limit + "&timeout=" + timeout;
-			}
+		private static string SendMessagePostData (long chatId = 0, string text = "", string parseMode = "", bool disableWebPagePreview = false, int replyToMessageId = 0, int offset = 0, int limit = 0, int timeout = 0, int fromChatId = 0, int messageId = 0) {
 			//send message signature: chat_id text  (parse_mode disable_web_page_preview reply_to_message_id)
 			if (offset == 0 && limit == 0 && timeout == 0) {
 				string _out = "chat_id=" + chatId + "&text=" + text;
@@ -174,7 +170,6 @@ namespace TelegramSharp.Core {
 				}
 				return _out;
 			}
-
 			return null;
 		}
 	}
