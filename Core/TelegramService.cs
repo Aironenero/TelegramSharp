@@ -20,11 +20,13 @@ using TelegramSharp.Core;
 using TelegramSharp.Core.Objects;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core {
+namespace TelegramSharp.Core
+{
     /// <summary>
     /// Telegram bot.
     /// </summary>
-    public class TelegramService {
+    public class TelegramService
+    {
 
         /// <summary>
         /// The configuration file for this bot.
@@ -54,12 +56,15 @@ namespace TelegramSharp.Core {
         /// <summary>
         /// Start the bot. Use this method as thread, as is going to use an infinite loop.
         /// </summary>
-        public void Start() {
+        public void Start()
+        {
             Console.WriteLine("Loaded TelegramSharp V0.3!");
             Console.WriteLine("Listener Started");
             UpTimeCounter.Start();
-            try {
-                if (Cfg == null) {
+            try
+            {
+                if (Cfg == null)
+                {
                     Console.WriteLine("Missing configuration, compile the generated config file and restart the program or pass a reference to a CFG class containing all the fields");
                 }
                 BotIdentity = JSON.DeserializeAndParseGetMe(NetworkSender.GetMe(Cfg.BotToken), this);
@@ -68,13 +73,17 @@ namespace TelegramSharp.Core {
                 {
                     JSON.DeserializeAndParseMessages(s, this);
                 }
-                while (true) {
+                while (true)
+                {
                     s = NetworkSender.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
-                    if (s != null) {
+                    if (s != null)
+                    {
                         JSON.DeserializeAndParseMessages(s, this);
                     }
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -91,7 +100,8 @@ namespace TelegramSharp.Core {
         /// <summary>
         /// Initzialize a bot.
         /// </summary>
-        public void Init() {
+        public void Init()
+        {
             JSON = new JsonDataManager();
             Parser = new MessageParser();
             NetService = new NetworkSender();
@@ -103,7 +113,8 @@ namespace TelegramSharp.Core {
         /// Initializes a new instance of the <see cref="Core.TelegramService"/> class.
         /// </summary>
         /// <param name="cfg">Cfg.</param>
-        public TelegramService(BotSetup cfg) {
+        public TelegramService(BotSetup cfg)
+        {
             Cfg = cfg;
             //Thread listener = new Thread(new ThreadStart(Start));
         }

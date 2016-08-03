@@ -13,20 +13,21 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System;
 
-namespace TelegramSharp.Core.Objects {
-	/// <summary>
-	/// Bot configuration.
-	/// </summary>
-	[DataContract]
-	public class BotSetup {
-		/// <summary>
-		/// Gets or sets the bot token.
-		/// </summary>
-		/// <value>The bot token.</value>
-		[DataMember] public string BotToken{ get; set; }
-	}
+namespace TelegramSharp.Core.Objects
+{
+    /// <summary>
+    /// Bot configuration.
+    /// </summary>
+    [DataContract]
+    public class BotSetup
+    {
+        /// <summary>
+        /// Gets or sets the bot token.
+        /// </summary>
+        /// <value>The bot token.</value>
+        [DataMember]
+        public string BotToken { get; set; }
+    }
 }
