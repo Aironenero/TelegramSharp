@@ -18,40 +18,46 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace TelegramSharp.Core {
-	/// <summary>
-	/// Network operations.
-	/// </summary>
-	public class NetworkSender {
-		/// <summary>
-		/// Gets the updates containing messages.
-		/// </summary>
-		/// <returns>The updates.</returns>
-		/// <param name="token">Bot Token.</param>
-		/// <param name="offset">Update offset.</param>
-		/// <param name="limit">Limit of messages in a update.</param>
-		/// <param name="timeout">Request timeout (if 0 short polling, else long polling).</param>
-		public static string GetUpdates (string token, int offset = 0, int limit = 100, int timeout = 60) {
-			try {
-				// Create a request
-				WebRequest request = WebRequest.Create (CombineUri ("https://api.telegram.org/bot", token) + "/getUpdates");
-				request.Method = "POST"; // Set the Method property of the request to POST.
+namespace TelegramSharp.Core
+{
+    /// <summary>
+    /// Network operations.
+    /// </summary>
+    public class NetworkSender
+    {
+        /// <summary>
+        /// Gets the updates containing messages.
+        /// </summary>
+        /// <returns>The updates.</returns>
+        /// <param name="token">Bot Token.</param>
+        /// <param name="offset">Update offset.</param>
+        /// <param name="limit">Limit of messages in a update.</param>
+        /// <param name="timeout">Request timeout (if 0 short polling, else long polling).</param>
+        public static string GetUpdates(string token, int offset = 0, int limit = 100, int timeout = 60)
+        {
+            try
+            {
+                // Create a request
+                WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/getUpdates");
+                request.Method = "POST"; // Set the Method property of the request to POST.
                 string postData = "offset=" + offset + "&limit=" + limit + "&timeout=" + timeout; // Create POST data
-                byte[] byteArray = Encoding.UTF8.GetBytes (postData); //Convert it to a byte array.
-				request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
-				request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
-				Stream dataStream = request.GetRequestStream (); // Get the request stream.
-				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
-				dataStream.Close (); // Close the Stream object.
-			    WebResponse response = request.GetResponse (); // Get the response.
-				Console.WriteLine ("GetUpdates request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
-				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
-				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
-				string _out = reader.ReadToEnd (); // Read the content.
-				reader.Close (); // Clean up the streams.
-				response.Close ();
-				return _out; // Return the value
-			} catch (WebException e) {
+                byte[] byteArray = Encoding.UTF8.GetBytes(postData); //Convert it to a byte array.
+                request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
+                request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
+                Stream dataStream = request.GetRequestStream(); // Get the request stream.
+                dataStream.Write(byteArray, 0, byteArray.Length); // Write the data to the request stream.
+                dataStream.Close(); // Close the Stream object.
+                WebResponse response = request.GetResponse(); // Get the response.
+                Console.WriteLine("GetUpdates request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
+                dataStream = response.GetResponseStream(); // Get the stream containing content returned by the server.
+                StreamReader reader = new StreamReader(dataStream); // Open the stream using a StreamReader for easy access.
+                string _out = reader.ReadToEnd(); // Read the content.
+                reader.Close(); // Clean up the streams.
+                response.Close();
+                return _out; // Return the value
+            }
+            catch (WebException e)
+            {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -63,38 +69,42 @@ namespace TelegramSharp.Core {
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
-			return null;
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// Sends the message.
-		/// </summary>
-		/// <param name="token">Bot Token.</param>
-		/// <param name="chatId">Chat identifier.</param>
-		/// <param name="text">Message text.</param>
-		/// <param name="parseMode">Parse mode.</param>
-		/// <param name="disableWebPagePreview">If set to <c>true</c> disable web page preview.</param>
-		/// <param name="replyToMessageId">Reply to message identifier.</param>
-		public static void SendMessage (string token, long chatId, string text, string parseMode = "", bool disableWebPagePreview = false, int replyToMessageId = 0) {
-			try {
-				// Create a request
-				WebRequest request = WebRequest.Create (CombineUri ("https://api.telegram.org/bot", token) + "/sendMessage");
-				request.Method = "POST"; // Set the Method property of the request to POST.
-				string postData = "chat_id=" + chatId + "&text=" + text + "&parse_mode=" + parseMode + "&disable_web_page_preview=" + disableWebPagePreview.ToString().ToLower() + "&reply_to_message_id=" + replyToMessageId; // Create POST data
-                byte[] byteArray = Encoding.UTF8.GetBytes (postData); //Convert it to a byte array.
-				request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
-				request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
-				Stream dataStream = request.GetRequestStream (); // Get the request stream.
-				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
-				dataStream.Close (); // Close the Stream object.
+        /// <summary>
+        /// Sends the message.
+        /// </summary>
+        /// <param name="token">Bot Token.</param>
+        /// <param name="chatId">Chat identifier.</param>
+        /// <param name="text">Message text.</param>
+        /// <param name="parseMode">Parse mode.</param>
+        /// <param name="disableWebPagePreview">If set to <c>true</c> disable web page preview.</param>
+        /// <param name="replyToMessageId">Reply to message identifier.</param>
+        public static void SendMessage(string token, long chatId, string text, string parseMode = "", bool disableWebPagePreview = false, int replyToMessageId = 0)
+        {
+            try
+            {
+                // Create a request
+                WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage");
+                request.Method = "POST"; // Set the Method property of the request to POST.
+                string postData = "chat_id=" + chatId + "&text=" + text + "&parse_mode=" + parseMode + "&disable_web_page_preview=" + disableWebPagePreview.ToString().ToLower() + "&reply_to_message_id=" + replyToMessageId; // Create POST data
+                byte[] byteArray = Encoding.UTF8.GetBytes(postData); //Convert it to a byte array.
+                request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
+                request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
+                Stream dataStream = request.GetRequestStream(); // Get the request stream.
+                dataStream.Write(byteArray, 0, byteArray.Length); // Write the data to the request stream.
+                dataStream.Close(); // Close the Stream object.
                 Console.WriteLine("Sending message...");
-				WebResponse response = request.GetResponse (); // Get the response.
-				Console.WriteLine ("Send message request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
-				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
-				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
-				reader.Close (); // Clean up the streams.
-				response.Close ();
-			} catch (WebException e) {
+                WebResponse response = request.GetResponse(); // Get the response.
+                Console.WriteLine("Send message request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
+                dataStream = response.GetResponseStream(); // Get the stream containing content returned by the server.
+                StreamReader reader = new StreamReader(dataStream); // Open the stream using a StreamReader for easy access.
+                reader.Close(); // Clean up the streams.
+                response.Close();
+            }
+            catch (WebException e)
+            {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -106,7 +116,8 @@ namespace TelegramSharp.Core {
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
-		}
+        }
+
         /// <summary>
         /// Forwards a message to a chat
         /// </summary>
@@ -157,28 +168,32 @@ namespace TelegramSharp.Core {
         /// </summary>
         /// <returns>The <c>User</c> containing the bot acocunt infos.</returns>
         /// <param name="token">Bot token.</param>
-        public static string GetMe (string token) {
-			try {
-				// Create a request
-				WebRequest request = WebRequest.Create (CombineUri ("https://api.telegram.org/bot", token) + "/getMe");
-				request.Method = "POST"; // Set the Method property of the request to POST.
-				string postData = ""; // Create POST data
-				byte[] byteArray = Encoding.UTF8.GetBytes (postData); //Convert it to a byte array.
-				request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
-				request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
-				Stream dataStream = request.GetRequestStream (); // Get the request stream.
-				dataStream.Write (byteArray, 0, byteArray.Length); // Write the data to the request stream.
-				dataStream.Close (); // Close the Stream object.
+        public static string GetMe(string token)
+        {
+            try
+            {
+                // Create a request
+                WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/getMe");
+                request.Method = "POST"; // Set the Method property of the request to POST.
+                string postData = ""; // Create POST data
+                byte[] byteArray = Encoding.UTF8.GetBytes(postData); //Convert it to a byte array.
+                request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
+                request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
+                Stream dataStream = request.GetRequestStream(); // Get the request stream.
+                dataStream.Write(byteArray, 0, byteArray.Length); // Write the data to the request stream.
+                dataStream.Close(); // Close the Stream object.
                 Console.WriteLine("Getting Bot infos");
-				WebResponse response = request.GetResponse (); // Get the response.
-				Console.WriteLine ("GetMe request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
-				dataStream = response.GetResponseStream (); // Get the stream containing content returned by the server.
-				StreamReader reader = new StreamReader (dataStream); // Open the stream using a StreamReader for easy access.
-				string _out = reader.ReadToEnd (); // Read the content.
-				reader.Close (); // Clean up the streams.
-				response.Close ();
-				return _out; // Return the value
-			} catch (WebException e) {
+                WebResponse response = request.GetResponse(); // Get the response.
+                Console.WriteLine("GetMe request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
+                dataStream = response.GetResponseStream(); // Get the stream containing content returned by the server.
+                StreamReader reader = new StreamReader(dataStream); // Open the stream using a StreamReader for easy access.
+                string _out = reader.ReadToEnd(); // Read the content.
+                reader.Close(); // Clean up the streams.
+                response.Close();
+                return _out; // Return the value
+            }
+            catch (WebException e)
+            {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -190,12 +205,13 @@ namespace TelegramSharp.Core {
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
-			return null;
-		}
+            return null;
+        }
 
-		//Ottiene gli URL a cui inviare le richieste
-		private static string CombineUri (string url, string token) {
-			return url + token;
-		}
-	}
+        //Ottiene gli URL a cui inviare le richieste
+        private static string CombineUri(string url, string token)
+        {
+            return url + token;
+        }
+    }
 }

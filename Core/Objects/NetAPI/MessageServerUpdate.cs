@@ -13,7 +13,6 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Runtime.Serialization;
 
 namespace TelegramSharp.Core.Objects.NetAPI
@@ -26,6 +25,7 @@ namespace TelegramSharp.Core.Objects.NetAPI
     {
         [DataMember(Name = "ok")]
         private bool _ok;
+
         [DataMember(Name = "result", IsRequired = false)]
         private Update[] _result;
 

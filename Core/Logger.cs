@@ -16,20 +16,22 @@
 using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp{
-	/// <summary>
-	/// Message Logger.
-	/// </summary>
-	public static class Logger {
-
-		/// <summary>
-		/// Logs a message to the console.
-		/// </summary>
-		/// <param name="msgToLog">Message to log.</param>
+namespace TelegramSharp
+{
+    /// <summary>
+    /// Message Logger.
+    /// </summary>
+    public static class Logger
+    {
+        /// <summary>
+        /// Logs a message to the console.
+        /// </summary>
+        /// <param name="msgToLog">Message to log.</param>
         /// <param name="Bot">Bot</param>
-		public static void LogConsoleWrite (Message msgToLog, User Bot) {
+        public static void LogConsoleWrite(Message msgToLog, User Bot)
+        {
             Console.ForegroundColor = ConsoleColor.Green;
-			Console.Write(String.Format("{0},", DateTime.Now.ToString()));
+            Console.Write(String.Format("{0},", DateTime.Now.ToString()));
             Console.Write(String.Format("{0}|INFO|", DateTime.Now.Millisecond));
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write(String.Format("{0}|", Bot.Username));
@@ -41,21 +43,21 @@ namespace TelegramSharp{
             Console.ForegroundColor = ConsoleColor.Green;
         }
 
-		/// <summary>
-		/// Logs the bot identity.
-		/// </summary>
-		/// <param name="getMe">Get me.</param>
-		public static void LogWrite (User getMe) {
-			Console.WriteLine ("");
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine ("***Received Bot Identity***");
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine ("Name: " + getMe.FirstName + " " + getMe.LastName);
-			Console.WriteLine ("Username: @" + getMe.Username + " ID: " + getMe.Id);
-			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine ("***End of Bot Identity***");
-			Console.WriteLine ("");
-		}
-	}
+        /// <summary>
+        /// Logs the bot identity.
+        /// </summary>
+        /// <param name="getMe">Get me.</param>
+        public static void LogWrite(User getMe)
+        {
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("***Received Bot Identity***");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Name: " + getMe.FirstName + " " + getMe.LastName);
+            Console.WriteLine("Username: @" + getMe.Username + " ID: " + getMe.Id);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("***End of Bot Identity***");
+            Console.WriteLine("");
+        }
+    }
 }
-
