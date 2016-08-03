@@ -46,7 +46,7 @@ namespace TelegramSharp.Core {
                         if (upd.EditedMessage != null) {
                             bot.Parser.ParseMessage(upd.EditedMessage, bot);
                             Logger.LogConsoleWrite(upd.EditedMessage, bot.BotIdentity);
-                        } 
+                        }
 					}
 				}
 			}
