@@ -13,140 +13,117 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using TelegramSharp.Core.Objects.NetAPI;
-using TelegramSharp.Modules.QChat;
-using TelegramSharp.Core;
 using System;
+using System.Text.RegularExpressions;
+using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core {
-	/// <summary>
-	/// Message parser.
-	/// </summary>
-	public static class MessageParser {
-		/// <summary>
-		/// The parsed messages count.
-		/// </summary>
-		public static int parsedMessagesCount = 0;
-		/// <summary>
-		/// The commands parsed count.
-		/// </summary>
-		public static int commandsParsed = 0;
+namespace TelegramSharp.Core
+{
+    /// <summary>
+    /// Message parser.
+    /// </summary>
+    public class MessageParser
+    {
+        /// <summary>
+        /// The parsed messages count.
+        /// </summary>
+        public int parsedMessagesCount = 0;
 
-		static long ToUnixTime (this DateTime date) {
-			var epoch = new DateTime (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-			return Convert.ToInt64 ((date.ToUniversalTime () - epoch).TotalSeconds);
-		}
+        /// <summary>
+        /// The commands parsed count.
+        /// </summary>
+        public int commandsParsed = 0;
 
-		/// <summary>
-		/// Parses the message.
-		/// </summary>
-		/// <param name="msg">Message to parse.</param>
-		/// <param name="bot">Bot that should parse the message.</param>
-		public static void ParseMessage (Message msg, TelegramBot bot) {
-			parsedMessagesCount++;
-			if (msg.Text != null && msg.Date >= ToUnixTime (DateTime.UtcNow) - 10) {
+        /// <summary>
+        /// Called when an telegram update (containing any media) is received.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public delegate void UpdateReceivedHandler(object sender, UpdateReceivedEventArgs e);
 
-				#region QChatAnswers
-				foreach (QChatAnswer qChatAnsw in bot.Cfg.QChatModule) {
-					foreach (string trigger in qChatAnsw.Triggers) {
-						if (CheckForString (trigger, msg.Text, bot)) {
-							if (qChatAnsw.Answers.Count == 1) {
-								commandsParsed++;
-								NetManaging.SendMessage (bot.Cfg.BotToken, msg.Chat.Id, qChatAnsw.Answers [0]);
-								return;
-							} else if (qChatAnsw.Answers.Count > 1) {
-								commandsParsed++;
-								Random rnd = new Random ();
+        /// <summary>
+        /// Called when an telegram update (containing any media) is received.
+        /// </summary>
+        public event UpdateReceivedHandler UpdateReceived;
 
-								NetManaging.SendMessage (bot.Cfg.BotToken, msg.Chat.Id,
-									qChatAnsw.Answers [rnd.Next (0, qChatAnsw.Answers.Count)]);
-								
-								return;
-							}
-						}
-					}
-				}
-				#endregion
+        /// <summary>
+        /// Called when an telegram update (containing any media) is received.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="bot">The bot</param>
+        protected virtual void OnUpdateReceived(Message message, User bot)
+        {
+            UpdateReceived?.Invoke(this, new UpdateReceivedEventArgs(message, bot));
+        }
 
-				#region /me
-				if (msg.Text.ToLower () == "/me" && msg.From.Id == bot.Cfg.OwnerId ||
-				    msg.Text.ToLower () == "/me@" + bot.BotIdentity.Username.ToLower () && msg.From.Id == bot.Cfg.OwnerId) {
-					commandsParsed++;
+        /// <summary>
+        /// Called when an telegram update (containing only text) is received.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public delegate void TextMessageReceived(object sender, TextMessageReceivedEventArgs e);
 
-					NetManaging.SendMessage (bot.Cfg.BotToken, msg.Chat.Id, 
-						"<i>Oh master, you need your personal data??\nOk, sure</i>\n<b>You are:</b> <i>" +
-						msg.From.FirstName + " " + msg.From.LastName + "</i>\n<b>Your username is:</b> <i>" +
-						msg.From.Username + "</i>\n<b>Your unique ID is:</b> <i>" +
-						msg.From.Id + "</i>\n<b>And you are chatting in:</b> <i>" +
-						msg.Chat.Title + "</i>\n<b>ID:</b> <i>" + msg.Chat.Id +
-						"\n**blinks** it's all ok master? **blinks**</i>", "HTML");
-					
-					return;
-				}
+        /// <summary>
+        ///
+        /// </summary>
+        public event TextMessageReceived TextMessageReceivedEvent;
 
-				if (msg.Text.ToLower () == "/me" || msg.Text.ToLower () == "/me@" + bot.BotIdentity.Username.ToLower ()) {
-					commandsParsed++;
+        /// <summary>
+        /// Called when an telegram update (containing only text) is received.
+        /// </summary>
+        /// <param name="msg">The text message</param>
+        /// <param name="bot">The bot</param>
+        protected virtual void OnTextMessageReceived(Message msg, User bot)
+        {
+            TextMessageReceivedEvent?.Invoke(this, new TextMessageReceivedEventArgs(msg, bot));
+        }
 
-					NetManaging.SendMessage (bot.Cfg.BotToken, msg.Chat.Id, 
-						"<i>Uh, ok, you want to know what i know about you?\nOk, let's start!</i>\n<b>You are:</b> <i>" +
-						msg.From.FirstName + " " + msg.From.LastName + "</i>\n<b>Your username is:</b> <i>" +
-						msg.From.Username + "</i>\n<b>Your unique ID is:</b> <i>" +
-						msg.From.Id + "</i>\n<b>And you are chatting in:</b> <i>" +
-						msg.Chat.Title + "</i>\n<b>ID:</b> <i>" + msg.Chat.Id +
-						"\nOk?</i>", "HTML");
-					
-					return;
-				}
-				#endregion
+        private static long ToUnixTime(DateTime date)
+        {
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return Convert.ToInt64((date.ToUniversalTime() - epoch).TotalSeconds);
+        }
 
-				#region BotStats
-				if (msg.Text.ToLower () == "/botstats" || msg.Text.ToLower () == "/botstats@" + bot.BotIdentity.Username.ToLower ()) {
-					TimeSpan uptime = new TimeSpan (0, 0, 0, 0, (int)bot.UpTimeCounter.ElapsedMilliseconds);
+        /// <summary>
+        /// Parses the message.
+        /// </summary>
+        /// <param name="msg">Message to parse.</param>
+        /// <param name="bot">Bot that should parse the message.</param>
+        public void ParseMessage(Message msg, TelegramService bot)
+        {
+            parsedMessagesCount++;
+            if (msg.Text != null && msg.Date >= ToUnixTime(DateTime.UtcNow) - 120)
+            {
+                OnUpdateReceived(msg, bot.BotIdentity);
+                OnTextMessageReceived(msg, bot.BotIdentity);
+            }
+        }
 
-					commandsParsed++;
-
-					int triggerscount = 0;
-					int answerscount = 0;
-					foreach (QChatAnswer qCA in bot.Cfg.QChatModule) {
-						triggerscount += qCA.Triggers.Count;
-						answerscount += qCA.Answers.Count;
-					}
-
-					NetManaging.SendMessage (bot.Cfg.BotToken, msg.Chat.Id, "*UPTIME:* `" +
-					uptime.Days + "D " + uptime.Hours + "H " + uptime.Minutes + "M " +
-					uptime.Seconds + "S`\n*Parsed Messages:* `" + parsedMessagesCount +
-					"`\n*Parsed user commands:* `" + commandsParsed +
-					"`\n*QChatAnswer Module stats:\n   Triggers:* `" + triggerscount +
-					"`\n   *Answers:* `" + answerscount + "`", "markdown");
-					
-					return;
-				}
-				#endregion
-			}
-		}
-
-		static bool CheckForString (string trigger, string msg, TelegramBot bot) {
-			trigger = trigger.ToLower ();
-			if (msg == trigger || msg + "@" + bot.BotIdentity.Username.ToLower () == trigger)
-				return true;
-			if (msg.ToLower ().Contains (" " + trigger) || msg.ToLower ().Contains (" " + trigger + "@" + bot.BotIdentity.Username.ToLower ()))
-				return true;
-			if (msg.ToLower ().Contains (trigger + " ") || msg.ToLower ().Contains (trigger + "@" + bot.BotIdentity.Username.ToLower () + " "))
-				return true;
-			return false;
-		}
-
-		static bool CheckForPermission (Message msg, QChatAnswer triggeredAnswers) {
-			foreach (int id in triggeredAnswers.BannedIDs) {
-				if (msg.From.Id == id)
-					return false;
-			}
-
-			foreach (int id in triggeredAnswers.AllowedIDs) {
-				if (msg.From.Id == id)
-					return true;
-			}
-			return true;
-		}
-	}
+        /// <summary>
+        /// Check the presence of a trigger in the string
+        /// </summary>
+        /// <param name="trigger"></param>
+        /// <param name="msg"></param>
+        /// <param name="bot"></param>
+        /// <param name="onlyCommand"></param>
+        /// <returns></returns>
+        public bool CheckForString(string trigger, string msg, TelegramService bot, bool onlyCommand = false)
+        {
+            string _trigger = trigger.ToLower();
+            string _msg = msg.ToLower();
+            Regex alone = new Regex(String.Format(@"^\/{0}", _trigger), RegexOptions.IgnoreCase);
+            if (alone.IsMatch(_msg))
+                return true;
+            Regex alonePlusUser = new Regex(String.Format(@"^\/({0})({1})", _trigger, "@" + bot.BotIdentity.Username), RegexOptions.IgnoreCase);
+            if (alonePlusUser.IsMatch(_msg))
+                return true;
+            if (!onlyCommand)
+            {
+                Regex singleWord = new Regex(String.Format(@"\b({0})\b", _trigger));
+                if (singleWord.IsMatch(_msg))
+                    return true;
+            }
+            return false;
+        }
+    }
 }

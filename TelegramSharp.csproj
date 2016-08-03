@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E5C69981-038D-4B75-B715-B2DAADFD427E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>TelegramSharp</RootNamespace>
-    <AssemblyName>TelegramAPI</AssemblyName>
+    <AssemblyName>TelegramSharp</AssemblyName>
     <ReleaseVersion>0.2</ReleaseVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -19,6 +21,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -26,23 +29,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <DocumentationFile>bin\Release\TelegramAPI.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\TelegramSharp.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\EventHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\JSONDataManager.cs" />
     <Compile Include="Core\MessageParser.cs" />
-    <Compile Include="Core\NetManaging.cs" />
+    <Compile Include="Core\NetworkSender.cs" />
     <Compile Include="Core\Objects\BotSetup.cs" />
     <Compile Include="Core\Objects\NetAPI\Audio.cs" />
     <Compile Include="Core\Objects\NetAPI\Chat.cs" />
@@ -65,20 +72,14 @@
     <Compile Include="Core\Objects\NetAPI\Video.cs" />
     <Compile Include="Core\Objects\NetAPI\Voice.cs" />
     <Compile Include="Core\Objects\OutgoingMessage.cs" />
-    <Compile Include="Modules\Logger\LoggedMessage.cs" />
-    <Compile Include="Modules\Logger\Logger.cs" />
-    <Compile Include="Modules\QChat\QChatAnswer.cs" />
-    <Compile Include="Core\TelegramBot.cs" />
+    <Compile Include="Core\Logger.cs" />
+    <Compile Include="Core\TelegramService.cs" />
     <Compile Include="Core\ConfigManager.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Modules\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
