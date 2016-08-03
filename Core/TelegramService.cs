@@ -38,8 +38,17 @@ namespace TelegramSharp.Core {
         /// The bot identity.
         /// </summary>
         public User BotIdentity;
+        /// <summary>
+        /// The parser service
+        /// </summary>
         public MessageParser Parser;
+        /// <summary>
+        /// The network service
+        /// </summary>
         public NetworkSender NetService;
+        /// <summary>
+        /// The Json Service
+        /// </summary>
         public JsonDataManager JSON;
 
         /// <summary>
@@ -79,7 +88,9 @@ namespace TelegramSharp.Core {
             }
         }
 
-
+        /// <summary>
+        /// Initzialize a bot.
+        /// </summary>
         public void Init() {
             JSON = new JsonDataManager();
             Parser = new MessageParser();

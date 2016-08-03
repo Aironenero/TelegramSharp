@@ -107,7 +107,13 @@ namespace TelegramSharp.Core {
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
 		}
-
+        /// <summary>
+        /// Forwards a message to a chat
+        /// </summary>
+        /// <param name="token">Bot token</param>
+        /// <param name="chatId">id of the chat where you want to forward the message</param>
+        /// <param name="fromChatId">chat from where the message was sent</param>
+        /// <param name="messageId">id of the message to forward</param>
         public static void ForwardMessage(string token, long chatId, long fromChatId, long messageId)
         {
             try

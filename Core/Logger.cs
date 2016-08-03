@@ -26,6 +26,7 @@ namespace TelegramSharp{
 		/// Logs a message to the console.
 		/// </summary>
 		/// <param name="msgToLog">Message to log.</param>
+        /// <param name="Bot">Bot</param>
 		public static void LogConsoleWrite (Message msgToLog, User Bot) {
             Console.ForegroundColor = ConsoleColor.Green;
 			Console.Write(String.Format("{0},", DateTime.Now.ToString()));

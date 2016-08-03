@@ -30,15 +30,39 @@ namespace TelegramSharp.Core {
         /// The commands parsed count.
         /// </summary>
         public int commandsParsed = 0;
-
+        /// <summary>
+        /// Called when an telegram update (containing any media) is received.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void UpdateReceivedHandler(object sender, UpdateReceivedEventArgs e);
+        /// <summary>
+        /// Called when an telegram update (containing any media) is received.
+        /// </summary>
         public event UpdateReceivedHandler UpdateReceived;
+        /// <summary>
+        /// Called when an telegram update (containing any media) is received.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="bot">The bot</param>
         protected virtual void OnUpdateReceived(Message message, User bot) {
             UpdateReceived?.Invoke(this, new UpdateReceivedEventArgs(message, bot));
         }
-
+        /// <summary>
+        /// Called when an telegram update (containing only text) is received.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void TextMessageReceived(object sender, TextMessageReceivedEventArgs e);
+        /// <summary>
+        /// 
+        /// </summary>
         public event TextMessageReceived TextMessageReceivedEvent;
+        /// <summary>
+        /// Called when an telegram update (containing only text) is received.
+        /// </summary>
+        /// <param name="msg">The text message</param>
+        /// <param name="bot">The bot</param>
         protected virtual void OnTextMessageReceived(Message msg, User bot) {
             TextMessageReceivedEvent?.Invoke(this, new TextMessageReceivedEventArgs(msg, bot));
         }
@@ -66,6 +90,7 @@ namespace TelegramSharp.Core {
         /// <param name="trigger"></param>
         /// <param name="msg"></param>
         /// <param name="bot"></param>
+        /// <param name="onlyCommand"></param>
         /// <returns></returns>
         public bool CheckForString(string trigger, string msg, TelegramService bot, bool onlyCommand = false) {
             string _trigger = trigger.ToLower();

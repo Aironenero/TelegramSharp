@@ -48,12 +48,39 @@ namespace TelegramSharp.Core {
 			SaveConfig (config);
 			return null;
 		}
+        /// <summary>
+        /// Loads the configuration from the specified file path.
+        /// </summary>
+        /// <returns></returns>
+        public static BotSetup LoadConfig()
+        {
+            configPath = "TelegramBotConfig.json";
+            BotSetup config = new BotSetup();
+            if (System.IO.File.Exists(configPath))
+            {
+                string jsonconfig = System.IO.File.ReadAllText(configPath);
 
-		/// <summary>
-		/// Saves the config.
-		/// </summary>
-		/// <param name="config">Config.</param>
-		public static void SaveConfig (BotSetup config) {
+                try
+                {
+                    config = JsonConvert.DeserializeObject<BotSetup>(jsonconfig);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                return config;
+            }
+            config = new BotSetup();
+            config.BotToken = "your token here";
+            SaveConfig(config);
+            return null;
+        }
+
+        /// <summary>
+        /// Saves the config.
+        /// </summary>
+        /// <param name="config">Config.</param>
+        public static void SaveConfig (BotSetup config) {
 			string json = JsonConvert.SerializeObject (config, Formatting.Indented);
 			System.IO.File.WriteAllText (configPath, json);
 		}
