@@ -15,8 +15,6 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Diagnostics;
-using System.Threading;
-using TelegramSharp.Core;
 using TelegramSharp.Core.Objects;
 using TelegramSharp.Core.Objects.NetAPI;
 
@@ -27,27 +25,31 @@ namespace TelegramSharp.Core
     /// </summary>
     public class TelegramService
     {
-
         /// <summary>
         /// The configuration file for this bot.
         /// </summary>
         public BotSetup Cfg;
+
         /// <summary>
         /// Up time counter.
         /// </summary>
         public Stopwatch UpTimeCounter;
+
         /// <summary>
         /// The bot identity.
         /// </summary>
         public User BotIdentity;
+
         /// <summary>
         /// The parser service
         /// </summary>
         public MessageParser Parser;
+
         /// <summary>
         /// The network service
         /// </summary>
         public NetworkSender NetService;
+
         /// <summary>
         /// The Json Service
         /// </summary>

@@ -117,6 +117,7 @@ namespace TelegramSharp.Core
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
         }
+
         /// <summary>
         /// Forwards a message to a chat
         /// </summary>
