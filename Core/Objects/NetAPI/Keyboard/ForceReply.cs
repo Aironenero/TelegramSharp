@@ -17,7 +17,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         public bool ForceRep = true;
 
         /// <summary>
-        /// Returns true if the object is selective.
+        /// Returns true on whether the object is selective.
         /// </summary>
         [JsonProperty(PropertyName = "selective")]
         public bool Selective { get; set; }
