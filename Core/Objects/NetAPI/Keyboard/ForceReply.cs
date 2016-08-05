@@ -1,15 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
+﻿namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
 {
-    class ForceReply : IReplyMarkup
+    internal class ForceReply : IReplyMarkup
     {
-
         /// <summary>
         /// Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot‘s message and tapped 'Reply').
         /// </summary>

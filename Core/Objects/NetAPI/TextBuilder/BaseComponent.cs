@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
+﻿namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
 {
     public interface IBaseComponent
     {
@@ -19,7 +13,5 @@ namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
         /// </summary>
         /// <returns></returns>
         ParsingMode GetParsingMode();
-        
-
     }
 }
