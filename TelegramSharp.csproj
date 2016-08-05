@@ -54,8 +54,8 @@
     <Compile Include="Core\Objects\NetAPI\Keyboard\KeyboardRow.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\Keyboard.cs" />
     <Compile Include="Core\Objects\NetAPI\TextBuilder\BaseComponent.cs" />
+    <Compile Include="Core\Objects\NetAPI\TextBuilder\TextComponents.cs" />
     <Compile Include="Core\Objects\NetAPI\TextBuilder\TextElements.cs" />
-    <Compile Include="Core\Objects\NetAPI\TextBuilder\TextComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\JSONDataManager.cs" />
     <Compile Include="Core\MessageParser.cs" />
