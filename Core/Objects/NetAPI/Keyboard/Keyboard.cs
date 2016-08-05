@@ -129,6 +129,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
 
                 row.AddButtons(button);
             }
+            Rows.Add(row);
             return this;
         }
 

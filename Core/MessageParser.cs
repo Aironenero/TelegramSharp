@@ -15,6 +15,7 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Text.RegularExpressions;
+using TelegramSharp.Core;
 using TelegramSharp.Core.Objects.NetAPI;
 
 namespace TelegramSharp.Core
@@ -22,7 +23,7 @@ namespace TelegramSharp.Core
     /// <summary>
     /// Message parser.
     /// </summary>
-    public class MessageParser
+    public partial class MessageParser
     {
         /// <summary>
         /// The parsed messages count.
@@ -33,50 +34,6 @@ namespace TelegramSharp.Core
         /// The commands parsed count.
         /// </summary>
         public int commandsParsed = 0;
-
-        /// <summary>
-        /// Called when an telegram update (containing any media) is received.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public delegate void UpdateReceivedHandler(object sender, UpdateReceivedEventArgs e);
-
-        /// <summary>
-        /// Called when an telegram update (containing any media) is received.
-        /// </summary>
-        public event UpdateReceivedHandler UpdateReceived;
-
-        /// <summary>
-        /// Called when an telegram update (containing any media) is received.
-        /// </summary>
-        /// <param name="message">The message</param>
-        /// <param name="bot">The bot</param>
-        protected virtual void OnUpdateReceived(Message message, User bot)
-        {
-            UpdateReceived?.Invoke(this, new UpdateReceivedEventArgs(message, bot));
-        }
-
-        /// <summary>
-        /// Called when an telegram update (containing only text) is received.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public delegate void TextMessageReceived(object sender, TextMessageReceivedEventArgs e);
-
-        /// <summary>
-        ///
-        /// </summary>
-        public event TextMessageReceived TextMessageReceivedEvent;
-
-        /// <summary>
-        /// Called when an telegram update (containing only text) is received.
-        /// </summary>
-        /// <param name="msg">The text message</param>
-        /// <param name="bot">The bot</param>
-        protected virtual void OnTextMessageReceived(Message msg, User bot)
-        {
-            TextMessageReceivedEvent?.Invoke(this, new TextMessageReceivedEventArgs(msg, bot));
-        }
 
         private static long ToUnixTime(DateTime date)
         {
@@ -92,10 +49,38 @@ namespace TelegramSharp.Core
         public void ParseMessage(Message msg, TelegramService bot)
         {
             parsedMessagesCount++;
-            if (msg.Text != null && msg.Date >= ToUnixTime(DateTime.UtcNow) - 120)
+            OnUpdateReceived(msg, bot.BotIdentity);
+            if (msg.Date >= ToUnixTime(DateTime.UtcNow) - 120)
             {
-                OnUpdateReceived(msg, bot.BotIdentity);
-                OnTextMessageReceived(msg, bot.BotIdentity);
+                if (msg.Text != null)
+                {
+                    OnTextMessageReceived(msg, bot.BotIdentity);
+                }
+                else if (msg.Audio != null)
+                {
+                    OnAudioReceived(bot.BotIdentity, msg);
+                } else if(msg.Contact != null)
+                {
+                    OnContactReceived(bot.BotIdentity, msg);
+                } else if(msg.Document != null)
+                {
+                    OnDocumentReceived(bot.BotIdentity, msg);
+                } else if(msg.Location != null) 
+                {
+                    OnLocationReceived(bot.BotIdentity, msg);
+                } else if(msg.Photo != null)
+                {
+                    OnPhotoReceived(bot.BotIdentity, msg);
+                } else if(msg.Sticker != null)
+                {
+                    OnStickerReceived(bot.BotIdentity, msg);
+                } else if(msg.Video != null)
+                {
+                    OnVideoReceived(bot.BotIdentity, msg);
+                } else if(msg.Voice != null)
+                {
+                    OnVoiceReceived(bot.BotIdentity, msg);
+                }
             }
         }
 
