@@ -19,6 +19,10 @@ using System.Net;
 using System.Text;
 using TelegramSharp.Core.Objects.NetAPI.Keyboard;
 using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
+<<<<<<< HEAD
+using TelegramSharp.Core.Utils;
+=======
+>>>>>>> origin/master
 
 namespace TelegramSharp.Core
 {
@@ -70,6 +74,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }
@@ -83,7 +88,12 @@ namespace TelegramSharp.Core
         /// <param name="disableWebPagePreview">If set to <c>true</c> disable web page preview.</param>
         /// <param name="replyToMessageId">Reply to message identifier.</param>
         /// <param name="markup">Sends a reply markup to a user.</param>
+<<<<<<< HEAD
+        [Obsolete("This method uses the old 'way' of doing a post request. Please use the newer method.")]
+        public static void SendMessage_Deprecated(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+=======
         public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+>>>>>>> origin/master
         {
             try
             {
@@ -119,6 +129,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
@@ -164,7 +175,40 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
+        }
+
+        public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+        {
+            string markupString = markup == null ? "" : markup.serialize();
+            string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
+            Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage").AddParameter("chat_id", chatId + "")
+                .AddParameter("parse_mode", parsingMode)
+                .AddParameter("text", component.Make())
+                .AddParameter("disable_web_page_preview", disableWebPagePreview + "")
+                .AddParameter("reply_to_message_id", replyToMessageId + "")
+                .AddParameter("reply_markup", markupString)
+                .Build()
+                .Execute();
+        }
+
+        public static void SendPhoto(string token, long chatId, Property property, string caption, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+        {
+
+            string markupString = markup == null ? "" : markup.serialize();
+            if (property.PropertyValue == PropertyValue.FILE && File.Exists(property.Value)) {
+                Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
+                    .AddParameter("chat_id", chatId + "")
+                    .AddParameter("caption", caption)
+                    .AddParameter("disable_web_page_preview", disableWebPagePreview + "")
+                    .SetMultipartParameter("photo", property.Value)
+                    .AddParameter("reply_to_message_id", replyToMessageId + "")
+                    .AddParameter("reply_markup", markupString)
+                    .Build()
+                    .Execute();
+            }
+
         }
 
         /// <summary>
@@ -208,6 +252,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }
