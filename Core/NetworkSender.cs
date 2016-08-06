@@ -19,7 +19,10 @@ using System.Net;
 using System.Text;
 using TelegramSharp.Core.Objects.NetAPI.Keyboard;
 using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
+<<<<<<< HEAD
 using TelegramSharp.Core.Utils;
+=======
+>>>>>>> origin/master
 
 namespace TelegramSharp.Core
 {
@@ -71,6 +74,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }
@@ -84,8 +88,12 @@ namespace TelegramSharp.Core
         /// <param name="disableWebPagePreview">If set to <c>true</c> disable web page preview.</param>
         /// <param name="replyToMessageId">Reply to message identifier.</param>
         /// <param name="markup">Sends a reply markup to a user.</param>
+<<<<<<< HEAD
         [Obsolete("This method uses the old 'way' of doing a post request. Please use the newer method.")]
         public static void SendMessage_Deprecated(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+=======
+        public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+>>>>>>> origin/master
         {
             try
             {
@@ -121,6 +129,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
@@ -166,6 +175,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
@@ -242,6 +252,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }

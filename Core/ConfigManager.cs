@@ -46,6 +46,7 @@ namespace TelegramSharp.Core
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
+                    System.Threading.Thread.Sleep(100000);
                 }
                 return config;
             }
@@ -74,6 +75,7 @@ namespace TelegramSharp.Core
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex);
+                    System.Threading.Thread.Sleep(100000);
                 }
                 return config;
             }
