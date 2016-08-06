@@ -17,6 +17,9 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using TelegramSharp.Core.Objects.NetAPI.Keyboard;
+using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
+using TelegramSharp.Core.Utils;
 
 namespace TelegramSharp.Core
 {
@@ -77,18 +80,21 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="token">Bot Token.</param>
         /// <param name="chatId">Chat identifier.</param>
-        /// <param name="text">Message text.</param>
-        /// <param name="parseMode">Parse mode.</param>
+        /// <param name="component">The component used to send the message.</param>
         /// <param name="disableWebPagePreview">If set to <c>true</c> disable web page preview.</param>
         /// <param name="replyToMessageId">Reply to message identifier.</param>
-        public static void SendMessage(string token, long chatId, string text, string parseMode = "", bool disableWebPagePreview = false, int replyToMessageId = 0)
+        /// <param name="markup">Sends a reply markup to a user.</param>
+        [Obsolete("This method uses the old 'way' of doing a post request. Please use the newer method.")]
+        public static void SendMessage_Deprecated(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
         {
             try
             {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage");
                 request.Method = "POST"; // Set the Method property of the request to POST.
-                string postData = "chat_id=" + chatId + "&text=" + text + "&parse_mode=" + parseMode + "&disable_web_page_preview=" + disableWebPagePreview.ToString().ToLower() + "&reply_to_message_id=" + replyToMessageId; // Create POST data
+                string markupString = markup == null ? "" : markup.serialize(); // Checks if the markup is null. If not null it proceeds to serialize it.
+                string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
+                string postData = "chat_id=" + chatId + "&text=" + component.Make() + "&parse_mode=" + parsingMode + "&disable_web_page_preview=" + disableWebPagePreview.ToString().ToLower() + "&reply_to_message_id=" + replyToMessageId + "&reply_markup=" + markupString; // Create POST data
                 byte[] byteArray = Encoding.UTF8.GetBytes(postData); //Convert it to a byte array.
                 request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
                 request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
@@ -161,6 +167,38 @@ namespace TelegramSharp.Core
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
             }
+        }
+
+        public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+        {
+            string markupString = markup == null ? "" : markup.serialize();
+            string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
+            Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage").AddParameter("chat_id", chatId + "")
+                .AddParameter("parse_mode", parsingMode)
+                .AddParameter("text", component.Make())
+                .AddParameter("disable_web_page_preview", disableWebPagePreview + "")
+                .AddParameter("reply_to_message_id", replyToMessageId + "")
+                .AddParameter("reply_markup", markupString)
+                .Build()
+                .Execute();
+        }
+
+        public static void SendPhoto(string token, long chatId, Property property, string caption, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+        {
+
+            string markupString = markup == null ? "" : markup.serialize();
+            if (property.PropertyValue == PropertyValue.FILE && File.Exists(property.Value)) {
+                Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
+                    .AddParameter("chat_id", chatId + "")
+                    .AddParameter("caption", caption)
+                    .AddParameter("disable_web_page_preview", disableWebPagePreview + "")
+                    .SetMultipartParameter("photo", property.Value)
+                    .AddParameter("reply_to_message_id", replyToMessageId + "")
+                    .AddParameter("reply_markup", markupString)
+                    .Build()
+                    .Execute();
+            }
+
         }
 
         /// <summary>
