@@ -70,6 +70,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }
@@ -119,6 +120,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
@@ -164,6 +166,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
@@ -208,6 +211,7 @@ namespace TelegramSharp.Core
                             DateTime.Now.Second.ToString() + "-" +
                             DateTime.Now.Millisecond.ToString() + ".log",
                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }

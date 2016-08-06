@@ -71,6 +71,7 @@ namespace TelegramSharp.Core
                                             DateTime.Now.Millisecond.ToString() + ".log",
                                             "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
                 System.IO.File.WriteAllText("FaultyJSON.log", inJson);
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
@@ -94,6 +95,7 @@ namespace TelegramSharp.Core
             {
                 Console.WriteLine("ERROR: Server not returned a valid JSON, chek your token and connection.");
                 Console.WriteLine("Returned from the website: " + inJson);
+                System.Threading.Thread.Sleep(100000);
             }
             return null;
         }
