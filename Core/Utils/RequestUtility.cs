@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,18 @@ namespace TelegramSharp.Core.Utils
     public class Request
     {
 
+        protected class FileToSend
+        {
+
+            public string Filename { get; set; }
+            public Stream Content { get; set; }
+
+            public FileToSend(string Filename, Stream Content)
+            {
+                this.Filename = Filename;
+                this.Content = Content;
+            }
+        }
         public string Url { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public MultiObject<string, string> MultipartParameter { get; set; }
@@ -39,6 +53,7 @@ namespace TelegramSharp.Core.Utils
         {
             return ExecuteRequest().Result;
         }
+
 
         private async Task<string> ExecuteRequest()
         {
@@ -58,35 +73,60 @@ namespace TelegramSharp.Core.Utils
                     var res = await Message.Content.ReadAsStringAsync();
 
                     return res;
-                } else
+                }
+                else
                 {
-
-                    var MultipartContent = new MultipartFormDataContent();
-
-                    var FormUrlContent = new FormUrlEncodedContent(Parameters);
-                    MultipartContent.Add(FormUrlContent);
-
-                    if (File.Exists(MultipartParameter.Object2))
-                    {
-                        Console.WriteLine("Creating byte array for file...");
-                        Console.WriteLine("Key: " + MultipartParameter.Object1 + " - Value: " + MultipartParameter.Object2);
-                        MultipartContent.Add(new StreamContent(File.OpenRead(MultipartParameter.Object2)), MultipartParameter.Object1);
-                    } else
-                    {
-                        Console.WriteLine("File does not exist!");
-                    }
-
-                    Console.WriteLine(MultipartContent.ToString());
-
-                    HttpResponseMessage Message = await Client.PostAsync(Url, MultipartContent);
-
-                    var res = await Message.Content.ReadAsStringAsync();
-
-                    return res;
                     
+                    using (var MultipartContent = new MultipartFormDataContent())
+                    {
+
+                        foreach (string Key in Parameters.Keys)
+                        {
+                            string Value = Parameters[Key];
+                            MultipartContent.Add(new StringContent(Value, Encoding.UTF8, "application/json"), Key);
+                        }
+
+                        if (File.Exists(MultipartParameter.Object2))
+                        {
+                            FileToSend Content = new FileToSend(Path.GetFileName(MultipartParameter.Object2), File.Open(MultipartParameter.Object2, FileMode.Open));
+                            Console.WriteLine("Creating byte array for file...");
+                            Console.WriteLine("Key: " + MultipartParameter.Object1 + " - Value: " + MultipartParameter.Object2);
+                            MultipartContent.Add(new StreamContent(Content.Content), MultipartParameter.Object1, Content.Filename);
+                        }
+                        else
+                        {
+                            Console.WriteLine("File does not exist!");
+                        }
+
+                        HttpResponseMessage Message = await Client.PostAsync(Url, MultipartContent);
+
+                        try
+                        {
+                            Message.EnsureSuccessStatusCode();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Exception generated, see Error.log");
+                            System.IO.File.AppendAllText("Error" +
+                                        DateTime.Now.Day.ToString() + "-" +
+                                        DateTime.Now.Month.ToString() + "-" +
+                                        DateTime.Now.Year.ToString() + "_" +
+                                        DateTime.Now.Hour.ToString() + "-" +
+                                        DateTime.Now.Minute.ToString() + "-" +
+                                        DateTime.Now.Second.ToString() + "-" +
+                                        DateTime.Now.Millisecond.ToString() + ".log",
+                                        "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                            System.Threading.Thread.Sleep(100000);
+                        }
+
+                        var res = await Message.Content.ReadAsStringAsync();
+
+                        return res;
+                    }
                 }
             }
         }
+
 
         public static RequestBuilder Builder(string Url)
         {
@@ -116,7 +156,7 @@ namespace TelegramSharp.Core.Utils
             this.Object1 = default(K);
             this.Object2 = default(V);
         }
-    } 
+    }
 
     public class RequestBuilder
     {
@@ -144,7 +184,7 @@ namespace TelegramSharp.Core.Utils
             this.IsMultipart = true;
             return this;
         }
-        
+
         public Request Build()
         {
             Request req = new Request();
@@ -155,6 +195,6 @@ namespace TelegramSharp.Core.Utils
 
             return req;
         }
-        
+
     }
 }

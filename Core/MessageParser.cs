@@ -50,6 +50,7 @@ namespace TelegramSharp.Core
         {
             parsedMessagesCount++;
             OnUpdateReceived(msg, bot.BotIdentity);
+            
             if (msg.Date >= ToUnixTime(DateTime.UtcNow) - 120)
             {
                 if (msg.Text != null)
