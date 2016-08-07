@@ -15,8 +15,11 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using TelegramSharp.Core.Objects.NetAPI.Keyboard;
 using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
 using TelegramSharp.Core.Utils;
@@ -202,6 +205,27 @@ namespace TelegramSharp.Core
                     .Execute();
             }
 
+        }
+
+        public async static Task SendPhoto(string chatId, string filePath, string token)
+        {
+            var url = string.Format("https://api.telegram.org/bot{0}/sendPhoto", token);
+            var fileName = filePath.Split('\\').Last();
+
+            using (var form = new MultipartFormDataContent())
+            {
+                form.Add(new StringContent(chatId.ToString(), Encoding.UTF8), "chat_id");
+
+                using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    form.Add(new StreamContent(fileStream), "photo", fileName);
+
+                    using (var client = new HttpClient())
+                    {
+                        await client.PostAsync(url, form);
+                    }
+                }
+            }
         }
 
         /// <summary>
