@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TelegramSharp.Core.Utils
 {
-
     public class Property
     {
         public string Value { get; set; }
@@ -19,7 +14,6 @@ namespace TelegramSharp.Core.Utils
             this.Value = Value;
             this.PropertyValue = PropertyValue;
         }
-
     }
 
     public enum PropertyValue
@@ -29,7 +23,6 @@ namespace TelegramSharp.Core.Utils
 
     public class Request
     {
-
         public string Url { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public MultiObject<string, string> MultipartParameter { get; set; }
@@ -87,7 +80,7 @@ namespace TelegramSharp.Core.Utils
             this.Object1 = default(K);
             this.Object2 = default(V);
         }
-    } 
+    }
 
     public class RequestBuilder
     {
@@ -115,7 +108,7 @@ namespace TelegramSharp.Core.Utils
             this.IsMultipart = true;
             return this;
         }
-        
+
         public Request Build()
         {
             Request req = new Request();
@@ -126,6 +119,5 @@ namespace TelegramSharp.Core.Utils
 
             return req;
         }
-        
     }
 }

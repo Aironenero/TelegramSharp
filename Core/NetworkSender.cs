@@ -15,11 +15,8 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using TelegramSharp.Core.Objects.NetAPI.Keyboard;
 using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
 using TelegramSharp.Core.Utils;

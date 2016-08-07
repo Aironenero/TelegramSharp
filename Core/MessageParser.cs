@@ -15,7 +15,6 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Text.RegularExpressions;
-using TelegramSharp.Core;
 using TelegramSharp.Core.Objects.NetAPI;
 
 namespace TelegramSharp.Core
@@ -59,25 +58,32 @@ namespace TelegramSharp.Core
                 else if (msg.Audio != null)
                 {
                     OnAudioReceived(bot.BotIdentity, msg);
-                } else if(msg.Contact != null)
+                }
+                else if (msg.Contact != null)
                 {
                     OnContactReceived(bot.BotIdentity, msg);
-                } else if(msg.Document != null)
+                }
+                else if (msg.Document != null)
                 {
                     OnDocumentReceived(bot.BotIdentity, msg);
-                } else if(msg.Location != null) 
+                }
+                else if (msg.Location != null)
                 {
                     OnLocationReceived(bot.BotIdentity, msg);
-                } else if(msg.Photo != null)
+                }
+                else if (msg.Photo != null)
                 {
                     OnPhotoReceived(bot.BotIdentity, msg);
-                } else if(msg.Sticker != null)
+                }
+                else if (msg.Sticker != null)
                 {
                     OnStickerReceived(bot.BotIdentity, msg);
-                } else if(msg.Video != null)
+                }
+                else if (msg.Video != null)
                 {
                     OnVideoReceived(bot.BotIdentity, msg);
-                } else if(msg.Voice != null)
+                }
+                else if (msg.Voice != null)
                 {
                     OnVoiceReceived(bot.BotIdentity, msg);
                 }

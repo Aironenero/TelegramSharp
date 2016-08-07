@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
 {
-
     /// <summary>
     /// TextComponent is the class that represents a complex message with markup on other stuff.
     /// </summary>
     public class TextComponent : IBaseComponent
     {
-
         /// <summary>
         /// The parsing used to parse the message.
         /// </summary>
         public ParsingMode Mode { get; set; }
+
         private List<TextArea> Elements = null;
 
         public TextComponent(ParsingMode Mode = ParsingMode.NONE, params TextArea[] Elements)
@@ -28,9 +23,8 @@ namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
 
         public string Make()
         {
-
             string Res = "";
-            foreach(TextArea Element in Elements)
+            foreach (TextArea Element in Elements)
             {
                 Res += Element.Make(Mode);
             }
