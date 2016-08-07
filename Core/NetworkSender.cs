@@ -1,5 +1,5 @@
 //TelegramSharp - A library to make telegram bots
-//Copyright (C) 2016  Samuele Lorefice
+//Copyright (C) 2016  Samuele Lorefice, Niccolò Mattei
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -187,45 +187,6 @@ namespace TelegramSharp.Core
                 .AddParameter("reply_markup", markupString)
                 .Build()
                 .Execute();
-        }
-
-        public static void SendPhoto(string token, long chatId, Property property, string caption, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
-
-            string markupString = markup == null ? "" : markup.serialize();
-            if (property.PropertyValue == PropertyValue.FILE && File.Exists(property.Value)) {
-                Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
-                    .AddParameter("chat_id", chatId + "")
-                    .AddParameter("caption", caption)
-                    .AddParameter("disable_web_page_preview", disableWebPagePreview + "")
-                    .SetMultipartParameter("photo", property.Value)
-                    .AddParameter("reply_to_message_id", replyToMessageId + "")
-                    .AddParameter("reply_markup", markupString)
-                    .Build()
-                    .Execute();
-            }
-
-        }
-
-        public async static Task SendPhoto(string chatId, string filePath, string token)
-        {
-            var url = string.Format("https://api.telegram.org/bot{0}/sendPhoto", token);
-            var fileName = filePath.Split('\\').Last();
-
-            using (var form = new MultipartFormDataContent())
-            {
-                form.Add(new StringContent(chatId.ToString(), Encoding.UTF8), "chat_id");
-
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    form.Add(new StreamContent(fileStream), "photo", fileName);
-
-                    using (var client = new HttpClient())
-                    {
-                        await client.PostAsync(url, form);
-                    }
-                }
-            }
         }
 
         /// <summary>
