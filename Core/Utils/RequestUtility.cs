@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace TelegramSharp.Core.Utils
 {
-
     public class Property
     {
         public string Value { get; set; }
@@ -19,7 +14,6 @@ namespace TelegramSharp.Core.Utils
             this.Value = Value;
             this.PropertyValue = PropertyValue;
         }
-
     }
 
     public enum PropertyValue
@@ -29,7 +23,6 @@ namespace TelegramSharp.Core.Utils
 
     public class Request
     {
-
         public string Url { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public MultiObject<string, string> MultipartParameter { get; set; }
@@ -44,47 +37,18 @@ namespace TelegramSharp.Core.Utils
         {
             using (HttpClient Client = new HttpClient())
             {
-                if (!IsMultipart)
-                {
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                Client.DefaultRequestHeaders.Accept.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpContent content = new FormUrlEncodedContent(Parameters);
+                HttpContent content = new FormUrlEncodedContent(Parameters);
 
-                    HttpResponseMessage Message = await Client.PostAsync(Url, content);
+                HttpResponseMessage Message = await Client.PostAsync(Url, content);
 
-                    Message.EnsureSuccessStatusCode();
+                Message.EnsureSuccessStatusCode();
 
-                    var res = await Message.Content.ReadAsStringAsync();
+                var res = await Message.Content.ReadAsStringAsync();
 
-                    return res;
-                } else
-                {
-
-                    var MultipartContent = new MultipartFormDataContent();
-
-                    var FormUrlContent = new FormUrlEncodedContent(Parameters);
-                    MultipartContent.Add(FormUrlContent);
-
-                    if (File.Exists(MultipartParameter.Object2))
-                    {
-                        Console.WriteLine("Creating byte array for file...");
-                        Console.WriteLine("Key: " + MultipartParameter.Object1 + " - Value: " + MultipartParameter.Object2);
-                        MultipartContent.Add(new StreamContent(File.OpenRead(MultipartParameter.Object2)), MultipartParameter.Object1);
-                    } else
-                    {
-                        Console.WriteLine("File does not exist!");
-                    }
-
-                    Console.WriteLine(MultipartContent.ToString());
-
-                    HttpResponseMessage Message = await Client.PostAsync(Url, MultipartContent);
-
-                    var res = await Message.Content.ReadAsStringAsync();
-
-                    return res;
-                    
-                }
+                return res;
             }
         }
 
@@ -116,7 +80,7 @@ namespace TelegramSharp.Core.Utils
             this.Object1 = default(K);
             this.Object2 = default(V);
         }
-    } 
+    }
 
     public class RequestBuilder
     {
@@ -144,7 +108,7 @@ namespace TelegramSharp.Core.Utils
             this.IsMultipart = true;
             return this;
         }
-        
+
         public Request Build()
         {
             Request req = new Request();
@@ -155,6 +119,5 @@ namespace TelegramSharp.Core.Utils
 
             return req;
         }
-        
     }
 }

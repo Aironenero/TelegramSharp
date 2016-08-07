@@ -112,7 +112,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -120,7 +119,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class ContactMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The contact received.
         /// </summary>
@@ -153,7 +151,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -161,7 +158,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class DocumentMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The document received.
         /// </summary>
@@ -194,7 +190,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -202,7 +197,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class LocationMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The location received.
         /// </summary>
@@ -235,7 +229,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -243,7 +236,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class PhotoMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The photo received.
         /// </summary>
@@ -276,7 +268,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -284,7 +275,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class StickerMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The sticker received.
         /// </summary>
@@ -317,7 +307,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -325,7 +314,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class VideoMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The video received.
         /// </summary>
@@ -358,7 +346,6 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 
     /// <summary>
@@ -366,7 +353,6 @@ namespace TelegramSharp.Core
     /// </summary>
     public class VoiceMessageReceivedEventArgs : EventArgs
     {
-
         /// <summary>
         /// The received voice message.
         /// </summary>
@@ -399,6 +385,5 @@ namespace TelegramSharp.Core
             Bot = bot;
             ChatID = message.Chat.Id;
         }
-
     }
 }

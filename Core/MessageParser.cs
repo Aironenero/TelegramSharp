@@ -1,5 +1,5 @@
 //TelegramSharp - A library to make telegram bots
-//Copyright (C) 2016  Samuele Lorefice
+//Copyright (C) 2016  Samuele Lorefice, Niccol� Mattei
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -59,25 +59,32 @@ namespace TelegramSharp.Core
                 else if (msg.Audio != null)
                 {
                     OnAudioReceived(bot.BotIdentity, msg);
-                } else if(msg.Contact != null)
+                }
+                else if (msg.Contact != null)
                 {
                     OnContactReceived(bot.BotIdentity, msg);
-                } else if(msg.Document != null)
+                }
+                else if (msg.Document != null)
                 {
                     OnDocumentReceived(bot.BotIdentity, msg);
-                } else if(msg.Location != null) 
+                }
+                else if (msg.Location != null)
                 {
                     OnLocationReceived(bot.BotIdentity, msg);
-                } else if(msg.Photo != null)
+                }
+                else if (msg.Photo != null)
                 {
                     OnPhotoReceived(bot.BotIdentity, msg);
-                } else if(msg.Sticker != null)
+                }
+                else if (msg.Sticker != null)
                 {
                     OnStickerReceived(bot.BotIdentity, msg);
-                } else if(msg.Video != null)
+                }
+                else if (msg.Video != null)
                 {
                     OnVideoReceived(bot.BotIdentity, msg);
-                } else if(msg.Voice != null)
+                }
+                else if (msg.Voice != null)
                 {
                     OnVoiceReceived(bot.BotIdentity, msg);
                 }
