@@ -1,5 +1,5 @@
 //TelegramSharp - A library to make telegram bots
-//Copyright (C) 2016  Samuele Lorefice
+//Copyright (C) 2016  Samuele Lorefice, Niccolò Mattei
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Samuele Lorefice")]
+[assembly: AssemblyCopyright("Samuele Lorefice, Niccolò Mattei")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,7 +31,7 @@ using System.Reflection;
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-[assembly: AssemblyVersion("0.2")]
+[assembly: AssemblyVersion("0.3.1.*")]
 
 // The following attributes are used to specify the signing key for the assembly,
 // if desired. See the Mono documentation for more information about signing.

@@ -1,15 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
 {
     public class KeyboardRow
     {
-
         public List<KeyboardButton> Buttons = null;
 
         /// <summary>
@@ -26,7 +21,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// <param name="buttons">The buttons to add.</param>
         public void AddButtons(params KeyboardButton[] buttons)
         {
-            foreach(KeyboardButton button in buttons)
+            foreach (KeyboardButton button in buttons)
             {
                 Buttons.Add(button);
             }
@@ -37,6 +32,5 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// </summary>
         [JsonProperty]
         public KeyboardButton[] KeyboardButtonArray { get { return Buttons.ToArray(); } }
-
     }
 }

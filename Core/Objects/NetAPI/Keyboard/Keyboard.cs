@@ -1,21 +1,14 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
 {
-
     /// <summary>
     /// This class represents a ReplyKeyboardMarkup object. Also
     /// </summary>
     public class Keyboard : IReplyMarkup
     {
-
         /// <summary>
         /// Returns a multidimensional array of the buttons. The first array represents the row, while the second, the button.
         /// </summary>
@@ -59,14 +52,13 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
 
     public class KeyboardBuilder
     {
+        private List<KeyboardRow> Rows = new List<KeyboardRow>();
 
-        List<KeyboardRow> Rows = new List<KeyboardRow>();
-
-        public bool RequestContact { get; set; }
-        public bool RequestLocation { get; set; }
-        public bool ResizeKeyboard = false;
-        public bool OneTimeKeyboard = false;
-        public bool Selective = false;
+        private bool RequestContact { get; set; }
+        private bool RequestLocation { get; set; }
+        private bool ResizeKeyboard = false;
+        private bool OneTimeKeyboard = false;
+        private bool Selective = false;
 
         /// <summary>
         /// Creates a new KeyboardBuilder object.
@@ -120,7 +112,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         public KeyboardBuilder AddRow(params string[] buttons)
         {
             KeyboardRow row = new KeyboardRow();
-            foreach(string text in buttons)
+            foreach (string text in buttons)
             {
                 KeyboardButton button = new KeyboardButton();
                 button.Text = text;
@@ -156,13 +148,12 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
 
             Res = new KeyboardButton[Rows.Count][];
 
-            for(int i = 0; i < Rows.Count; i++)
+            for (int i = 0; i < Rows.Count; i++)
             {
                 Res[i] = Rows.ElementAt(i).KeyboardButtonArray;
             }
 
             return Res;
         }
-
     }
 }

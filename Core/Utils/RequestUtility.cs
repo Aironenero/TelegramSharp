@@ -1,16 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace TelegramSharp.Core.Utils
 {
-
     public class Property
     {
         public string Value { get; set; }
@@ -21,7 +20,6 @@ namespace TelegramSharp.Core.Utils
             this.Value = Value;
             this.PropertyValue = PropertyValue;
         }
-
     }
 
     public enum PropertyValue
@@ -44,6 +42,7 @@ namespace TelegramSharp.Core.Utils
                 this.Content = Content;
             }
         }
+
         public string Url { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public MultiObject<string, string> MultipartParameter { get; set; }
@@ -76,54 +75,59 @@ namespace TelegramSharp.Core.Utils
                 }
                 else
                 {
-                    
-                    using (var MultipartContent = new MultipartFormDataContent())
+                    if (File.Exists(MultipartParameter.Object2))
                     {
 
-                        foreach (string Key in Parameters.Keys)
+                        using (var MultipartContent = new MultipartFormDataContent())
                         {
-                            string Value = Parameters[Key];
-                            MultipartContent.Add(new StringContent(Value, Encoding.UTF8, "application/json"), Key);
-                        }
 
-                        if (File.Exists(MultipartParameter.Object2))
-                        {
+                            foreach (string Key in Parameters.Keys)
+                            {
+                                string Value = Parameters[Key];
+                                MultipartContent.Add(new StringContent(Value, Encoding.UTF8, "application/json"), Key);
+                            }
+
+
                             FileToSend Content = new FileToSend(Path.GetFileName(MultipartParameter.Object2), File.Open(MultipartParameter.Object2, FileMode.Open));
                             Console.WriteLine("Creating byte array for file...");
                             Console.WriteLine("Key: " + MultipartParameter.Object1 + " - Value: " + MultipartParameter.Object2);
                             MultipartContent.Add(new StreamContent(Content.Content), MultipartParameter.Object1, Content.Filename);
-                        }
-                        else
-                        {
-                            Console.WriteLine("File does not exist!");
-                        }
 
-                        HttpResponseMessage Message = await Client.PostAsync(Url, MultipartContent);
 
-                        try
-                        {
-                            Message.EnsureSuccessStatusCode();
+                            HttpResponseMessage Message = await Client.PostAsync(Url, MultipartContent);
+
+                            try
+                            {
+                                Message.EnsureSuccessStatusCode();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("Exception generated, see Error.log");
+                                System.IO.File.AppendAllText("Error" +
+                                            DateTime.Now.Day.ToString() + "-" +
+                                            DateTime.Now.Month.ToString() + "-" +
+                                            DateTime.Now.Year.ToString() + "_" +
+                                            DateTime.Now.Hour.ToString() + "-" +
+                                            DateTime.Now.Minute.ToString() + "-" +
+                                            DateTime.Now.Second.ToString() + "-" +
+                                            DateTime.Now.Millisecond.ToString() + ".log",
+                                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                                System.Threading.Thread.Sleep(100000);
+                            }
+
+                            var res = await Message.Content.ReadAsStringAsync();
+
+                            return res;
+
                         }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Exception generated, see Error.log");
-                            System.IO.File.AppendAllText("Error" +
-                                        DateTime.Now.Day.ToString() + "-" +
-                                        DateTime.Now.Month.ToString() + "-" +
-                                        DateTime.Now.Year.ToString() + "_" +
-                                        DateTime.Now.Hour.ToString() + "-" +
-                                        DateTime.Now.Minute.ToString() + "-" +
-                                        DateTime.Now.Second.ToString() + "-" +
-                                        DateTime.Now.Millisecond.ToString() + ".log",
-                                        "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                            System.Threading.Thread.Sleep(100000);
-                        }
-
-                        var res = await Message.Content.ReadAsStringAsync();
-
-                        return res;
                     }
-                }
+                    else
+                    {
+                        Console.WriteLine("File was not found! Cannot send request!");
+                        return null;
+                    }
+
+                } 
             }
         }
 

@@ -1,5 +1,5 @@
 //TelegramSharp - A library to make telegram bots
-//Copyright (C) 2016  Samuele Lorefice
+//Copyright (C) 2016  Samuele Lorefice, Niccol� Mattei
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -15,7 +15,9 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using TelegramSharp.Core.Objects.NetAPI.Keyboard;
 using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
@@ -190,7 +192,7 @@ namespace TelegramSharp.Core
         {
 
             string markupString = markup == null ? "" : markup.serialize();
-            if (property.PropertyValue == PropertyValue.FILE && File.Exists(property.Value)) {
+            if (property.PropertyValue == PropertyValue.FILE) {
                 string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
                     .AddParameter("chat_id", chatId + "")
                     .SetMultipartParameter("photo", property.Value)
@@ -200,7 +202,6 @@ namespace TelegramSharp.Core
                     .AddParameter("reply_markup", markupString)
                     .Build()
                     .Execute();
-                Console.WriteLine("Result from request:" + res);
             } else
             {
                 Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
@@ -214,6 +215,39 @@ namespace TelegramSharp.Core
                     .Execute();
             }
 
+        }
+
+        public static void SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null)
+        {
+            string markupString = markup == null ? "" : markup.serialize();
+            if (property.PropertyValue == PropertyValue.FILE)
+            {
+                string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
+                    .AddParameter("chat_id", chatId + "")
+                    .SetMultipartParameter("audio", property.Value)
+                    .AddParameter("performer", performer)
+                    .AddParameter("duration", duration + "")
+                    .AddParameter("title", title)
+                    .AddParameter("disable_notification", disableNotification + "")
+                    .AddParameter("reply_to_message_id", replyToMessageId + "")
+                    .AddParameter("reply_markup", markupString)
+                    .Build()
+                    .Execute();
+            }
+            else
+            {
+                Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
+                    .AddParameter("chat_id", chatId + "")
+                    .AddParameter("audio", property.Value)
+                    .AddParameter("performer", performer)
+                    .AddParameter("duration", duration + "")
+                    .AddParameter("title", title)
+                    .AddParameter("disable_notification", disableNotification + "")
+                    .AddParameter("reply_to_message_id", replyToMessageId + "")
+                    .AddParameter("reply_markup", markupString)
+                    .Build()
+                    .Execute();
+            }
         }
 
         /// <summary>
