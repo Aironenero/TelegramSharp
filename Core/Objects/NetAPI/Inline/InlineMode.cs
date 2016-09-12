@@ -44,7 +44,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Inline
         public string Type { get; set; }
         public Int64 Id { get; set; }
         public InputMessageContent InputMessageContent { get; set; }
-        public 
+        
     }
 
 }
