@@ -43,6 +43,7 @@ namespace TelegramSharp.Core
                 {
                     foreach (Update upd in serverUpdate.Result)
                     {
+
                         Offset = upd.UpdateId;
                         if (upd.Message != null)
                         {
@@ -53,6 +54,10 @@ namespace TelegramSharp.Core
                         {
                             bot.Parser.ParseMessage(upd.EditedMessage, bot);
                             Logger.LogConsoleWrite(upd.EditedMessage, bot.BotIdentity);
+                        }
+                        if (upd.CallbackQuery != null)
+                        {
+                            bot.Parser.HandleUpdate(upd, bot);
                         }
                     }
                 }

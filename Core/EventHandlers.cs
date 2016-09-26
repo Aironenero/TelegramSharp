@@ -386,4 +386,28 @@ namespace TelegramSharp.Core
             ChatID = message.Chat.Id;
         }
     }
+
+    public class UpdateEventReceivedArgs : EventArgs
+    {
+        /// <summary>
+        /// Message received (contains any media)
+        /// </summary>
+        public Update Update;
+
+        /// <summary>
+        /// Bot to this message belongs
+        /// </summary>
+        public User FromBot;
+
+        /// <summary>
+        /// Contains data from a telegram update (any media, for only text messages use TextMessageReceived)
+        /// </summary>
+        /// <param name="msg">The message</param>
+        /// <param name="bot">The bot</param>
+        public UpdateEventReceivedArgs(Update upd, User bot)
+        {
+            Update = upd;
+            FromBot = bot;
+        }
+    }
 }

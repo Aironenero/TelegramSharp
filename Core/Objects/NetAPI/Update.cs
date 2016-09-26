@@ -44,10 +44,17 @@ namespace TelegramSharp.Core.Objects.NetAPI
         public Message EditedMessage { get; set; }
 
         /// <summary>
+        /// A callback query.
+        /// </summary>
+        [DataMember(Name = "callback_query", IsRequired = false)]
+        public CallbackQuery CallbackQuery { get; set; }
+
+        /// <summary>
         /// Gets or sets the bot info.
         /// </summary>
         /// <value>The bot info.</value>
         [DataMember(Name = "bot_info", IsRequired = false)]
         public User BotInfo { get; set; }
+
     }
 }

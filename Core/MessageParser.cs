@@ -41,6 +41,11 @@ namespace TelegramSharp.Core
             return Convert.ToInt64((date.ToUniversalTime() - epoch).TotalSeconds);
         }
 
+        public void HandleUpdate(Update update, TelegramService bot)
+        {
+            OnUpdate_1Received(bot.BotIdentity, update);
+        }
+
         /// <summary>
         /// Parses the message.
         /// </summary>

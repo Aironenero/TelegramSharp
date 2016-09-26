@@ -119,5 +119,16 @@ namespace TelegramSharp.Core
         {
             VoiceReceived?.Invoke(this, new VoiceMessageReceivedEventArgs(message, bot));
         }
+
+        public delegate void UpdateReceivedEventHandler(object sender, UpdateEventReceivedArgs args);
+
+        public event UpdateReceivedEventHandler UpdadeReceived_1;
+
+        protected virtual void OnUpdate_1Received(User bot, Update upd)
+        {
+            UpdadeReceived_1?.Invoke(this, new UpdateEventReceivedArgs(upd, bot));
+        }
+
+
     }
 }

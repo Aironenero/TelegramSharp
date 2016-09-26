@@ -250,6 +250,14 @@ namespace TelegramSharp.Core
             }
         }
 
+        public static void answerCallbackQuery(string token, string callbackQueryId, string text = "", bool showAlert = false)
+        {
+            Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/answerCallbackQuery")
+                .AddParameter("callback_query_id", callbackQueryId)
+                .AddParameter("text", text)
+                .AddParameter("show_alert", showAlert + "").Build().Execute();
+        }
+
         /// <summary>
         /// Gets Bot user information.
         /// </summary>
