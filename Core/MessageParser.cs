@@ -41,58 +41,53 @@ namespace TelegramSharp.Core
             return Convert.ToInt64((date.ToUniversalTime() - epoch).TotalSeconds);
         }
 
-        public void HandleUpdate(Update update, TelegramService bot)
-        {
-            OnUpdate_1Received(bot.BotIdentity, update);
-        }
-
         /// <summary>
         /// Parses the message.
         /// </summary>
-        /// <param name="msg">Message to parse.</param>
+        /// <param name="upd">Message to parse.</param>
         /// <param name="bot">Bot that should parse the message.</param>
-        public void ParseMessage(Message msg, TelegramService bot)
+        public void ParseMessage(Update upd, TelegramService bot)
         {
             parsedMessagesCount++;
-            OnUpdateReceived(msg, bot.BotIdentity);
+            OnUpdateReceived(upd.Message, bot.BotIdentity, upd);
             
-            if (msg.Date >= ToUnixTime(DateTime.UtcNow) - 120)
+            if (upd.Message.Date >= ToUnixTime(DateTime.UtcNow) - 120)
             {
-                if (msg.Text != null)
+                if (upd.Message.Text != null)
                 {
-                    OnTextMessageReceived(msg, bot.BotIdentity);
+                    OnTextMessageReceived(upd.Message, bot.BotIdentity);
                 }
-                else if (msg.Audio != null)
+                else if (upd.Message.Audio != null)
                 {
-                    OnAudioReceived(bot.BotIdentity, msg);
+                    OnAudioReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Contact != null)
+                else if (upd.Message.Contact != null)
                 {
-                    OnContactReceived(bot.BotIdentity, msg);
+                    OnContactReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Document != null)
+                else if (upd.Message.Document != null)
                 {
-                    OnDocumentReceived(bot.BotIdentity, msg);
+                    OnDocumentReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Location != null)
+                else if (upd.Message.Location != null)
                 {
-                    OnLocationReceived(bot.BotIdentity, msg);
+                    OnLocationReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Photo != null)
+                else if (upd.Message.Photo != null)
                 {
-                    OnPhotoReceived(bot.BotIdentity, msg);
+                    OnPhotoReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Sticker != null)
+                else if (upd.Message.Sticker != null)
                 {
-                    OnStickerReceived(bot.BotIdentity, msg);
+                    OnStickerReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Video != null)
+                else if (upd.Message.Video != null)
                 {
-                    OnVideoReceived(bot.BotIdentity, msg);
+                    OnVideoReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (msg.Voice != null)
+                else if (upd.Message.Voice != null)
                 {
-                    OnVoiceReceived(bot.BotIdentity, msg);
+                    OnVoiceReceived(bot.BotIdentity, upd.Message);
                 }
             }
         }

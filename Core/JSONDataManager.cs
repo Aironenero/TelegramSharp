@@ -47,18 +47,16 @@ namespace TelegramSharp.Core
                         Offset = upd.UpdateId;
                         if (upd.Message != null)
                         {
-                            bot.Parser.ParseMessage(upd.Message, bot);
+                            bot.Parser.ParseMessage(upd, bot);
                             Logger.LogConsoleWrite(upd.Message, bot.BotIdentity);
                         }
                         if (upd.EditedMessage != null)
                         {
-                            bot.Parser.ParseMessage(upd.EditedMessage, bot);
+                            bot.Parser.ParseMessage(upd, bot);
                             Logger.LogConsoleWrite(upd.EditedMessage, bot.BotIdentity);
                         }
                         if (upd.CallbackQuery != null)
-                        {
-                            bot.Parser.HandleUpdate(upd, bot);
-                        }
+                            bot.Parser.OnUpdateReceived(upd.Message, bot.BotIdentity, upd);
                     }
                 }
             }

@@ -11,12 +11,17 @@ namespace TelegramSharp.Core
         /// <summary>
         /// Message received (contains any media)
         /// </summary>
-        public Message Message;
+        public Update Update;
 
         /// <summary>
         /// Bot to this message belongs
         /// </summary>
         public User FromBot;
+
+        /// <summary>
+        /// Message received (contains any media)
+        /// </summary>
+        public Message Message;
 
         /// <summary>
         /// Chat ID from where this message have been sent
@@ -28,11 +33,14 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="msg">The message</param>
         /// <param name="bot">The bot</param>
-        public UpdateReceivedEventArgs(Message msg, User bot)
+        /// <param name="upd">The Update</param>
+        public UpdateReceivedEventArgs(Message msg, Update upd, User bot)
         {
             Message = msg;
             FromBot = bot;
             ChatID = msg.Chat.Id;
+            Update = upd;
+            FromBot = bot;
         }
     }
 
@@ -389,25 +397,7 @@ namespace TelegramSharp.Core
 
     public class UpdateEventReceivedArgs : EventArgs
     {
-        /// <summary>
-        /// Message received (contains any media)
-        /// </summary>
-        public Update Update;
 
-        /// <summary>
-        /// Bot to this message belongs
-        /// </summary>
-        public User FromBot;
 
-        /// <summary>
-        /// Contains data from a telegram update (any media, for only text messages use TextMessageReceived)
-        /// </summary>
-        /// <param name="msg">The message</param>
-        /// <param name="bot">The bot</param>
-        public UpdateEventReceivedArgs(Update upd, User bot)
-        {
-            Update = upd;
-            FromBot = bot;
-        }
     }
 }

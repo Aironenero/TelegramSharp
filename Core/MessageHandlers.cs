@@ -11,19 +11,15 @@ namespace TelegramSharp.Core
         /// <param name="e"></param>
         public delegate void UpdateReceivedHandler(object sender, UpdateReceivedEventArgs e);
 
-        /// <summary>
-        /// Called when an telegram update (containing any media) is received.
-        /// </summary>
         public event UpdateReceivedHandler UpdateReceived;
-
         /// <summary>
         /// Called when an telegram update (containing any media) is received.
         /// </summary>
         /// <param name="message">The message</param>
         /// <param name="bot">The bot</param>
-        protected virtual void OnUpdateReceived(Message message, User bot)
+        public virtual void OnUpdateReceived(Message message, User bot, Update update)
         {
-            UpdateReceived?.Invoke(this, new UpdateReceivedEventArgs(message, bot));
+            UpdateReceived?.Invoke(this, new UpdateReceivedEventArgs(message, update, bot));
         }
 
         /// <summary>
@@ -119,16 +115,6 @@ namespace TelegramSharp.Core
         {
             VoiceReceived?.Invoke(this, new VoiceMessageReceivedEventArgs(message, bot));
         }
-
-        public delegate void UpdateReceivedEventHandler(object sender, UpdateEventReceivedArgs args);
-
-        public event UpdateReceivedEventHandler UpdadeReceived_1;
-
-        protected virtual void OnUpdate_1Received(User bot, Update upd)
-        {
-            UpdadeReceived_1?.Invoke(this, new UpdateEventReceivedArgs(upd, bot));
-        }
-
 
     }
 }
