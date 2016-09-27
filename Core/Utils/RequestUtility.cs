@@ -44,6 +44,18 @@ namespace TelegramSharp.Core.Utils {
 
         private async Task<string> ExecuteRequest() {
             using (HttpClient Client = new HttpClient()) {
+                List<string> keyToRemove = new List<string>();
+                foreach (KeyValuePair<string, string> keyValuePair in Parameters) {
+                    if (keyValuePair.Value == "0" || keyValuePair.Value == null) {
+                        keyToRemove.Add(keyValuePair.Key);
+                    }
+                }
+                foreach (string s in keyToRemove)
+                {
+                    Parameters.Remove(s);
+                }
+
+
                 if (!IsMultipart) {
                     Client.DefaultRequestHeaders.Accept.Clear();
                     Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
