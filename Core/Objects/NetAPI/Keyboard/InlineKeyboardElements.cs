@@ -85,7 +85,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard {
     /// </summary>
     public class InlineKeyboardRow {
         public List<InlineKeyboardButton> buttons = null;
-        private InlineKeyboardBuilder inlineKeyboardBuilder;
+        private readonly InlineKeyboardBuilder inlineKeyboardBuilder;
 
         public InlineKeyboardRow(InlineKeyboardBuilder inlineKeyboardBuilder) {
             this.inlineKeyboardBuilder = inlineKeyboardBuilder;

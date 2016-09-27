@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,9 +61,25 @@ namespace TelegramSharp.Core.Utils {
                     Client.DefaultRequestHeaders.Accept.Clear();
                     Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpContent content = new FormUrlEncodedContent(Parameters);
+                    var postString = "?";
 
-                    HttpResponseMessage Message = await Client.PostAsync(Url, content);
+                    for (int i = 0; i < Parameters.Count; i++)
+                    {
+                        string prm = Parameters.Keys.ElementAt(i);
+                        string value = Parameters.Values.ElementAt(i);
+
+                        postString += prm + "=" + Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(value));
+
+                        if ((i + 1) >= Parameters.Count)
+                        {
+                            postString += "&";
+                        }
+                    }
+
+                    var byteArrayContent = new ByteArrayContent(GetBytes(postString));
+
+
+                    HttpResponseMessage Message = await Client.PostAsync(Url, byteArrayContent);
 
                     Message.EnsureSuccessStatusCode();
 
@@ -118,6 +135,14 @@ namespace TelegramSharp.Core.Utils {
         public static RequestBuilder Builder(string Url) {
             return new RequestBuilder(Url);
         }
+
+        static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
     }
 
     public class MultiObject<K, V> {
