@@ -207,6 +207,7 @@ namespace TelegramSharp.Core {
                 .Build()
                 .Execute();
         }
+
         /// <summary>
         /// Gets Bot user information.
         /// </summary>

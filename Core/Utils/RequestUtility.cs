@@ -89,7 +89,8 @@ namespace TelegramSharp.Core.Utils {
                 }
                 else {
                     if (File.Exists(MultipartParameter.Object2)) {
-                        using (var MultipartContent = new MultipartFormDataContent()) {
+                        using (var MultipartContent = 
+                            new MultipartFormDataContent()) {
                             foreach (string Key in Parameters.Keys) {
                                 string Value = Parameters[Key];
                                 MultipartContent.Add(new StringContent(Value, Encoding.UTF8, "application/json"), Key);
