@@ -15,14 +15,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects
-{
+namespace TelegramSharp.Core.Objects {
+
     /// <summary>
     /// Bot configuration.
     /// </summary>
     [DataContract]
-    public class BotSetup
-    {
+    public class BotSetup {
+
         /// <summary>
         /// Gets or sets the bot token.
         /// </summary>

@@ -16,20 +16,19 @@
 using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp
-{
+namespace TelegramSharp {
+
     /// <summary>
     /// Message Logger.
     /// </summary>
-    public static class Logger
-    {
+    public static class Logger {
+
         /// <summary>
         /// Logs a message to the console.
         /// </summary>
         /// <param name="msgToLog">Message to log.</param>
         /// <param name="Bot">Bot</param>
-        public static void LogConsoleWrite(Message msgToLog, User Bot)
-        {
+        public static void LogConsoleWrite(Message msgToLog, User Bot) {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(String.Format("{0},", DateTime.Now.ToString()));
             Console.Write(String.Format("{0}|INFO|", DateTime.Now.Millisecond));
@@ -47,8 +46,7 @@ namespace TelegramSharp
         /// Logs the bot identity.
         /// </summary>
         /// <param name="getMe">Get me.</param>
-        public static void LogWrite(User getMe)
-        {
+        public static void LogWrite(User getMe) {
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("***Received Bot Identity***");

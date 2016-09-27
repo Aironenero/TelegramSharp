@@ -16,13 +16,13 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects
-{
+namespace TelegramSharp.Core.Objects {
+
     /// <summary>
     /// Message parse mode.
     /// </summary>
-    public enum ParseMode
-    {
+    public enum ParseMode {
+
         /// <summary>
         /// Parse the message as containing markdown
         /// </summary>
@@ -38,8 +38,8 @@ namespace TelegramSharp.Core.Objects
     /// Outgoing message.
     /// </summary>
     [DataContract]
-    public class OutgoingMessage
-    {
+    public class OutgoingMessage {
+
         [DataMember(Name = "chat_id")]
         private int _chatId;
 
@@ -59,15 +59,12 @@ namespace TelegramSharp.Core.Objects
         /// Gets or sets the chat identifier.
         /// </summary>
         /// <value>The chat identifier.</value>
-        public int ChatId
-        {
-            get
-            {
+        public int ChatId {
+            get {
                 return _chatId;
             }
 
-            set
-            {
+            set {
                 _chatId = value;
             }
         }
@@ -76,15 +73,12 @@ namespace TelegramSharp.Core.Objects
         /// Gets or sets the text.
         /// </summary>
         /// <value>The text.</value>
-        public string Text
-        {
-            get
-            {
+        public string Text {
+            get {
                 return _text;
             }
 
-            set
-            {
+            set {
                 _text = value;
             }
         }
@@ -93,17 +87,14 @@ namespace TelegramSharp.Core.Objects
         /// Gets or sets the parse mode.
         /// </summary>
         /// <value>The parse mode.</value>
-        public string ParseMode
-        {
-            get
-            {
+        public string ParseMode {
+            get {
                 if (_parseMode == Objects.ParseMode.MarkDown)
                     return _parseMode.ToString();
                 return "";
             }
 
-            set
-            {
+            set {
                 _parseMode = (ParseMode)Enum.Parse(typeof(ParseMode), value, true);
             }
         }
@@ -112,15 +103,12 @@ namespace TelegramSharp.Core.Objects
         /// Gets or sets a value indicating whether this <see cref="Core.Objects.OutgoingMessage"/> disable web page preview.
         /// </summary>
         /// <value><c>true</c> if disable web page preview; otherwise, <c>false</c>.</value>
-        public bool DisableWebPagePreview
-        {
-            get
-            {
+        public bool DisableWebPagePreview {
+            get {
                 return _disableWebPagePreview;
             }
 
-            set
-            {
+            set {
                 _disableWebPagePreview = value;
             }
         }
@@ -129,15 +117,12 @@ namespace TelegramSharp.Core.Objects
         /// Gets or sets the reply to message identifier.
         /// </summary>
         /// <value>The reply to message identifier.</value>
-        public int ReplyToMessageId
-        {
-            get
-            {
+        public int ReplyToMessageId {
+            get {
                 return _replyToMessageId;
             }
 
-            set
-            {
+            set {
                 _replyToMessageId = value;
             }
         }

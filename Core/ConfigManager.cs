@@ -17,13 +17,12 @@ using Newtonsoft.Json;
 using System;
 using TelegramSharp.Core.Objects;
 
-namespace TelegramSharp.Core
-{
+namespace TelegramSharp.Core {
+
     /// <summary>
     /// Bot configuration manager.
     /// </summary>
-    public static class ConfigManager
-    {
+    public static class ConfigManager {
         private static string configPath;
 
         /// <summary>
@@ -31,20 +30,16 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <returns>The config.</returns>
         /// <param name="ConfigPath">Config path.</param>
-        public static BotSetup LoadConfig(string ConfigPath = "TelegramBotConfig.json")
-        {
+        public static BotSetup LoadConfig(string ConfigPath = "TelegramBotConfig.json") {
             configPath = ConfigPath;
             BotSetup config = new BotSetup();
-            if (System.IO.File.Exists(configPath))
-            {
+            if (System.IO.File.Exists(configPath)) {
                 string jsonconfig = System.IO.File.ReadAllText(configPath);
 
-                try
-                {
+                try {
                     config = JsonConvert.DeserializeObject<BotSetup>(jsonconfig);
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Console.WriteLine(ex);
                     System.Threading.Thread.Sleep(100000);
                 }
@@ -60,20 +55,16 @@ namespace TelegramSharp.Core
         /// Loads the configuration from the specified file path.
         /// </summary>
         /// <returns></returns>
-        public static BotSetup LoadConfig()
-        {
+        public static BotSetup LoadConfig() {
             configPath = "TelegramBotConfig.json";
             BotSetup config = new BotSetup();
-            if (System.IO.File.Exists(configPath))
-            {
+            if (System.IO.File.Exists(configPath)) {
                 string jsonconfig = System.IO.File.ReadAllText(configPath);
 
-                try
-                {
+                try {
                     config = JsonConvert.DeserializeObject<BotSetup>(jsonconfig);
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     Console.WriteLine(ex);
                     System.Threading.Thread.Sleep(100000);
                 }
@@ -89,8 +80,7 @@ namespace TelegramSharp.Core
         /// Saves the config.
         /// </summary>
         /// <param name="config">Config.</param>
-        public static void SaveConfig(BotSetup config)
-        {
+        public static void SaveConfig(BotSetup config) {
             string json = JsonConvert.SerializeObject(config, Formatting.Indented);
             System.IO.File.WriteAllText(configPath, json);
         }

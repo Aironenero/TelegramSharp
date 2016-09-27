@@ -15,21 +15,19 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using TelegramSharp.Core.Objects.NetAPI.Keyboard;
 using TelegramSharp.Core.Objects.NetAPI.TextBuilder;
 using TelegramSharp.Core.Utils;
 
-namespace TelegramSharp.Core
-{
+namespace TelegramSharp.Core {
+
     /// <summary>
     /// Network operations.
     /// </summary>
-    public class NetworkSender
-    {
+    public class NetworkSender {
+
         /// <summary>
         /// Gets the updates containing messages.
         /// </summary>
@@ -38,10 +36,8 @@ namespace TelegramSharp.Core
         /// <param name="offset">Update offset.</param>
         /// <param name="limit">Limit of messages in a update.</param>
         /// <param name="timeout">Request timeout (if 0 short polling, else long polling).</param>
-        public static string GetUpdates(string token, int offset = 0, int limit = 100, int timeout = 60)
-        {
-            try
-            {
+        public static string GetUpdates(string token, int offset = 0, int limit = 100, int timeout = 60) {
+            try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/getUpdates");
                 request.Method = "POST"; // Set the Method property of the request to POST.
@@ -61,8 +57,7 @@ namespace TelegramSharp.Core
                 response.Close();
                 return _out; // Return the value
             }
-            catch (WebException e)
-            {
+            catch (WebException e) {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -88,10 +83,8 @@ namespace TelegramSharp.Core
         /// <param name="replyToMessageId">Reply to message identifier.</param>
         /// <param name="markup">Sends a reply markup to a user.</param>
         [Obsolete("This method uses the old 'way' of doing a post request. Please use the newer method.")]
-        public static void SendMessage_Deprecated(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
-            try
-            {
+        public static void SendMessage_Deprecated(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
+            try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage");
                 request.Method = "POST"; // Set the Method property of the request to POST.
@@ -112,8 +105,7 @@ namespace TelegramSharp.Core
                 reader.Close(); // Clean up the streams.
                 response.Close();
             }
-            catch (WebException e)
-            {
+            catch (WebException e) {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -135,10 +127,8 @@ namespace TelegramSharp.Core
         /// <param name="chatId">id of the chat where you want to forward the message</param>
         /// <param name="fromChatId">chat from where the message was sent</param>
         /// <param name="messageId">id of the message to forward</param>
-        public static void ForwardMessage(string token, long chatId, long fromChatId, long messageId)
-        {
-            try
-            {
+        public static void ForwardMessage(string token, long chatId, long fromChatId, long messageId) {
+            try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/forwardMessage");
                 request.Method = "POST"; // Set the Method property of the request to POST.
@@ -158,8 +148,7 @@ namespace TelegramSharp.Core
                 reader.Close(); // Clean up the streams.
                 response.Close();
             }
-            catch (WebException e)
-            {
+            catch (WebException e) {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -174,8 +163,7 @@ namespace TelegramSharp.Core
             }
         }
 
-        public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
+        public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage").AddParameter("chat_id", chatId + "")
@@ -188,9 +176,7 @@ namespace TelegramSharp.Core
                 .Execute();
         }
 
-        public static void SendPhoto(string token, long chatId, Property property, string caption = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
-
+        public static void SendPhoto(string token, long chatId, Property property, string caption = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             if (property.PropertyValue == PropertyValue.FILE) {
                 string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
@@ -202,8 +188,8 @@ namespace TelegramSharp.Core
                     .AddParameter("reply_markup", markupString)
                     .Build()
                     .Execute();
-            } else
-            {
+            }
+            else {
                 Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
                     .AddParameter("chat_id", chatId + "")
                     .AddParameter("photo", property.Value)
@@ -214,14 +200,11 @@ namespace TelegramSharp.Core
                     .Build()
                     .Execute();
             }
-
         }
 
-        public static void SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
+        public static void SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
-            if (property.PropertyValue == PropertyValue.FILE)
-            {
+            if (property.PropertyValue == PropertyValue.FILE) {
                 string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
                     .AddParameter("chat_id", chatId + "")
                     .SetMultipartParameter("audio", property.Value)
@@ -234,8 +217,7 @@ namespace TelegramSharp.Core
                     .Build()
                     .Execute();
             }
-            else
-            {
+            else {
                 Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
                     .AddParameter("chat_id", chatId + "")
                     .AddParameter("audio", property.Value)
@@ -250,8 +232,7 @@ namespace TelegramSharp.Core
             }
         }
 
-        public static void answerCallbackQuery(string token, string callbackQueryId, string text = "", bool showAlert = false)
-        {
+        public static void answerCallbackQuery(string token, string callbackQueryId, string text = "", bool showAlert = false) {
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/answerCallbackQuery")
                 .AddParameter("callback_query_id", callbackQueryId)
                 .AddParameter("text", text)
@@ -263,10 +244,8 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <returns>The <c>User</c> containing the bot acocunt infos.</returns>
         /// <param name="token">Bot token.</param>
-        public static string GetMe(string token)
-        {
-            try
-            {
+        public static string GetMe(string token) {
+            try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/getMe");
                 request.Method = "POST"; // Set the Method property of the request to POST.
@@ -287,8 +266,7 @@ namespace TelegramSharp.Core
                 response.Close();
                 return _out; // Return the value
             }
-            catch (WebException e)
-            {
+            catch (WebException e) {
                 Console.WriteLine("Exception generated, see Error.log");
                 System.IO.File.AppendAllText("Error" +
                             DateTime.Now.Day.ToString() + "-" +
@@ -305,8 +283,7 @@ namespace TelegramSharp.Core
         }
 
         //Ottiene gli URL a cui inviare le richieste
-        private static string CombineUri(string url, string token)
-        {
+        private static string CombineUri(string url, string token) {
             return url + token;
         }
     }

@@ -16,14 +16,14 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// Message.
     /// </summary>
     [DataContract]
-    public class Message
-    {
+    public class Message {
+
         /// <summary>
         /// Gets or sets the message identifier.
         /// </summary>

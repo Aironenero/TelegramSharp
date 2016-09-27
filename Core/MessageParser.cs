@@ -15,16 +15,15 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Text.RegularExpressions;
-using TelegramSharp.Core;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core
-{
+namespace TelegramSharp.Core {
+
     /// <summary>
     /// Message parser.
     /// </summary>
-    public partial class MessageParser
-    {
+    public partial class MessageParser {
+
         /// <summary>
         /// The parsed messages count.
         /// </summary>
@@ -35,8 +34,7 @@ namespace TelegramSharp.Core
         /// </summary>
         public int commandsParsed = 0;
 
-        private static long ToUnixTime(DateTime date)
-        {
+        private static long ToUnixTime(DateTime date) {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return Convert.ToInt64((date.ToUniversalTime() - epoch).TotalSeconds);
         }
@@ -46,47 +44,36 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="upd">Message to parse.</param>
         /// <param name="bot">Bot that should parse the message.</param>
-        public void ParseMessage(Update upd, TelegramService bot)
-        {
+        public void ParseMessage(Update upd, TelegramService bot) {
             parsedMessagesCount++;
             OnUpdateReceived(upd.Message, bot.BotIdentity, upd);
-            
-            if (upd.Message.Date >= ToUnixTime(DateTime.UtcNow) - 120)
-            {
-                if (upd.Message.Text != null)
-                {
+
+            if (upd.Message.Date >= ToUnixTime(DateTime.UtcNow) - 120) {
+                if (upd.Message.Text != null) {
                     OnTextMessageReceived(upd.Message, bot.BotIdentity);
                 }
-                else if (upd.Message.Audio != null)
-                {
+                else if (upd.Message.Audio != null) {
                     OnAudioReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Contact != null)
-                {
+                else if (upd.Message.Contact != null) {
                     OnContactReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Document != null)
-                {
+                else if (upd.Message.Document != null) {
                     OnDocumentReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Location != null)
-                {
+                else if (upd.Message.Location != null) {
                     OnLocationReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Photo != null)
-                {
+                else if (upd.Message.Photo != null) {
                     OnPhotoReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Sticker != null)
-                {
+                else if (upd.Message.Sticker != null) {
                     OnStickerReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Video != null)
-                {
+                else if (upd.Message.Video != null) {
                     OnVideoReceived(bot.BotIdentity, upd.Message);
                 }
-                else if (upd.Message.Voice != null)
-                {
+                else if (upd.Message.Voice != null) {
                     OnVoiceReceived(bot.BotIdentity, upd.Message);
                 }
             }
@@ -100,8 +87,7 @@ namespace TelegramSharp.Core
         /// <param name="bot"></param>
         /// <param name="onlyCommand"></param>
         /// <returns></returns>
-        public bool CheckForString(string trigger, string msg, TelegramService bot, bool onlyCommand = false)
-        {
+        public bool CheckForString(string trigger, string msg, TelegramService bot, bool onlyCommand = false) {
             string _trigger = trigger.ToLower();
             string _msg = msg.ToLower();
             Regex alone = new Regex(String.Format(@"^\/{0}", _trigger), RegexOptions.IgnoreCase);
@@ -110,8 +96,7 @@ namespace TelegramSharp.Core
             Regex alonePlusUser = new Regex(String.Format(@"^\/({0})({1})", _trigger, "@" + bot.BotIdentity.Username), RegexOptions.IgnoreCase);
             if (alonePlusUser.IsMatch(_msg))
                 return true;
-            if (!onlyCommand)
-            {
+            if (!onlyCommand) {
                 Regex singleWord = new Regex(String.Format(@"\b({0})\b", _trigger));
                 if (singleWord.IsMatch(_msg))
                     return true;

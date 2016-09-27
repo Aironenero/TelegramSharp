@@ -15,14 +15,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// Force reply.
     /// </summary>
     [DataContract]
-    public class ForceReply
-    {
+    public class ForceReply {
+
         /// <summary>
         /// Gets a value indicating whether this <see cref="Core.Objects.NetAPI.ForceReply"/> force reply.
         /// </summary>

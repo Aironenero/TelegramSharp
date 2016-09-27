@@ -14,13 +14,13 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// Loggable message.
     /// </summary>
-    public class LoggableMessage : Message
-    {
+    public class LoggableMessage : Message {
+
         /// <summary>
         /// Signs if the message have been logged.
         /// </summary>
@@ -36,8 +36,7 @@ namespace TelegramSharp.Core.Objects.NetAPI
         /// </summary>
         /// <param name="msg">Message to log.</param>
         /// <param name="bot">Bot that received this message.</param>
-        public LoggableMessage(Message msg, User bot)
-        {
+        public LoggableMessage(Message msg, User bot) {
             MessageId = msg.MessageId;
             From = msg.From;
             Date = msg.Date;

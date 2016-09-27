@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
-{
+namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder {
+
     /// <summary>
     /// TextComponent is the class that represents a complex message with markup on other stuff.
     /// </summary>
-    public class TextComponent : IBaseComponent
-    {
+    public class TextComponent : IBaseComponent {
+
         /// <summary>
         /// The parsing used to parse the message.
         /// </summary>
@@ -14,25 +14,21 @@ namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
 
         private List<TextArea> Elements = null;
 
-        public TextComponent(ParsingMode Mode = ParsingMode.NONE, params TextArea[] Elements)
-        {
+        public TextComponent(ParsingMode Mode = ParsingMode.NONE, params TextArea[] Elements) {
             this.Mode = Mode;
             this.Elements = new List<TextArea>();
             this.Elements.AddRange(Elements);
         }
 
-        public string Make()
-        {
+        public string Make() {
             string Res = "";
-            foreach (TextArea Element in Elements)
-            {
+            foreach (TextArea Element in Elements) {
                 Res += Element.Make(Mode);
             }
             return Res;
         }
 
-        public ParsingMode GetParsingMode()
-        {
+        public ParsingMode GetParsingMode() {
             return Mode;
         }
     }
@@ -40,24 +36,20 @@ namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
     /// <summary>
     /// With RawTextComponent you can type your custom message and apply the markup yourself. Just select the parsing mode.
     /// </summary>
-    public class RawTextComponent : IBaseComponent
-    {
+    public class RawTextComponent : IBaseComponent {
         public ParsingMode Mode { get; set; }
         public string RawText { get; set; }
 
-        public RawTextComponent(ParsingMode Mode, string Text)
-        {
+        public RawTextComponent(ParsingMode Mode, string Text) {
             this.Mode = Mode;
             this.RawText = Text;
         }
 
-        public string Make()
-        {
+        public string Make() {
             return RawText;
         }
 
-        public ParsingMode GetParsingMode()
-        {
+        public ParsingMode GetParsingMode() {
             return Mode;
         }
     }
@@ -65,8 +57,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
     /// <summary>
     /// Parsing modes that you can use. Can be MARKDOWN, HTML and NONE for no markup at all.
     /// </summary>
-    public enum ParsingMode
-    {
+    public enum ParsingMode {
         MARKDOWN, HTML, NONE
     }
 }

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
-{
+namespace TelegramSharp.Core.Objects.NetAPI.Keyboard {
+
     /// <summary>
     /// This class represents a ReplyKeyboardMarkup object. Also
     /// </summary>
-    public class Keyboard : IReplyMarkup
-    {
+    public class Keyboard : IReplyMarkup {
+
         /// <summary>
         /// Returns a multidimensional array of the buttons. The first array represents the row, while the second, the button.
         /// </summary>
@@ -39,19 +39,16 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// <param name="request_contact">The buttons should return a contact when pressed.</param>
         /// <param name="request_location">The buttons should return a location when pressed.</param>
         /// <returns></returns>
-        public static KeyboardBuilder Builder(bool request_contact = false, bool request_location = false)
-        {
+        public static KeyboardBuilder Builder(bool request_contact = false, bool request_location = false) {
             return new KeyboardBuilder(request_contact, request_location);
         }
 
-        public string serialize()
-        {
+        public string serialize() {
             return JsonConvert.SerializeObject(this);
         }
     }
 
-    public class KeyboardBuilder
-    {
+    public class KeyboardBuilder {
         private List<KeyboardRow> Rows = new List<KeyboardRow>();
 
         private bool RequestContact { get; set; }
@@ -65,8 +62,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// </summary>
         /// <param name="request_contact">The buttons should return a contact when pressed.</param>
         /// <param name="request_location">The buttons should return a location when pressed.</param>
-        public KeyboardBuilder(bool request_contact = false, bool request_location = false)
-        {
+        public KeyboardBuilder(bool request_contact = false, bool request_location = false) {
             this.RequestContact = request_contact;
             this.RequestLocation = request_location;
         }
@@ -76,8 +72,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public KeyboardBuilder SetResizeKeyboard(bool value)
-        {
+        public KeyboardBuilder SetResizeKeyboard(bool value) {
             this.ResizeKeyboard = value;
             return this;
         }
@@ -87,8 +82,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public KeyboardBuilder SetOneTimeKeyboard(bool value)
-        {
+        public KeyboardBuilder SetOneTimeKeyboard(bool value) {
             this.OneTimeKeyboard = value;
             return this;
         }
@@ -98,8 +92,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public KeyboardBuilder SetSelective(bool value)
-        {
+        public KeyboardBuilder SetSelective(bool value) {
             this.Selective = value;
             return this;
         }
@@ -109,11 +102,9 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// </summary>
         /// <param name="buttons">The buttons to be added with the row.</param>
         /// <returns></returns>
-        public KeyboardBuilder AddRow(params string[] buttons)
-        {
+        public KeyboardBuilder AddRow(params string[] buttons) {
             KeyboardRow row = new KeyboardRow();
-            foreach (string text in buttons)
-            {
+            foreach (string text in buttons) {
                 KeyboardButton button = new KeyboardButton();
                 button.Text = text;
                 button.RequestLocation = RequestLocation;
@@ -129,8 +120,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         /// Returns the finished keyboard.
         /// </summary>
         /// <returns>The finishied keyboard.</returns>
-        public Keyboard Build()
-        {
+        public Keyboard Build() {
             Keyboard res = new Keyboard();
 
             res.OneTimeKeyboard = OneTimeKeyboard;
@@ -142,14 +132,12 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
             return res;
         }
 
-        private KeyboardButton[][] getMultidimensionalButtonArray()
-        {
+        private KeyboardButton[][] getMultidimensionalButtonArray() {
             KeyboardButton[][] Res = null;
 
             Res = new KeyboardButton[Rows.Count][];
 
-            for (int i = 0; i < Rows.Count; i++)
-            {
+            for (int i = 0; i < Rows.Count; i++) {
                 Res[i] = Rows.ElementAt(i).KeyboardButtonArray;
             }
 

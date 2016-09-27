@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
-{
-    public class ReplyKeyboardHide : IReplyMarkup
-    {
+namespace TelegramSharp.Core.Objects.NetAPI.Keyboard {
+
+    public class ReplyKeyboardHide : IReplyMarkup {
+
         /// <summary>
         /// Always true. This object hides a keyboard after being used.
         /// </summary>
@@ -16,8 +16,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         [JsonProperty(PropertyName = "selective")]
         public bool Selective { get; set; }
 
-        public string serialize()
-        {
+        public string serialize() {
             return JsonConvert.SerializeObject(this);
         }
     }

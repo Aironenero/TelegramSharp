@@ -1,7 +1,7 @@
-﻿namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder
-{
-    public interface TextArea
-    {
+﻿namespace TelegramSharp.Core.Objects.NetAPI.TextBuilder {
+
+    public interface TextArea {
+
         /// <summary>
         /// Applys the markup to this part of text.
         /// </summary>
@@ -13,8 +13,7 @@
     /// <summary>
     /// TextElement is a part of the message with a specific markup on. Can be BOLD, ITALIC, CODE, PRE_FORMATTED_CODE and PLAIN which will print a normal message.
     /// </summary>
-    public class TextElement : TextArea
-    {
+    public class TextElement : TextArea {
         public string Text = "";
         public TextType Type = null;
 
@@ -23,17 +22,14 @@
         /// </summary>
         /// <param name="Text">The text.</param>
         /// <param name="Type">The TextType. Can be BOLD, ITALIC, CODE, PRE_FORMATTED_CODE and PLAIN which will print a normal message</param>
-        public TextElement(string Text, TextType Type)
-        {
+        public TextElement(string Text, TextType Type) {
             this.Text = Text;
             this.Type = Type;
         }
 
-        public string Make(ParsingMode Mode)
-        {
+        public string Make(ParsingMode Mode) {
             string Res = "";
-            switch (Mode)
-            {
+            switch (Mode) {
                 case ParsingMode.HTML:
                     Res += Type.HtmlStart;
                     Res += Text.Replace("<", "&lt;").Replace(">", "&gt;").Replace("&", "&amp;");
@@ -60,8 +56,7 @@
     /// <summary>
     /// This object represents an hyperlink. An hyperlink cannot have markup, like regular messages do.
     /// </summary>
-    public class TextHyperlink : TextArea
-    {
+    public class TextHyperlink : TextArea {
         public string Text = "";
         public string Url = "";
 
@@ -70,17 +65,14 @@
         /// </summary>
         /// <param name="Text">The text.</param>
         /// <param name="Url">The url.</param>
-        public TextHyperlink(string Text, string Url)
-        {
+        public TextHyperlink(string Text, string Url) {
             this.Text = Text;
             this.Url = Url;
         }
 
-        public string Make(ParsingMode Mode)
-        {
+        public string Make(ParsingMode Mode) {
             string Res = "";
-            switch (Mode)
-            {
+            switch (Mode) {
                 case ParsingMode.HTML:
                     Res += "<a href=\"" + Url + "\">" + Text + "</a>";
                     break;
@@ -99,8 +91,7 @@
     /// <summary>
     /// TextTypes for the strings.
     /// </summary>
-    public class TextType
-    {
+    public class TextType {
         public static TextType BOLD = new TextType(@"<b>", @"</b>", @"*");
         public static TextType ITALIC = new TextType(@"<i>", @"</i>", @"_");
         public static TextType CODE = new TextType("@<code>", "@</code>", @"`");
@@ -122,8 +113,7 @@
         /// </summary>
         public string MarkdownSymbol { get; }
 
-        private TextType(string HtmlStart, string HtmlEnd, string MarkdownSymbol)
-        {
+        private TextType(string HtmlStart, string HtmlEnd, string MarkdownSymbol) {
             this.HtmlStart = HtmlStart;
             this.HtmlEnd = HtmlEnd;
             this.MarkdownSymbol = MarkdownSymbol;

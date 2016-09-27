@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
-{
-    public class KeyboardButton
-    {
+namespace TelegramSharp.Core.Objects.NetAPI.Keyboard {
+
+    public class KeyboardButton {
+
         /// <summary>
         /// This is the text shown on the button. When pressed, a message is sent with the text of the button.
         /// </summary>

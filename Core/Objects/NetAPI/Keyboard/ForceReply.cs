@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
-{
-    internal class ForceReply : IReplyMarkup
-    {
+namespace TelegramSharp.Core.Objects.NetAPI.Keyboard {
+
+    internal class ForceReply : IReplyMarkup {
+
         /// <summary>
         /// Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot‘s message and tapped 'Reply').
         /// </summary>
@@ -16,8 +16,7 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
         [JsonProperty(PropertyName = "selective")]
         public bool Selective { get; set; }
 
-        public string serialize()
-        {
+        public string serialize() {
             return JsonConvert.SerializeObject(this);
         }
     }

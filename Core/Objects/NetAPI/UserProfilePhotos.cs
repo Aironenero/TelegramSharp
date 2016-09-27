@@ -15,14 +15,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// User profile photos.
     /// </summary>
     [DataContract]
-    public class UserProfilePhotos
-    {
+    public class UserProfilePhotos {
+
         /// <summary>
         /// Gets or sets the total count.
         /// </summary>

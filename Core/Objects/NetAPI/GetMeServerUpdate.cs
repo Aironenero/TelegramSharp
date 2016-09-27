@@ -15,14 +15,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// A server update containing the bot user informations.
     /// </summary>
     [DataContract]
-    public class GetMeServerUpdate
-    {
+    public class GetMeServerUpdate {
+
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Core.Objects.NetAPI.GetMeServerUpdate"/> is ok.
         /// </summary>

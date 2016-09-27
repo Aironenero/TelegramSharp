@@ -1,13 +1,13 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core
-{
+namespace TelegramSharp.Core {
+
     /// <summary>
     /// Contains data from a telegram update (any media, for only text messages use TextMessageReceived)
     /// </summary>
-    public class UpdateReceivedEventArgs : EventArgs
-    {
+    public class UpdateReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// Message received (contains any media)
         /// </summary>
@@ -34,11 +34,15 @@ namespace TelegramSharp.Core
         /// <param name="msg">The message</param>
         /// <param name="bot">The bot</param>
         /// <param name="upd">The Update</param>
-        public UpdateReceivedEventArgs(Message msg, Update upd, User bot)
-        {
+        public UpdateReceivedEventArgs(Message msg, Update upd, User bot) {
             Message = msg;
             FromBot = bot;
-            ChatID = msg.Chat.Id;
+            if (msg != null) {
+                ChatID = msg.Chat.Id;
+            }
+            else {
+                Message = null;
+            }
             Update = upd;
             FromBot = bot;
         }
@@ -47,8 +51,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// Contains text message from a telegram update
     /// </summary>
-    public class TextMessageReceivedEventArgs : EventArgs
-    {
+    public class TextMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// Text of the message
         /// </summary>
@@ -74,8 +78,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="msg">The text message</param>
         /// <param name="bot">The bot</param>
-        public TextMessageReceivedEventArgs(Message msg, User bot)
-        {
+        public TextMessageReceivedEventArgs(Message msg, User bot) {
             FromBot = bot;
             Sender = msg.From;
             MessageText = msg.Text;
@@ -86,8 +89,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// Args used by the AudioReceivedEvent.
     /// </summary>
-    public class AudioMessageReceivedEventArgs : EventArgs
-    {
+    public class AudioMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The audio message received.
         /// </summary>
@@ -113,8 +116,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message</param>
         /// <param name="bot">The bot</param>
-        public AudioMessageReceivedEventArgs(Message message, User bot)
-        {
+        public AudioMessageReceivedEventArgs(Message message, User bot) {
             AudioMessage = message.Audio;
             Sender = message.From;
             Bot = bot;
@@ -125,8 +127,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// Args used by the ContactReceivedEvent.
     /// </summary>
-    public class ContactMessageReceivedEventArgs : EventArgs
-    {
+    public class ContactMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The contact received.
         /// </summary>
@@ -152,8 +154,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public ContactMessageReceivedEventArgs(Message message, User bot)
-        {
+        public ContactMessageReceivedEventArgs(Message message, User bot) {
             Contact = message.Contact;
             Sender = message.From;
             Bot = bot;
@@ -164,8 +165,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// Args used by the DocumentReceivedEvent.
     /// </summary>
-    public class DocumentMessageReceivedEventArgs : EventArgs
-    {
+    public class DocumentMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The document received.
         /// </summary>
@@ -191,8 +192,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public DocumentMessageReceivedEventArgs(Message message, User bot)
-        {
+        public DocumentMessageReceivedEventArgs(Message message, User bot) {
             Document = message.Document;
             Sender = message.From;
             Bot = bot;
@@ -203,8 +203,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// The args used by the LocationReceivedEvent.
     /// </summary>
-    public class LocationMessageReceivedEventArgs : EventArgs
-    {
+    public class LocationMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The location received.
         /// </summary>
@@ -230,8 +230,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public LocationMessageReceivedEventArgs(Message message, User bot)
-        {
+        public LocationMessageReceivedEventArgs(Message message, User bot) {
             Location = message.Location;
             Sender = message.From;
             Bot = bot;
@@ -242,8 +241,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// The args used by the PhotoReceivedEvent.
     /// </summary>
-    public class PhotoMessageReceivedEventArgs : EventArgs
-    {
+    public class PhotoMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The photo received.
         /// </summary>
@@ -269,8 +268,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public PhotoMessageReceivedEventArgs(Message message, User bot)
-        {
+        public PhotoMessageReceivedEventArgs(Message message, User bot) {
             Photo = message.Photo;
             Sender = message.From;
             Bot = bot;
@@ -281,8 +279,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// The args used by the StickerReceivedEvent.
     /// </summary>
-    public class StickerMessageReceivedEventArgs : EventArgs
-    {
+    public class StickerMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The sticker received.
         /// </summary>
@@ -308,8 +306,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public StickerMessageReceivedEventArgs(Message message, User bot)
-        {
+        public StickerMessageReceivedEventArgs(Message message, User bot) {
             Sticker = message.Sticker;
             Sender = message.From;
             Bot = bot;
@@ -320,8 +317,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// The args used by the VideoReceivedEvent.
     /// </summary>
-    public class VideoMessageReceivedEventArgs : EventArgs
-    {
+    public class VideoMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The video received.
         /// </summary>
@@ -347,8 +344,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public VideoMessageReceivedEventArgs(Message message, User bot)
-        {
+        public VideoMessageReceivedEventArgs(Message message, User bot) {
             Video = message.Video;
             Sender = message.From;
             Bot = bot;
@@ -359,8 +355,8 @@ namespace TelegramSharp.Core
     /// <summary>
     /// The args used by the VoiceReceivedEvent.
     /// </summary>
-    public class VoiceMessageReceivedEventArgs : EventArgs
-    {
+    public class VoiceMessageReceivedEventArgs : EventArgs {
+
         /// <summary>
         /// The received voice message.
         /// </summary>
@@ -386,8 +382,7 @@ namespace TelegramSharp.Core
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="bot">The bot.</param>
-        public VoiceMessageReceivedEventArgs(Message message, User bot)
-        {
+        public VoiceMessageReceivedEventArgs(Message message, User bot) {
             Voice = message.Voice;
             Sender = message.From;
             Bot = bot;
@@ -395,9 +390,6 @@ namespace TelegramSharp.Core
         }
     }
 
-    public class UpdateEventReceivedArgs : EventArgs
-    {
-
-
+    public class UpdateEventReceivedArgs : EventArgs {
     }
 }

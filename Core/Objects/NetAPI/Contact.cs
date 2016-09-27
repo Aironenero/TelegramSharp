@@ -15,14 +15,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// Contact.
     /// </summary>
     [DataContract]
-    public class Contact
-    {
+    public class Contact {
+
         /// <summary>
         /// The phone number.
         /// </summary>

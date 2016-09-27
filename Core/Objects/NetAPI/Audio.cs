@@ -15,14 +15,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
-{
+namespace TelegramSharp.Core.Objects.NetAPI {
+
     /// <summary>
     /// Audio.
     /// </summary>
     [DataContract]
-    public class Audio
-    {
+    public class Audio {
+
         /// <summary>
         /// Gets or sets the file identifier.
         /// </summary>
