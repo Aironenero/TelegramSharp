@@ -61,19 +61,20 @@ namespace TelegramSharp.Core {
         public void Start() {
             Console.WriteLine("Loaded TelegramSharp V0.3!");
             Console.WriteLine("Listener Started");
+            NetService = new NetworkSender();
             UpTimeCounter.Start();
             try {
                 if (Cfg == null) {
                     Console.WriteLine("Missing configuration, compile the generated config file and restart the program or pass a reference to a CFG class containing all the fields");
                 }
-                BotIdentity = JSON.DeserializeAndParseGetMe(NetworkSender.GetMe(Cfg.BotToken), this);
-                string s = NetworkSender.GetUpdates(Cfg.BotToken, -1, 60);
+                BotIdentity = JSON.DeserializeAndParseGetMe(NetService.GetMe(Cfg.BotToken), this);
+                string s = NetService.GetUpdates(Cfg.BotToken, 0);
                 if (s != null) {
                     JSON.DeserializeAndParseMessages(s, this);
                 }
                 while (true) {
                     int notResponding = 0;
-                    s = NetworkSender.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
+                    s = NetService.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
                     if (s != null) {
                         notResponding = 0;
                         JSON.DeserializeAndParseMessages(s, this);

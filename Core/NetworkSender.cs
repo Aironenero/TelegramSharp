@@ -264,9 +264,9 @@ namespace TelegramSharp.Core {
             return url + token;
         }
 
-        public void GetMe(string token)
+        public string GetMe(string token)
         {
-            Request.Builder(CombineUri(token)).Build().Execute();
+            return Request.Builder(CombineUri(token)).Build().Execute();
         }
 
         //TODO => check if this method actually returns the right data
@@ -280,11 +280,11 @@ namespace TelegramSharp.Core {
                 .Execute();
         }
 
-        public void SendMessage(string token, int ChatId, string Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
+        public void SendMessage(string token, int ChatId, IBaseComponent Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
         {
             Request.Builder(CombineUri(token))
                 .AddParameter("chat_id", ChatId.ToString())
-                .AddParameter("text", Text)
+                .AddParameter("text", Text.Make())
                 .AddParameter("parse_mode", ParseMode)
                 .AddParameter("disable_web_page_preview", DisableWebPagePreview.ToString())
                 .AddParameter("disable_notification", DisableNotification.ToString())
