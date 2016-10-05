@@ -275,7 +275,7 @@ namespace TelegramSharp.Core {
 
         //TODO => check if this method actually returns the right data
         //HACK (classified as)
-        public string GetUpdates(string token, int Offset, int Limit = 100, int Timeout = 60) {
+        public string GetUpdates(string token, int Offset, int Limit = 100, int Timeout = 0) {
             return Request.Builder(CombineUri(token)+@"/getUpdates")
                 .AddParameter("offset", Offset.ToString())
                 .AddParameter("limit", Limit.ToString())

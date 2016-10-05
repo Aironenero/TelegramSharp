@@ -47,7 +47,7 @@ namespace TelegramSharp.Core {
         public void ParseMessage(Update upd, TelegramService bot) {
             parsedMessagesCount++;
             OnUpdateReceived(upd.Message, bot.BotIdentity, upd);
-
+            //TODO => add venue and other missing callbacks
             if (upd?.Message?.Date != null && upd.Message.Date >= ToUnixTime(DateTime.UtcNow) - 120) {
                 if (upd.Message.Text != null) {
                     OnTextMessageReceived(upd.Message, bot.BotIdentity);

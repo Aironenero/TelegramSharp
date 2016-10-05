@@ -51,6 +51,7 @@ namespace TelegramSharp.Core {
                         if (upd.CallbackQuery != null)
                             bot.Parser.OnUpdateReceived(upd.Message, bot.BotIdentity, upd);
                     }
+                    Offset++;
                 }
             }
             catch (JsonReaderException e) {

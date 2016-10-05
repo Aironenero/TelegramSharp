@@ -67,7 +67,7 @@ namespace TelegramSharp.Core.Utils {
 
                         postString += prm + "=" + Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(value));
 
-                        if ((i + 1) >= Parameters.Count) {
+                        if (i != Parameters.Count -1) {
                             postString += "&";
                         }
                     }

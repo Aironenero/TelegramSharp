@@ -68,27 +68,14 @@ namespace TelegramSharp.Core {
                     Console.WriteLine("Missing configuration, compile the generated config file and restart the program or pass a reference to a CFG class containing all the fields");
                 }
                 BotIdentity = JSON.DeserializeAndParseGetMe(NetService.GetMe(Cfg.BotToken), this);
-                string s = NetService.GetUpdates(Cfg.BotToken, 0);
+                string s = NetService.GetUpdates(Cfg.BotToken, -1);
                 if (s != null) {
                     JSON.DeserializeAndParseMessages(s, this);
                 }
                 while (true) {
-                    int notResponding = 0;
-                    s = NetService.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
+                    s = NetService.GetUpdates(Cfg.BotToken, JSON.Offset, 60);
                     if (s != null) {
-                        notResponding = 0;
                         JSON.DeserializeAndParseMessages(s, this);
-                    }
-                    else {
-                        if (notResponding < 6) {
-                            notResponding++;
-                            Console.WriteLine("Update was not successful! Trying again...");
-                            System.Threading.Thread.Sleep(10000);
-                        }
-                        else {
-                            Console.WriteLine("Update was not successful for 6 times! Shutting down...");
-                            Process.GetCurrentProcess().Kill();
-                        }
                     }
                 }
             }
