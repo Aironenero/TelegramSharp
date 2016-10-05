@@ -28,6 +28,7 @@ namespace TelegramSharp.Core {
     /// </summary>
     public class NetworkSender {
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         /// <summary>
         /// Gets the updates containing messages.
         /// </summary>
@@ -73,6 +74,7 @@ namespace TelegramSharp.Core {
             return null;
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         /// <summary>
         /// Forwards a message to a chat
         /// </summary>
@@ -116,6 +118,7 @@ namespace TelegramSharp.Core {
             }
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
@@ -129,6 +132,7 @@ namespace TelegramSharp.Core {
                 .Execute();
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         public static void SendPhoto(string token, long chatId, Property property, string caption = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             if (property.PropertyValue == PropertyValue.FILE) {
@@ -155,6 +159,7 @@ namespace TelegramSharp.Core {
             }
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         public static void SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             if (property.PropertyValue == PropertyValue.FILE) {
@@ -185,6 +190,7 @@ namespace TelegramSharp.Core {
             }
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         public static void answerCallbackQuery(string token, string callbackQueryId, string text = "", bool showAlert = false) {
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/answerCallbackQuery")
                 .AddParameter("callback_query_id", callbackQueryId)
@@ -192,6 +198,7 @@ namespace TelegramSharp.Core {
                 .AddParameter("show_alert", showAlert + "").Build().Execute();
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         public static void editMessageText(string token, long chatId, long messageId, string inlineMessageId, IBaseComponent component, bool disableWebPagePreview = false, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
@@ -212,6 +219,7 @@ namespace TelegramSharp.Core {
         /// </summary>
         /// <returns>The <c>User</c> containing the bot acocunt infos.</returns>
         /// <param name="token">Bot token.</param>
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         public static string GetMe(string token) {
             try {
                 // Create a request
