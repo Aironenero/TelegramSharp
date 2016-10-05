@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -97,6 +97,16 @@
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\TelegramService.cs" />
     <Compile Include="Core\ConfigManager.cs" />
+    <Compile Include="Core\EventArgs\UpdateReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\TextMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\AudioMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\ContactMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\DocumentMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\LocationMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\PhotoMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\StickerMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\VideoMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\EventArgs\VoiceMessageReceivedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -115,4 +125,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Core\EventArgs\" />
+  </ItemGroup>
 </Project>
