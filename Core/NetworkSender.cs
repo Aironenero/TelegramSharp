@@ -295,7 +295,7 @@ namespace TelegramSharp.Core {
         /// <param name="DisableNotification">Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.</param>
         /// <param name="ReplyToMessageId">If the message is a reply, ID of the original message</param>
         /// <param name="ReplyMarkup">Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to hide reply keyboard or to force a reply from the user.</param>
-        public void SendMessage(string token, int ChatId, IBaseComponent Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
+        public void SendMessage(string token, long ChatId, IBaseComponent Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
         {
             Request.Builder(CombineUri(token)+@"/sendMessage")
                 .AddParameter("chat_id", ChatId.ToString())
