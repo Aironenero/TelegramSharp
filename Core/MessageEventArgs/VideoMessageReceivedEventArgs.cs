@@ -30,7 +30,7 @@ namespace TelegramSharp.Core.MessageEventArgs
 		/// <summary>
 		/// Contains Video from a telegram message
 		/// </summary>
-		/// <param name="message">The message.</param>
+		/// <param name="msg">The message.</param>
 		/// <param name="bot">The bot.</param>
 		public VideoMessageReceivedEventArgs(Message msg, User bot) {
 			Video = msg.Video;

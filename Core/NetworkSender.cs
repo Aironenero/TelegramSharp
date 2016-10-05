@@ -263,7 +263,11 @@ namespace TelegramSharp.Core {
         private static string CombineUri(string token, string url = "https://api.telegram.org/bot") {
             return url + token;
         }
-
+        /// <summary>
+        /// Creates and execute a getMe request to telegram servers
+        /// </summary>
+        /// <param name="token">the bot's token</param>
+        /// <returns></returns>
         public string GetMe(string token)
         {
             return Request.Builder(CombineUri(token)+@"/getMe").Build().Execute();
@@ -280,6 +284,17 @@ namespace TelegramSharp.Core {
                 .Execute();
         }
 
+        /// <summary>
+        /// Creates and execute a request to send a message
+        /// </summary>
+        /// <param name="token">the bot's token</param>
+        /// <param name="ChatId">Identifier of the target chat/param>
+        /// <param name="Text">Text to be sent in the message</param>
+        /// <param name="ParseMode">Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs</param>
+        /// <param name="DisableWebPagePreview">Disables link previews for links in this message</param>
+        /// <param name="DisableNotification">Sends the message silently. iOS users will not receive a notification, Android users will receive a notification with no sound.</param>
+        /// <param name="ReplyToMessageId">If the message is a reply, ID of the original message</param>
+        /// <param name="ReplyMarkup">Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to hide reply keyboard or to force a reply from the user.</param>
         public void SendMessage(string token, int ChatId, IBaseComponent Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
         {
             Request.Builder(CombineUri(token)+@"/sendMessage")

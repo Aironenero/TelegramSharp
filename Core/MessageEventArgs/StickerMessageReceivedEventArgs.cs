@@ -31,7 +31,7 @@ namespace TelegramSharp.Core.MessageEventArgs
 		/// <summary>
 		/// Contains Sticker from a telegram message.
 		/// </summary>
-		/// <param name="message">The message.</param>
+		/// <param name="msg">The message.</param>
 		/// <param name="bot">The bot.</param>
 		public StickerMessageReceivedEventArgs(Message msg, User bot) {
 			Sticker = msg.Sticker;

@@ -10,7 +10,7 @@ namespace TelegramSharp.Core {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public delegate void UpdateReceivedHandler(object sender, MessageEventArgs.UpdateReceivedEventArgs e);
-
+        
         public event UpdateReceivedHandler UpdateReceived;
 
         /// <summary>

@@ -31,7 +31,7 @@ namespace TelegramSharp.Core.MessageEventArgs
 		/// <summary>
 		/// Contains a contact from a telegram message.
 		/// </summary>
-		/// <param name="message">The message.</param>
+		/// <param name="msg">The message.</param>
 		/// <param name="bot">The bot.</param>
 		public ContactMessageReceivedEventArgs(Message msg, User bot) {
 			Contact = msg.Contact;

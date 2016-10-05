@@ -3,6 +3,9 @@ using TelegramSharp.Core.Objects.NetAPI;
 
 namespace TelegramSharp.Core.MessageEventArgs
 {
+    /// <summary>
+    /// The args used by UpdateReceived.
+    /// </summary>
 	public class UpdateReceivedEventArgs : EventArgs
 	{
 		/// <summary>

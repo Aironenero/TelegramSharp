@@ -31,7 +31,7 @@ namespace TelegramSharp.Core.MessageEventArgs
 		/// <summary>
 		/// Contains Location from a telegram message
 		/// </summary>
-		/// <param name="message">The message.</param>
+		/// <param name="msg">The message.</param>
 		/// <param name="bot">The bot.</param>
 		public LocationMessageReceivedEventArgs(Message msg, User bot) {
 			Location = msg.Location;
