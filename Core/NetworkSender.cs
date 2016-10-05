@@ -266,13 +266,13 @@ namespace TelegramSharp.Core {
 
         public string GetMe(string token)
         {
-            return Request.Builder(CombineUri(token)).Build().Execute();
+            return Request.Builder(CombineUri(token)+@"/getMe").Build().Execute();
         }
 
         //TODO => check if this method actually returns the right data
         //HACK (classified as)
         public string GetUpdates(string token, int Offset, int Limit = 100, int Timeout = 60) {
-            return Request.Builder(CombineUri(token))
+            return Request.Builder(CombineUri(token)+@"/getUpdates")
                 .AddParameter("offset", Offset.ToString())
                 .AddParameter("limit", Limit.ToString())
                 .AddParameter("timeout", Timeout.ToString())
@@ -282,7 +282,7 @@ namespace TelegramSharp.Core {
 
         public void SendMessage(string token, int ChatId, IBaseComponent Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
         {
-            Request.Builder(CombineUri(token))
+            Request.Builder(CombineUri(token)+@"/sendMessage")
                 .AddParameter("chat_id", ChatId.ToString())
                 .AddParameter("text", Text.Make())
                 .AddParameter("parse_mode", ParseMode)
