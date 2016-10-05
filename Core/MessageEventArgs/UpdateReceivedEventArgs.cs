@@ -1,7 +1,7 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core.EventArgs
+namespace TelegramSharp.Core.MessageEventArgs
 {
 	public class UpdateReceivedEventArgs : EventArgs
 	{
@@ -25,6 +25,6 @@ namespace TelegramSharp.Core.EventArgs
 			Update = upd;
 		}
 	}
-	}
 }
+
 

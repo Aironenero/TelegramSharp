@@ -9,7 +9,7 @@ namespace TelegramSharp.Core {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public delegate void UpdateReceivedHandler(object sender, EventArgs.UpdateReceivedEventArgs e);
+        public delegate void UpdateReceivedHandler(object sender, MessageEventArgs.UpdateReceivedEventArgs e);
 
         public event UpdateReceivedHandler UpdateReceived;
 
@@ -19,7 +19,7 @@ namespace TelegramSharp.Core {
         /// <param name="message">The message</param>
         /// <param name="bot">The bot</param>
         public virtual void OnUpdateReceived(Message message, User bot, Update update) {
-			UpdateReceived?.Invoke(this, new EventArgs.UpdateReceivedEventArgs(update, bot));
+			UpdateReceived?.Invoke(this, new MessageEventArgs.UpdateReceivedEventArgs(update, bot));
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace TelegramSharp.Core {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public delegate void TextMessageReceived(object sender, EventArgs.TextMessageReceivedEventArgs e);
+		public delegate void TextMessageReceived(object sender, MessageEventArgs.TextMessageReceivedEventArgs e);
 
         /// <summary>
         ///
@@ -40,71 +40,71 @@ namespace TelegramSharp.Core {
         /// <param name="msg">The text message</param>
         /// <param name="bot">The bot</param>
         protected virtual void OnTextMessageReceived(Message msg, User bot) {
-			TextMessageReceivedEvent?.Invoke(this, new EventArgs.TextMessageReceivedEventArgs(msg, bot));
+			TextMessageReceivedEvent?.Invoke(this, new MessageEventArgs.TextMessageReceivedEventArgs(msg, bot));
         }
 
-		public delegate void AudioReceivedEventHandler(object sender, EventArgs.AudioMessageReceivedEventArgs args);
+		public delegate void AudioReceivedEventHandler(object sender, MessageEventArgs.AudioMessageReceivedEventArgs args);
 
         public event AudioReceivedEventHandler AudioReceived;
 
         protected virtual void OnAudioReceived(User bot, Message message) {
-			AudioReceived?.Invoke(this, new EventArgs.AudioMessageReceivedEventArgs(message, bot));
+			AudioReceived?.Invoke(this, new MessageEventArgs.AudioMessageReceivedEventArgs(message, bot));
         }
 
-		public delegate void ContactReceivedEventHandler(object sender, EventArgs.ContactMessageReceivedEventArgs args);
+		public delegate void ContactReceivedEventHandler(object sender, MessageEventArgs.ContactMessageReceivedEventArgs args);
 
         public event ContactReceivedEventHandler ContactReceived;
 
         protected virtual void OnContactReceived(User bot, Message message) {
-			ContactReceived?.Invoke(this, new EventArgs.ContactMessageReceivedEventArgs(message, bot));
+			ContactReceived?.Invoke(this, new MessageEventArgs.ContactMessageReceivedEventArgs(message, bot));
         }
 
-        public delegate void DocumentReceivedEventHandler(object sender, EventArgs.DocumentMessageReceivedEventArgs args);
+        public delegate void DocumentReceivedEventHandler(object sender, MessageEventArgs.DocumentMessageReceivedEventArgs args);
 
         public event DocumentReceivedEventHandler DocumentReceived;
 
         protected virtual void OnDocumentReceived(User bot, Message message) {
-			DocumentReceived?.Invoke(this, new EventArgs.DocumentMessageReceivedEventArgs(message, bot));
+			DocumentReceived?.Invoke(this, new MessageEventArgs.DocumentMessageReceivedEventArgs(message, bot));
         }
 
-		public delegate void LocationReceivedEventHandler(object sender, EventArgs.LocationMessageReceivedEventArgs args);
+		public delegate void LocationReceivedEventHandler(object sender, MessageEventArgs.LocationMessageReceivedEventArgs args);
 
         public event LocationReceivedEventHandler LocationReceived;
 
         protected virtual void OnLocationReceived(User bot, Message message) {
-			LocationReceived?.Invoke(this, new EventArgs.LocationMessageReceivedEventArgs(message, bot));
+			LocationReceived?.Invoke(this, new MessageEventArgs.LocationMessageReceivedEventArgs(message, bot));
         }
 
-		public delegate void PhotoReceivedEventHandler(object sender, EventArgs.PhotoMessageReceivedEventArgs args);
+		public delegate void PhotoReceivedEventHandler(object sender, MessageEventArgs.PhotoMessageReceivedEventArgs args);
 
         public event PhotoReceivedEventHandler PhotoReceived;
 
         protected virtual void OnPhotoReceived(User bot, Message message) {
-			PhotoReceived?.Invoke(this, new EventArgs.PhotoMessageReceivedEventArgs(message, bot));
+			PhotoReceived?.Invoke(this, new MessageEventArgs.PhotoMessageReceivedEventArgs(message, bot));
         }
 
-		public delegate void StickerReceivedEventHandler(object sender, EventArgs.StickerMessageReceivedEventArgs args);
+		public delegate void StickerReceivedEventHandler(object sender, MessageEventArgs.StickerMessageReceivedEventArgs args);
 
         public event StickerReceivedEventHandler StickerReceived;
 
         protected virtual void OnStickerReceived(User bot, Message message) {
-			StickerReceived?.Invoke(this, new EventArgs.StickerMessageReceivedEventArgs(message, bot));
+			StickerReceived?.Invoke(this, new MessageEventArgs.StickerMessageReceivedEventArgs(message, bot));
         }
 
-		public delegate void VideoReceivedEventHandler(object sender, EventArgs.VideoMessageReceivedEventArgs args);
+		public delegate void VideoReceivedEventHandler(object sender, MessageEventArgs.VideoMessageReceivedEventArgs args);
 
         public event VideoReceivedEventHandler VideoReceived;
 
         protected virtual void OnVideoReceived(User bot, Message message) {
-			VideoReceived?.Invoke(this, new EventArgs.VideoMessageReceivedEventArgs(message, bot));
+			VideoReceived?.Invoke(this, new MessageEventArgs.VideoMessageReceivedEventArgs(message, bot));
         }
 
-		public delegate void VoiceReceivedEventHandler(object sender, EventArgs.VoiceMessageReceivedEventArgs args);
+		public delegate void VoiceReceivedEventHandler(object sender, MessageEventArgs.VoiceMessageReceivedEventArgs args);
 
         public event VoiceReceivedEventHandler VoiceReceived;
 
         protected virtual void OnVoiceReceived(User bot, Message message) {
-			VoiceReceived?.Invoke(this, new EventArgs.VoiceMessageReceivedEventArgs(message, bot));
+			VoiceReceived?.Invoke(this, new MessageEventArgs.VoiceMessageReceivedEventArgs(message, bot));
         }
     }
 }

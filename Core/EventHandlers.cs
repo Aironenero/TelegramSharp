@@ -6,7 +6,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// Contains data from a telegram update (any media, for only text messages use TextMessageReceived)
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)] 
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)] 
     public class UpdateReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// Contains text message from a telegram update
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class TextMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// Args used by the AudioReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class AudioMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// Args used by the ContactReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class ContactMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// Args used by the DocumentReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class DocumentMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// The args used by the LocationReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class LocationMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// The args used by the PhotoReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class PhotoMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// The args used by the StickerReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class StickerMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// The args used by the VideoReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class VideoMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace TelegramSharp.Core {
     /// <summary>
     /// The args used by the VoiceReceivedEvent.
     /// </summary>
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
 	public class VoiceMessageReceivedEventArgs : EventArgs {
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace TelegramSharp.Core {
         }
     }
 
-	[Obsolete("use corresponding EventArgs in Core.EventArgs namespace",true)]
+	[Obsolete("use corresponding EventArgs in Core.MessageEventArgs namespace",true)]
     public class UpdateEventReceivedArgs : EventArgs {
     }
 }

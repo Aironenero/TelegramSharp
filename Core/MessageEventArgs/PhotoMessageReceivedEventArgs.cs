@@ -1,20 +1,20 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core.EventArgs
+namespace TelegramSharp.Core.MessageEventArgs
 {
 	/// <summary>
-	/// The args used by StickerReceivedEvent.
+	/// The args used by PhotoReceivedEvent.
 	/// </summary>
-	public class StickerMessageReceivedEventArgs : EventArgs
+	public class PhotoMessageReceivedEventArgs : EventArgs
 	{
 		/// <summary>
-		/// The sticker received.
+		/// The photo received.
 		/// </summary>
-		public Sticker Sticker;
+		public PhotoSize[] Photo;
 
 		/// <summary>
-		/// The user who sent the sticker.
+		/// The user who sent the photo.
 		/// </summary>
 		public User Sender;
 
@@ -29,12 +29,12 @@ namespace TelegramSharp.Core.EventArgs
 		public long ChatID;
 
 		/// <summary>
-		/// Contains Sticker from a telegram message.
+		/// Contains Photo from a telegram message
 		/// </summary>
 		/// <param name="message">The message.</param>
 		/// <param name="bot">The bot.</param>
-		public StickerMessageReceivedEventArgs(Message msg, User bot) {
-			Sticker = msg.Sticker;
+		public PhotoMessageReceivedEventArgs(Message msg, User bot) {
+			Photo = msg.Photo;
 			Sender = msg.From;
 			Bot = bot;
 			ChatID = msg.Chat.Id;

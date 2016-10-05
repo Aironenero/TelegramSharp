@@ -1,20 +1,20 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core.EventArgs
+namespace TelegramSharp.Core.MessageEventArgs
 {
 	/// <summary>
-	/// The args used by LocationReceivedEvent.
+	/// The args used by VoiceReceivedEvent.
 	/// </summary>
-	public class LocationMessageReceivedEventArgs : EventArgs
+	public class VoiceMessageReceivedEventArgs
 	{
 		/// <summary>
-		/// The location received.
+		/// The received voice message.
 		/// </summary>
-		public Location Location;
+		public Voice Voice;
 
 		/// <summary>
-		/// The user who sent the location.
+		/// The user who sent the voice message.
 		/// </summary>
 		public User Sender;
 
@@ -29,12 +29,12 @@ namespace TelegramSharp.Core.EventArgs
 		public long ChatID;
 
 		/// <summary>
-		/// Contains Location from a telegram message
+		/// Contains audio from a telegram message
 		/// </summary>
 		/// <param name="message">The message.</param>
 		/// <param name="bot">The bot.</param>
-		public LocationMessageReceivedEventArgs(Message msg, User bot) {
-			Location = msg.Location;
+		public VoiceMessageReceivedEventArgs(Message msg, User bot) {
+			Voice = msg.Voice;
 			Sender = msg.From;
 			Bot = bot;
 			ChatID = msg.Chat.Id;

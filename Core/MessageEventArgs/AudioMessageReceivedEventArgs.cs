@@ -1,20 +1,20 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core.EventArgs
+namespace TelegramSharp.Core.MessageEventArgs
 {
 	/// <summary>
-	/// The args used by VoiceReceivedEvent.
+	/// Args used by AudioReceivedEvent.
 	/// </summary>
-	public class VoiceMessageReceivedEventArgs
+	public class AudioMessageReceivedEventArgs : EventArgs
 	{
 		/// <summary>
-		/// The received voice message.
+		/// The audio message received.
 		/// </summary>
-		public Voice Voice;
+		public Audio AudioMessage;
 
 		/// <summary>
-		/// The user who sent the voice message.
+		/// The user who sent the audio.
 		/// </summary>
 		public User Sender;
 
@@ -31,10 +31,10 @@ namespace TelegramSharp.Core.EventArgs
 		/// <summary>
 		/// Contains audio from a telegram message
 		/// </summary>
-		/// <param name="message">The message.</param>
-		/// <param name="bot">The bot.</param>
-		public VoiceMessageReceivedEventArgs(Message msg, User bot) {
-			Voice = msg.Voice;
+		/// <param name="message">The message</param>
+		/// <param name="bot">The bot</param>
+		public AudioMessageReceivedEventArgs(Message msg, User bot) {
+			AudioMessage = msg.Audio;
 			Sender = msg.From;
 			Bot = bot;
 			ChatID = msg.Chat.Id;

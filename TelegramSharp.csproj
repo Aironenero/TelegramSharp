@@ -97,16 +97,16 @@
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\TelegramService.cs" />
     <Compile Include="Core\ConfigManager.cs" />
-    <Compile Include="Core\EventArgs\UpdateReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\TextMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\AudioMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\ContactMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\DocumentMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\LocationMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\PhotoMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\StickerMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\VideoMessageReceivedEventArgs.cs" />
-    <Compile Include="Core\EventArgs\VoiceMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\UpdateReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\TextMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\AudioMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\ContactMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\DocumentMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\LocationMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\PhotoMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\StickerMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\VideoMessageReceivedEventArgs.cs" />
+    <Compile Include="Core\MessageEventArgs\VoiceMessageReceivedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -125,7 +125,5 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <ItemGroup>
-    <Folder Include="Core\EventArgs\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

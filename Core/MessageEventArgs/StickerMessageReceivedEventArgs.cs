@@ -1,20 +1,20 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core.EventArgs
+namespace TelegramSharp.Core.MessageEventArgs
 {
 	/// <summary>
-	/// Args used by DocumentReceivedEvent.
+	/// The args used by StickerReceivedEvent.
 	/// </summary>
-	public class DocumentMessageReceivedEventArgs : EventArgs
+	public class StickerMessageReceivedEventArgs : EventArgs
 	{
 		/// <summary>
-		/// The document received.
+		/// The sticker received.
 		/// </summary>
-		public Document Document;
+		public Sticker Sticker;
 
 		/// <summary>
-		/// The user who sent the document.
+		/// The user who sent the sticker.
 		/// </summary>
 		public User Sender;
 
@@ -29,12 +29,12 @@ namespace TelegramSharp.Core.EventArgs
 		public long ChatID;
 
 		/// <summary>
-		/// Contains a document from a telegram message.
+		/// Contains Sticker from a telegram message.
 		/// </summary>
 		/// <param name="message">The message.</param>
 		/// <param name="bot">The bot.</param>
-		public DocumentMessageReceivedEventArgs(Message msg, User bot) {
-			Document = msg.Document;
+		public StickerMessageReceivedEventArgs(Message msg, User bot) {
+			Sticker = msg.Sticker;
 			Sender = msg.From;
 			Bot = bot;
 			ChatID = msg.Chat.Id;

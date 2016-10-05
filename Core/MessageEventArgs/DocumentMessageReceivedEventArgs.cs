@@ -1,20 +1,20 @@
 ﻿using System;
 using TelegramSharp.Core.Objects.NetAPI;
 
-namespace TelegramSharp.Core.EventArgs
+namespace TelegramSharp.Core.MessageEventArgs
 {
 	/// <summary>
-	/// The args used by PhotoReceivedEvent.
+	/// Args used by DocumentReceivedEvent.
 	/// </summary>
-	public class PhotoMessageReceivedEventArgs : EventArgs
+	public class DocumentMessageReceivedEventArgs : EventArgs
 	{
 		/// <summary>
-		/// The photo received.
+		/// The document received.
 		/// </summary>
-		public PhotoSize[] Photo;
+		public Document Document;
 
 		/// <summary>
-		/// The user who sent the photo.
+		/// The user who sent the document.
 		/// </summary>
 		public User Sender;
 
@@ -29,12 +29,12 @@ namespace TelegramSharp.Core.EventArgs
 		public long ChatID;
 
 		/// <summary>
-		/// Contains Photo from a telegram message
+		/// Contains a document from a telegram message.
 		/// </summary>
 		/// <param name="message">The message.</param>
 		/// <param name="bot">The bot.</param>
-		public PhotoMessageReceivedEventArgs(Message msg, User bot) {
-			Photo = msg.Photo;
+		public DocumentMessageReceivedEventArgs(Message msg, User bot) {
+			Document = msg.Document;
 			Sender = msg.From;
 			Bot = bot;
 			ChatID = msg.Chat.Id;
