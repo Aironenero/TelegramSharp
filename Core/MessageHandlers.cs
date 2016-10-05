@@ -27,12 +27,12 @@ namespace TelegramSharp.Core {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		public delegate void TextMessageReceived(object sender, MessageEventArgs.TextMessageReceivedEventArgs e);
+		public delegate void TextMessageReceivedEventHandler(object sender, MessageEventArgs.TextMessageReceivedEventArgs e);
 
         /// <summary>
         ///
         /// </summary>
-        public event TextMessageReceived TextMessageReceivedEvent;
+        public event TextMessageReceivedEventHandler TextMessageReceived;
 
         /// <summary>
         /// Called when an telegram update (containing only text) is received.
@@ -40,7 +40,7 @@ namespace TelegramSharp.Core {
         /// <param name="msg">The text message</param>
         /// <param name="bot">The bot</param>
         protected virtual void OnTextMessageReceived(Message msg, User bot) {
-			TextMessageReceivedEvent?.Invoke(this, new MessageEventArgs.TextMessageReceivedEventArgs(msg, bot));
+			TextMessageReceived?.Invoke(this, new MessageEventArgs.TextMessageReceivedEventArgs(msg, bot));
         }
 
 		public delegate void AudioReceivedEventHandler(object sender, MessageEventArgs.AudioMessageReceivedEventArgs args);
