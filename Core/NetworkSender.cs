@@ -192,8 +192,7 @@ namespace TelegramSharp.Core {
                 .AddParameter("show_alert", showAlert + "").Build().Execute();
         }
 
-        public static void editMessageText(string token, long chatId, long messageId, string inlineMessageId, IBaseComponent component, bool disableWebPagePreview = false, IReplyMarkup markup = null)
-        {
+        public static void editMessageText(string token, long chatId, long messageId, string inlineMessageId, IBaseComponent component, bool disableWebPagePreview = false, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/editMessageText")

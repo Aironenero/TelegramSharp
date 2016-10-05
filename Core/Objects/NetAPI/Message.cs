@@ -15,8 +15,6 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.Serialization;
-using System.Security.Policy;
-using TelegramSharp.Core.Objects.NetAPI.Inline;
 
 namespace TelegramSharp.Core.Objects.NetAPI {
 
@@ -89,7 +87,7 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         public string Text { get; set; }
 
         [DataMember(Name = "entities", IsRequired = false)]
-        public MessageEntity[] Entities{ get; set; }
+        public MessageEntity[] Entities { get; set; }
 
         /// <summary>
         /// Gets or sets the audio.
@@ -159,7 +157,7 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         public Location Location { get; set; }
 
         [DataMember(Name = "venue", IsRequired = false)]
-        public Venue Venue{get;set;}
+        public Venue Venue { get; set; }
 
         /// <summary>
         /// Gets or sets the new chat participant.

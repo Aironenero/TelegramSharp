@@ -1,8 +1,10 @@
 ﻿using System.Runtime.Serialization;
 
 namespace TelegramSharp.Core.Objects.NetAPI {
+
     [DataContract]
     public class ChatMember {
+
         [DataMember(Name = "user")]
         public User User { get; set; }
 

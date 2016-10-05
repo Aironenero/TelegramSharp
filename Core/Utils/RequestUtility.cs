@@ -51,11 +51,9 @@ namespace TelegramSharp.Core.Utils {
                         keyToRemove.Add(keyValuePair.Key);
                     }
                 }
-                foreach (string s in keyToRemove)
-                {
+                foreach (string s in keyToRemove) {
                     Parameters.Remove(s);
                 }
-
 
                 if (!IsMultipart) {
                     Client.DefaultRequestHeaders.Accept.Clear();
@@ -63,21 +61,18 @@ namespace TelegramSharp.Core.Utils {
 
                     var postString = "?";
 
-                    for (int i = 0; i < Parameters.Count; i++)
-                    {
+                    for (int i = 0; i < Parameters.Count; i++) {
                         string prm = Parameters.Keys.ElementAt(i);
                         string value = Parameters.Values.ElementAt(i);
 
                         postString += prm + "=" + Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(value));
 
-                        if ((i + 1) >= Parameters.Count)
-                        {
+                        if ((i + 1) >= Parameters.Count) {
                             postString += "&";
                         }
                     }
 
                     var byteArrayContent = new ByteArrayContent(GetBytes(postString));
-
 
                     HttpResponseMessage Message = await Client.PostAsync(Url, byteArrayContent);
 
@@ -89,7 +84,7 @@ namespace TelegramSharp.Core.Utils {
                 }
                 else {
                     if (File.Exists(MultipartParameter.Object2)) {
-                        using (var MultipartContent = 
+                        using (var MultipartContent =
                             new MultipartFormDataContent()) {
                             foreach (string Key in Parameters.Keys) {
                                 string Value = Parameters[Key];
@@ -137,13 +132,11 @@ namespace TelegramSharp.Core.Utils {
             return new RequestBuilder(Url);
         }
 
-        static byte[] GetBytes(string str)
-        {
+        private static byte[] GetBytes(string str) {
             byte[] bytes = new byte[str.Length * sizeof(char)];
             System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
             return bytes;
         }
-
     }
 
     public class MultiObject<K, V> {

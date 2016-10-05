@@ -67,6 +67,5 @@ namespace TelegramSharp.Core.Objects.NetAPI {
 
         [DataMember(Name = "all_members_are_administrators", IsRequired = false)]
         public bool AllMembersAreAdministrator;
-
     }
 }
