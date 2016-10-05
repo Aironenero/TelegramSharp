@@ -45,6 +45,13 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        /// <value>The username.</value>
+        [DataMember(Name = "username", IsRequired = false)]
+        public string Username { get; set; }
+
+        /// <summary>
         /// Gets or sets the first name.
         /// </summary>
         /// <value>The first name.</value>
@@ -58,11 +65,8 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         [DataMember(Name = "last_name", IsRequired = false)]
         public string LastName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the username.
-        /// </summary>
-        /// <value>The username.</value>
-        [DataMember(Name = "username", IsRequired = false)]
-        public string Username { get; set; }
+        [DataMember(Name = "all_members_are_administrators", IsRequired = false)]
+        public bool AllMembersAreAdministrator;
+
     }
 }

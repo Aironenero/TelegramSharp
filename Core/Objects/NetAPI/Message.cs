@@ -15,6 +15,8 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Runtime.Serialization;
+using System.Security.Policy;
+using TelegramSharp.Core.Objects.NetAPI.Inline;
 
 namespace TelegramSharp.Core.Objects.NetAPI {
 
@@ -59,6 +61,9 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         [DataMember(Name = "forward_from", IsRequired = false)]
         public User ForwardFrom { get; set; }
 
+        [DataMember(Name = "forward_from_chat", IsRequired = false)]
+        public Chat ForwardFromChat;
+
         /// <summary>
         /// Gets or sets the forward date.
         /// </summary>
@@ -73,12 +78,18 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         [DataMember(Name = "reply_to_message", IsRequired = false)]
         public Message ReplyToMessage { get; set; }
 
+        [DataMember(Name = "edit_date", IsRequired = false)]
+        public int EditDate;
+
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
         /// <value>The text.</value>
         [DataMember(Name = "text", IsRequired = false)]
         public string Text { get; set; }
+
+        [DataMember(Name = "entities", IsRequired = false)]
+        public MessageEntity[] Entities{ get; set; }
 
         /// <summary>
         /// Gets or sets the audio.
@@ -93,6 +104,10 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         /// <value>The document.</value>
         [DataMember(Name = "document", IsRequired = false)]
         public Document Document { get; set; }
+
+        //TODO => Game class is missing
+        //[DataMember(Name = "game", IsRequired = false)]
+        //public Game Game{get;set:}
 
         /// <summary>
         /// Gets or sets the photo.
@@ -143,19 +158,22 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         [DataMember(Name = "location", IsRequired = false)]
         public Location Location { get; set; }
 
+        [DataMember(Name = "venue", IsRequired = false)]
+        public Venue Venue{get;set;}
+
         /// <summary>
         /// Gets or sets the new chat participant.
         /// </summary>
         /// <value>The new chat participant.</value>
-        [DataMember(Name = "new_chat_partecipant", IsRequired = false)]
-        public User NewChatParticipant { get; set; }
+        [DataMember(Name = "new_chat_member", IsRequired = false)]
+        public User NewChatMember { get; set; }
 
         /// <summary>
         /// Gets or sets the left chat participant.
         /// </summary>
         /// <value>The left chat participant.</value>
-        [DataMember(Name = "left_chat_partecipant", IsRequired = false)]
-        public User LeftChatParticipant { get; set; }
+        [DataMember(Name = "left_chat_member", IsRequired = false)]
+        public User LeftChatMember { get; set; }
 
         /// <summary>
         /// Gets or sets the new chat title.
@@ -212,5 +230,8 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         /// <value>The migrate from chat identifier.</value>
         [DataMember(Name = "migrate_from_chat_id", IsRequired = false)]
         public int MigrateFromChatId { get; set; }
+
+        [DataMember(Name = "pinned_message", IsRequired = false)]
+        public Message PinnedMessage { get; set; }
     }
 }

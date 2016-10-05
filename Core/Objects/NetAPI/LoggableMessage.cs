@@ -54,8 +54,8 @@ namespace TelegramSharp.Core.Objects.NetAPI {
             Caption = msg.Caption;
             Contact = msg.Contact;
             Location = msg.Location;
-            NewChatParticipant = msg.NewChatParticipant;
-            LeftChatParticipant = msg.LeftChatParticipant;
+            NewChatMember = msg.NewChatMember;
+            LeftChatMember = msg.LeftChatMember;
             NewChatTitle = msg.NewChatTitle;
             NewChatPhoto = msg.NewChatPhoto;
             DeleteChatPhoto = msg.DeleteChatPhoto;

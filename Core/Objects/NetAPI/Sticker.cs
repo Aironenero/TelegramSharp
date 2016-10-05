@@ -13,6 +13,8 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System.Diagnostics.SymbolStore;
 using System.Runtime.Serialization;
 
 namespace TelegramSharp.Core.Objects.NetAPI {
@@ -50,6 +52,9 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         /// <value>The thumb.</value>
         [DataMember(Name = "thumb", IsRequired = false)]
         public PhotoSize Thumb { get; set; }
+
+        [DataMember(Name = "emoji", IsRequired = false)]
+        public string Emoji { get; set; }
 
         /// <summary>
         /// Gets or sets the size of the file.

@@ -14,6 +14,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
+using TelegramSharp.Core.Objects.NetAPI.Inline;
 
 namespace TelegramSharp.Core.Objects.NetAPI {
 
@@ -43,17 +44,25 @@ namespace TelegramSharp.Core.Objects.NetAPI {
         [DataMember(Name = "edited_message", IsRequired = false)]
         public Message EditedMessage { get; set; }
 
+        [DataMember(Name = "inline_query", IsRequired = false)]
+        public InlineQuery InlineQuery;
+
         /// <summary>
         /// A callback query.
         /// </summary>
         [DataMember(Name = "callback_query", IsRequired = false)]
         public CallbackQuery CallbackQuery { get; set; }
 
-        /// <summary>
-        /// Gets or sets the bot info.
-        /// </summary>
-        /// <value>The bot info.</value>
-        [DataMember(Name = "bot_info", IsRequired = false)]
-        public User BotInfo { get; set; }
+        //TODO => chosen inline result class is missing!
+        //[DataMember(Name = "chosen_inline_result", IsRequired = false)]
+        //public ChosenInlineResult ChosenInlineResult;
+
+        //TODO => is this field even used?
+        ///// <summary>
+        ///// Gets or sets the bot info.
+        ///// </summary>
+        ///// <value>The bot info.</value>
+        //[DataMember(Name = "bot_info", IsRequired = false)]
+        //public User BotInfo { get; set; }
     }
 }
