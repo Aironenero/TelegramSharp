@@ -27,7 +27,8 @@ namespace TelegramSharp.Core {
     /// Network operations.
     /// </summary>
     public class NetworkSender {
-
+        #region Obsolete
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         /// <summary>
         /// Gets the updates containing messages.
         /// </summary>
@@ -36,7 +37,7 @@ namespace TelegramSharp.Core {
         /// <param name="offset">Update offset.</param>
         /// <param name="limit">Limit of messages in a update.</param>
         /// <param name="timeout">Request timeout (if 0 short polling, else long polling).</param>
-        public static string GetUpdates(string token, int offset = 0, int limit = 100, int timeout = 60) {
+        public static string _GetUpdates(string token, int offset = 0, int limit = 100, int timeout = 60) {
             try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/getUpdates");
@@ -73,6 +74,7 @@ namespace TelegramSharp.Core {
             return null;
         }
 
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
         /// <summary>
         /// Forwards a message to a chat
         /// </summary>
@@ -80,7 +82,7 @@ namespace TelegramSharp.Core {
         /// <param name="chatId">id of the chat where you want to forward the message</param>
         /// <param name="fromChatId">chat from where the message was sent</param>
         /// <param name="messageId">id of the message to forward</param>
-        public static void ForwardMessage(string token, long chatId, long fromChatId, long messageId) {
+        public static void _ForwardMessage(string token, long chatId, long fromChatId, long messageId) {
             try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/forwardMessage");
@@ -116,7 +118,8 @@ namespace TelegramSharp.Core {
             }
         }
 
-        public static void SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
+        public static void _SendMessage(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage").AddParameter("chat_id", chatId + "")
@@ -129,7 +132,8 @@ namespace TelegramSharp.Core {
                 .Execute();
         }
 
-        public static void SendPhoto(string token, long chatId, Property property, string caption = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
+        public static void _SendPhoto(string token, long chatId, Property property, string caption = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             if (property.PropertyValue == PropertyValue.FILE) {
                 string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
@@ -155,7 +159,8 @@ namespace TelegramSharp.Core {
             }
         }
 
-        public static void SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
+        public static void _SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             if (property.PropertyValue == PropertyValue.FILE) {
                 string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
@@ -185,14 +190,16 @@ namespace TelegramSharp.Core {
             }
         }
 
-        public static void answerCallbackQuery(string token, string callbackQueryId, string text = "", bool showAlert = false) {
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
+        public static void _answerCallbackQuery(string token, string callbackQueryId, string text = "", bool showAlert = false) {
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/answerCallbackQuery")
                 .AddParameter("callback_query_id", callbackQueryId)
                 .AddParameter("text", text)
                 .AddParameter("show_alert", showAlert + "").Build().Execute();
         }
 
-        public static void editMessageText(string token, long chatId, long messageId, string inlineMessageId, IBaseComponent component, bool disableWebPagePreview = false, IReplyMarkup markup = null) {
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
+        public static void _editMessageText(string token, long chatId, long messageId, string inlineMessageId, IBaseComponent component, bool disableWebPagePreview = false, IReplyMarkup markup = null) {
             string markupString = markup == null ? "" : markup.serialize();
             string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
             Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/editMessageText")
@@ -212,7 +219,8 @@ namespace TelegramSharp.Core {
         /// </summary>
         /// <returns>The <c>User</c> containing the bot acocunt infos.</returns>
         /// <param name="token">Bot token.</param>
-        public static string GetMe(string token) {
+        [Obsolete("This method is not optimized and will not be supported, expect any error 400 in future.")]
+        public static string _GetMe(string token) {
             try {
                 // Create a request
                 WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/getMe");
@@ -249,10 +257,41 @@ namespace TelegramSharp.Core {
             }
             return null;
         }
+        #endregion
 
         //Ottiene gli URL a cui inviare le richieste
-        private static string CombineUri(string url, string token) {
+        private static string CombineUri(string token, string url = "https://api.telegram.org/bot") {
             return url + token;
+        }
+
+        public string GetMe(string token)
+        {
+            return Request.Builder(CombineUri(token)).Build().Execute();
+        }
+
+        //TODO => check if this method actually returns the right data
+        //HACK (classified as)
+        public string GetUpdates(string token, int Offset, int Limit = 100, int Timeout = 60) {
+            return Request.Builder(CombineUri(token))
+                .AddParameter("offset", Offset.ToString())
+                .AddParameter("limit", Limit.ToString())
+                .AddParameter("timeout", Timeout.ToString())
+                .Build()
+                .Execute();
+        }
+
+        public void SendMessage(string token, int ChatId, IBaseComponent Text, string ParseMode="", bool DisableWebPagePreview=false, bool DisableNotification=false, int ReplyToMessageId=-1, IReplyMarkup ReplyMarkup=null)
+        {
+            Request.Builder(CombineUri(token))
+                .AddParameter("chat_id", ChatId.ToString())
+                .AddParameter("text", Text.Make())
+                .AddParameter("parse_mode", ParseMode)
+                .AddParameter("disable_web_page_preview", DisableWebPagePreview.ToString())
+                .AddParameter("disable_notification", DisableNotification.ToString())
+                .AddParameter("reply_to_text_id", ReplyToMessageId.ToString())
+                .AddParameter("reply_markup", ReplyMarkup.serialize())
+                .Build()
+                .Execute();
         }
     }
 }
