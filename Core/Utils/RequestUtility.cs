@@ -87,9 +87,9 @@ namespace TelegramSharp.Core.Utils {
                         }
                     }
 
-                    var byteArrayContent = new ByteArrayContent(GetBytes(postString));
+                    var formUrlEncoded = new FormUrlEncodedContent(Parameters);
 
-                    HttpResponseMessage Message = await Client.PostAsync(Url, byteArrayContent);
+                    HttpResponseMessage Message = await Client.PostAsync(Url, formUrlEncoded);
 
                     Message.EnsureSuccessStatusCode();
 
