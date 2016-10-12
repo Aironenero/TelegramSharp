@@ -308,5 +308,32 @@ namespace TelegramSharp.Core {
                 .Build()
                 .Execute();
         }
+
+        /// <summary>
+        /// Creates and execute a request to send a message
+        /// </summary>
+        /// <param name="token">the bot's token</param>
+        /// <param name="chatId">Identifier of the target chat, required if inlineMessageId is not specified</param>
+        /// <param name="messageId">Identifier of the message to edit, required if inlineMessageId is not specified </param>
+        /// <param name="inlineMessageId">Identifier of the inline message to modify, Required if ChatId and messageId are not specified</param>
+        /// <param name="Text">Text to be put in teh modified message</param>
+        /// <param name="ParseMode"Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs></param>
+        /// <param name="disableWebPagePreview">Disables link previews for links in this message</param>
+        /// <param name="ReplyMarkup">Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to hide reply</param>
+        public static void EditMessageText(string token, long chatId, long messageId, string inlineMessageId, IBaseComponent Text, string ParseMode = "", bool disableWebPagePreview = false, IReplyMarkup ReplyMarkup = null)
+        {
+            string markupString = ReplyMarkup == null ? "" : ReplyMarkup.serialize();
+
+            Request.Builder(CombineUri(token) + @"/editMessageText")
+                .AddParameter("chat_id", chatId + "")
+                .AddParameter("message_id", messageId.ToString())
+                .AddParameter("inline_message_id", inlineMessageId)
+                .AddParameter("text", Text.Make())
+                .AddParameter("parse_mode", ParseMode)
+                .AddParameter("disable_web_page_preview", disableWebPagePreview + "")
+                .AddParameter("reply_markup", markupString)
+                .Build()
+                .Execute();
+        }
     }
 }
