@@ -69,7 +69,11 @@
     <Compile Include="Core\Objects\NetAPI\TextBuilder\TextComponents.cs" />
     <Compile Include="Core\Objects\NetAPI\TextBuilder\TextElements.cs" />
     <Compile Include="Core\Objects\NetAPI\Venue.cs" />
-    <Compile Include="Core\Utils\RequestUtility.cs" />
+    <Compile Include="Core\Utils\RequestUtiliy\MultiObject.cs" />
+    <Compile Include="Core\Utils\RequestUtiliy\Property.cs" />
+    <Compile Include="Core\Utils\RequestUtiliy\Request.cs" />
+    <Compile Include="Core\Utils\RequestUtiliy\RequestBuilder.cs" />
+    <Compile Include="Core\Utils\RequestUtiliy\PropertyValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\JSONDataManager.cs" />
     <Compile Include="Core\MessageParser.cs" />

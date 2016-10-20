@@ -307,6 +307,7 @@ namespace TelegramSharp.Core {
                 .AddParameter("reply_markup", ReplyMarkup.serialize())
                 .Build()
                 .Execute();
+            
         }
 
         /// <summary>
