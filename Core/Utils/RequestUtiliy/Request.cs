@@ -62,7 +62,22 @@ namespace TelegramSharp.Core.Utils
 
                     HttpResponseMessage Message = await Client.PostAsync(Url, formUrlEncoded);
 
-                    Message.EnsureSuccessStatusCode();
+                    try {
+                        Message.EnsureSuccessStatusCode();
+                    }
+                    catch (Exception e) {
+                        Console.WriteLine("Exception generated, see Error.log");
+                        System.IO.File.AppendAllText("Error" +
+                                                     DateTime.Now.Day.ToString() + "-" +
+                                                     DateTime.Now.Month.ToString() + "-" +
+                                                     DateTime.Now.Year.ToString() + "_" +
+                                                     DateTime.Now.Hour.ToString() + "-" +
+                                                     DateTime.Now.Minute.ToString() + "-" +
+                                                     DateTime.Now.Second.ToString() + "-" +
+                                                     DateTime.Now.Millisecond.ToString() + ".log",
+                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
+                        System.Threading.Thread.Sleep(100000);
+                    }
 
                     var res = await Message.Content.ReadAsStringAsync();
 
