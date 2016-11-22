@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Text;
 
 namespace TelegramSharp.Core.Utils
 {
@@ -29,20 +23,6 @@ namespace TelegramSharp.Core.Utils
 
     public class Request
     {
-
-        protected class FileToSend
-        {
-
-            public string Filename { get; set; }
-            public Stream Content { get; set; }
-
-            public FileToSend(string Filename, Stream Content)
-            {
-                this.Filename = Filename;
-                this.Content = Content;
-            }
-        }
-
         public string Url { get; set; }
         public Dictionary<string, string> Parameters { get; set; }
         public MultiObject<string, string> MultipartParameter { get; set; }
@@ -53,84 +33,24 @@ namespace TelegramSharp.Core.Utils
             return ExecuteRequest().Result;
         }
 
-
         private async Task<string> ExecuteRequest()
         {
             using (HttpClient Client = new HttpClient())
             {
-                if (!IsMultipart)
-                {
-                    Client.DefaultRequestHeaders.Accept.Clear();
-                    Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                Client.DefaultRequestHeaders.Accept.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpContent content = new FormUrlEncodedContent(Parameters);
+                HttpContent content = new FormUrlEncodedContent(Parameters);
 
-                    HttpResponseMessage Message = await Client.PostAsync(Url, content);
+                HttpResponseMessage Message = await Client.PostAsync(Url, content);
 
-                    Message.EnsureSuccessStatusCode();
+                Message.EnsureSuccessStatusCode();
 
-                    var res = await Message.Content.ReadAsStringAsync();
+                var res = await Message.Content.ReadAsStringAsync();
 
-                    return res;
-                }
-                else
-                {
-                    if (File.Exists(MultipartParameter.Object2))
-                    {
-
-                        using (var MultipartContent = new MultipartFormDataContent())
-                        {
-
-                            foreach (string Key in Parameters.Keys)
-                            {
-                                string Value = Parameters[Key];
-                                MultipartContent.Add(new StringContent(Value, Encoding.UTF8, "application/json"), Key);
-                            }
-
-
-                            FileToSend Content = new FileToSend(Path.GetFileName(MultipartParameter.Object2), File.Open(MultipartParameter.Object2, FileMode.Open));
-                            Console.WriteLine("Creating byte array for file...");
-                            Console.WriteLine("Key: " + MultipartParameter.Object1 + " - Value: " + MultipartParameter.Object2);
-                            MultipartContent.Add(new StreamContent(Content.Content), MultipartParameter.Object1, Content.Filename);
-
-
-                            HttpResponseMessage Message = await Client.PostAsync(Url, MultipartContent);
-
-                            try
-                            {
-                                Message.EnsureSuccessStatusCode();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine("Exception generated, see Error.log");
-                                System.IO.File.AppendAllText("Error" +
-                                            DateTime.Now.Day.ToString() + "-" +
-                                            DateTime.Now.Month.ToString() + "-" +
-                                            DateTime.Now.Year.ToString() + "_" +
-                                            DateTime.Now.Hour.ToString() + "-" +
-                                            DateTime.Now.Minute.ToString() + "-" +
-                                            DateTime.Now.Second.ToString() + "-" +
-                                            DateTime.Now.Millisecond.ToString() + ".log",
-                                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                                System.Threading.Thread.Sleep(100000);
-                            }
-
-                            var res = await Message.Content.ReadAsStringAsync();
-
-                            return res;
-
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("File was not found! Cannot send request!");
-                        return null;
-                    }
-
-                } 
+                return res;
             }
         }
-
 
         public static RequestBuilder Builder(string Url)
         {
@@ -199,6 +119,5 @@ namespace TelegramSharp.Core.Utils
 
             return req;
         }
-
     }
 }

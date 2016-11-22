@@ -59,5 +59,10 @@ namespace TelegramSharp
             Console.WriteLine("***End of Bot Identity***");
             Console.WriteLine("");
         }
+
+        public static void LorError(Exception e)
+        {
+            Logger.LorError(e);
+        }
     }
 }

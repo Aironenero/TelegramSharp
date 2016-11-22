@@ -63,69 +63,9 @@ namespace TelegramSharp.Core
             }
             catch (WebException e)
             {
-                Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" +
-                            DateTime.Now.Day.ToString() + "-" +
-                            DateTime.Now.Month.ToString() + "-" +
-                            DateTime.Now.Year.ToString() + "_" +
-                            DateTime.Now.Hour.ToString() + "-" +
-                            DateTime.Now.Minute.ToString() + "-" +
-                            DateTime.Now.Second.ToString() + "-" +
-                            DateTime.Now.Millisecond.ToString() + ".log",
-                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                System.Threading.Thread.Sleep(100000);
+                Logger.LorError(e);
             }
             return null;
-        }
-
-        /// <summary>
-        /// Sends the message.
-        /// </summary>
-        /// <param name="token">Bot Token.</param>
-        /// <param name="chatId">Chat identifier.</param>
-        /// <param name="component">The component used to send the message.</param>
-        /// <param name="disableWebPagePreview">If set to <c>true</c> disable web page preview.</param>
-        /// <param name="replyToMessageId">Reply to message identifier.</param>
-        /// <param name="markup">Sends a reply markup to a user.</param>
-        [Obsolete("This method uses the old 'way' of doing a post request. Please use the newer method.")]
-        public static void SendMessage_Deprecated(string token, long chatId, IBaseComponent component, bool disableWebPagePreview = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
-            try
-            {
-                // Create a request
-                WebRequest request = WebRequest.Create(CombineUri("https://api.telegram.org/bot", token) + "/sendMessage");
-                request.Method = "POST"; // Set the Method property of the request to POST.
-                string markupString = markup == null ? "" : markup.serialize(); // Checks if the markup is null. If not null it proceeds to serialize it.
-                string parsingMode = component.GetParsingMode() == ParsingMode.NONE ? "" : component.GetParsingMode().ToString().ToLower();
-                string postData = "chat_id=" + chatId + "&text=" + component.Make() + "&parse_mode=" + parsingMode + "&disable_web_page_preview=" + disableWebPagePreview.ToString().ToLower() + "&reply_to_message_id=" + replyToMessageId + "&reply_markup=" + markupString; // Create POST data
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData); //Convert it to a byte array.
-                request.ContentType = "application/x-www-form-urlencoded"; // Set the ContentType property of the WebRequest.
-                request.ContentLength = byteArray.Length; // Set the ContentLength property of the WebRequest.
-                Stream dataStream = request.GetRequestStream(); // Get the request stream.
-                dataStream.Write(byteArray, 0, byteArray.Length); // Write the data to the request stream.
-                dataStream.Close(); // Close the Stream object.
-                Console.WriteLine("Sending message...");
-                WebResponse response = request.GetResponse(); // Get the response.
-                Console.WriteLine("Send message request status:" + ((HttpWebResponse)response).StatusDescription); // Display the status.
-                dataStream = response.GetResponseStream(); // Get the stream containing content returned by the server.
-                StreamReader reader = new StreamReader(dataStream); // Open the stream using a StreamReader for easy access.
-                reader.Close(); // Clean up the streams.
-                response.Close();
-            }
-            catch (WebException e)
-            {
-                Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" +
-                            DateTime.Now.Day.ToString() + "-" +
-                            DateTime.Now.Month.ToString() + "-" +
-                            DateTime.Now.Year.ToString() + "_" +
-                            DateTime.Now.Hour.ToString() + "-" +
-                            DateTime.Now.Minute.ToString() + "-" +
-                            DateTime.Now.Second.ToString() + "-" +
-                            DateTime.Now.Millisecond.ToString() + ".log",
-                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                System.Threading.Thread.Sleep(100000);
-            }
         }
 
         /// <summary>
@@ -160,17 +100,7 @@ namespace TelegramSharp.Core
             }
             catch (WebException e)
             {
-                Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" +
-                            DateTime.Now.Day.ToString() + "-" +
-                            DateTime.Now.Month.ToString() + "-" +
-                            DateTime.Now.Year.ToString() + "_" +
-                            DateTime.Now.Hour.ToString() + "-" +
-                            DateTime.Now.Minute.ToString() + "-" +
-                            DateTime.Now.Second.ToString() + "-" +
-                            DateTime.Now.Millisecond.ToString() + ".log",
-                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                System.Threading.Thread.Sleep(100000);
+                Logger.LorError(e);
             }
         }
 
@@ -186,68 +116,6 @@ namespace TelegramSharp.Core
                 .AddParameter("reply_markup", markupString)
                 .Build()
                 .Execute();
-        }
-
-        public static void SendPhoto(string token, long chatId, Property property, string caption = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
-
-            string markupString = markup == null ? "" : markup.serialize();
-            if (property.PropertyValue == PropertyValue.FILE) {
-                string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
-                    .AddParameter("chat_id", chatId + "")
-                    .SetMultipartParameter("photo", property.Value)
-                    .AddParameter("caption", caption)
-                    .AddParameter("disable_notification", disableNotification + "")
-                    .AddParameter("reply_to_message_id", replyToMessageId + "")
-                    .AddParameter("reply_markup", markupString)
-                    .Build()
-                    .Execute();
-            } else
-            {
-                Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendPhoto")
-                    .AddParameter("chat_id", chatId + "")
-                    .AddParameter("photo", property.Value)
-                    .AddParameter("caption", caption)
-                    .AddParameter("disable_notification", disableNotification + "")
-                    .AddParameter("reply_to_message_id", replyToMessageId + "")
-                    .AddParameter("reply_markup", markupString)
-                    .Build()
-                    .Execute();
-            }
-
-        }
-
-        public static void SendAudio(string token, long chatId, Property property, int duration = 0, string performer = "", string title = "", bool disableNotification = false, int replyToMessageId = 0, IReplyMarkup markup = null)
-        {
-            string markupString = markup == null ? "" : markup.serialize();
-            if (property.PropertyValue == PropertyValue.FILE)
-            {
-                string res = Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
-                    .AddParameter("chat_id", chatId + "")
-                    .SetMultipartParameter("audio", property.Value)
-                    .AddParameter("performer", performer)
-                    .AddParameter("duration", duration + "")
-                    .AddParameter("title", title)
-                    .AddParameter("disable_notification", disableNotification + "")
-                    .AddParameter("reply_to_message_id", replyToMessageId + "")
-                    .AddParameter("reply_markup", markupString)
-                    .Build()
-                    .Execute();
-            }
-            else
-            {
-                Request.Builder(CombineUri("https://api.telegram.org/bot", token) + "/sendAudio")
-                    .AddParameter("chat_id", chatId + "")
-                    .AddParameter("audio", property.Value)
-                    .AddParameter("performer", performer)
-                    .AddParameter("duration", duration + "")
-                    .AddParameter("title", title)
-                    .AddParameter("disable_notification", disableNotification + "")
-                    .AddParameter("reply_to_message_id", replyToMessageId + "")
-                    .AddParameter("reply_markup", markupString)
-                    .Build()
-                    .Execute();
-            }
         }
 
         /// <summary>
@@ -281,17 +149,7 @@ namespace TelegramSharp.Core
             }
             catch (WebException e)
             {
-                Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" +
-                            DateTime.Now.Day.ToString() + "-" +
-                            DateTime.Now.Month.ToString() + "-" +
-                            DateTime.Now.Year.ToString() + "_" +
-                            DateTime.Now.Hour.ToString() + "-" +
-                            DateTime.Now.Minute.ToString() + "-" +
-                            DateTime.Now.Second.ToString() + "-" +
-                            DateTime.Now.Millisecond.ToString() + ".log",
-                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                System.Threading.Thread.Sleep(100000);
+                Logger.LorError(e);
             }
             return null;
         }

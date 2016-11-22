@@ -77,40 +77,16 @@ namespace TelegramSharp.Core
                 }
                 while (true)
                 {
-                    int notResponding = 0;
                     s = NetworkSender.GetUpdates(Cfg.BotToken, JSON.Offset + 1, 60);
                     if (s != null)
                     {
-                        notResponding = 0;
                         JSON.DeserializeAndParseMessages(s, this);
-                    } else
-                    {
-                        if (notResponding < 6)
-                        {
-                            notResponding++;
-                            Console.WriteLine("Update was not successful! Trying again...");
-                            System.Threading.Thread.Sleep(10000);
-                        } else
-                        {
-                            Console.WriteLine("Update was not successful for 6 times! Shutting down...");
-                            Process.GetCurrentProcess().Kill();
-                        }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception generated, see Error.log");
-                System.IO.File.AppendAllText("Error" +
-                            DateTime.Now.Day.ToString() + "-" +
-                            DateTime.Now.Month.ToString() + "-" +
-                            DateTime.Now.Year.ToString() + "_" +
-                            DateTime.Now.Hour.ToString() + "-" +
-                            DateTime.Now.Minute.ToString() + "-" +
-                            DateTime.Now.Second.ToString() + "-" +
-                            DateTime.Now.Millisecond.ToString() + ".log",
-                            "\nError generated on " + DateTime.Now.ToString() + "\n" + e.ToString());
-                System.Threading.Thread.Sleep(100000);
+                Logger.LorError(e);
             }
         }
 

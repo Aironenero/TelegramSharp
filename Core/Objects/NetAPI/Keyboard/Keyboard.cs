@@ -54,11 +54,11 @@ namespace TelegramSharp.Core.Objects.NetAPI.Keyboard
     {
         private List<KeyboardRow> Rows = new List<KeyboardRow>();
 
-        private bool RequestContact { get; set; }
-        private bool RequestLocation { get; set; }
-        private bool ResizeKeyboard = false;
-        private bool OneTimeKeyboard = false;
-        private bool Selective = false;
+        public bool RequestContact { get; set; }
+        public bool RequestLocation { get; set; }
+        public bool ResizeKeyboard = false;
+        public bool OneTimeKeyboard = false;
+        public bool Selective = false;
 
         /// <summary>
         /// Creates a new KeyboardBuilder object.

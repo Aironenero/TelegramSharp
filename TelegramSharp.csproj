@@ -36,10 +36,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -52,19 +48,16 @@
   <ItemGroup>
     <Compile Include="Core\MessageHandlers.cs" />
     <Compile Include="Core\EventHandlers.cs" />
-    <Compile Include="Core\Objects\NetAPI\Inline\InlineMode.cs" />
-    <Compile Include="Core\Objects\NetAPI\Inline\InputMessageContents.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\ForceReply.cs" />
-    <Compile Include="Core\Objects\NetAPI\Keyboard\InlineKeyboardElements.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\ReplyKeyboardHide.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\IReplyMarkup.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\KeyboardButton.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\KeyboardRow.cs" />
     <Compile Include="Core\Objects\NetAPI\Keyboard\Keyboard.cs" />
     <Compile Include="Core\Objects\NetAPI\TextBuilder\BaseComponent.cs" />
-    <Compile Include="Core\Objects\NetAPI\TextBuilder\TextComponents.cs" />
     <Compile Include="Core\Objects\NetAPI\TextBuilder\TextElements.cs" />
     <Compile Include="Core\Utils\RequestUtility.cs" />
+    <Compile Include="Core\Objects\NetAPI\TextBuilder\TextComponents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\JSONDataManager.cs" />
     <Compile Include="Core\MessageParser.cs" />
