@@ -15,13 +15,13 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// Photo size.
+    /// Video.
     /// </summary>
     [DataContract]
-    public class PhotoSize
+    public class Video
     {
         /// <summary>
         /// Gets or sets the file identifier.
@@ -43,6 +43,27 @@ namespace TelegramSharp.Core.Objects.NetAPI
         /// <value>The height.</value>
         [DataMember(Name = "height")]
         public int Height { get; set; }
+
+        /// <summary>
+        /// Gets or sets the duration.
+        /// </summary>
+        /// <value>The duration.</value>
+        [DataMember(Name = "duration")]
+        public int Duration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the thumb.
+        /// </summary>
+        /// <value>The thumb.</value>
+        [DataMember(Name = "thumb", IsRequired = false)]
+        public PhotoSize Thumb { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the MIME.
+        /// </summary>
+        /// <value>The type of the MIME.</value>
+        [DataMember(Name = "mime_type", IsRequired = false)]
+        public string MimeType { get; set; }
 
         /// <summary>
         /// Gets or sets the size of the file.

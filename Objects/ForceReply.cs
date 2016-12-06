@@ -15,40 +15,26 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// User.
+    /// Force reply.
     /// </summary>
     [DataContract]
-    public class User
+    public class ForceReply
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets a value indicating whether this <see cref="Core.Objects.NetAPI.ForceReply"/> force reply.
         /// </summary>
-        /// <value>The identifier.</value>
-        [DataMember(Name = "id")]
-        public int Id { get; set; }
+        /// <value><c>true</c> if force reply; otherwise, <c>false</c>.</value>
+        [DataMember(Name = "force_reply")]
+        public bool forceReply { get { return true; } }
 
         /// <summary>
-        /// Gets or sets the first name.
+        /// Gets or sets a value indicating whether this <see cref="Core.Objects.NetAPI.ForceReply"/> is selective.
         /// </summary>
-        /// <value>The first name.</value>
-        [DataMember(Name = "first_name")]
-        public string FirstName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last name.
-        /// </summary>
-        /// <value>The last name.</value>
-        [DataMember(Name = "last_name", IsRequired = false)]
-        public string LastName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the username.
-        /// </summary>
-        /// <value>The username.</value>
-        [DataMember(Name = "username", IsRequired = false)]
-        public string Username { get; set; }
+        /// <value><c>true</c> if selective; otherwise, <c>false</c>.</value>
+        [DataMember(Name = "name", IsRequired = false)]
+        public bool Selective { get; set; }
     }
 }

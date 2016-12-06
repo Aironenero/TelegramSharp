@@ -15,26 +15,40 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// A server update containing the bot user informations.
+    /// User.
     /// </summary>
     [DataContract]
-    public class GetMeServerUpdate
+    public class User
     {
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Core.Objects.NetAPI.GetMeServerUpdate"/> is ok.
+        /// Gets or sets the identifier.
         /// </summary>
-        /// <value><c>true</c> if ok; otherwise, <c>false</c>.</value>
-        [DataMember]
-        public bool Ok { get; set; }
+        /// <value>The identifier.</value>
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the get me.
+        /// Gets or sets the first name.
         /// </summary>
-        /// <value>The get me.</value>
-        [DataMember(Name = "result", IsRequired = false)]
-        public User GetMe { get; set; }
+        /// <value>The first name.</value>
+        [DataMember(Name = "first_name")]
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last name.
+        /// </summary>
+        /// <value>The last name.</value>
+        [DataMember(Name = "last_name", IsRequired = false)]
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        /// <value>The username.</value>
+        [DataMember(Name = "username", IsRequired = false)]
+        public string Username { get; set; }
     }
 }

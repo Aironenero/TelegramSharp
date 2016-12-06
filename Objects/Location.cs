@@ -1,5 +1,5 @@
-﻿//TelegramSharp - A library to make telegram bots
-//Copyright (C) 2016  Samuele Lorefice, Niccolò Mattei
+//TelegramSharp - A library to make telegram bots
+//Copyright (C) 2016  Samuele Lorefice, Niccol� Mattei
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -15,33 +15,26 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// File.
+    /// Location.
     /// </summary>
     [DataContract]
-    public class File
+    public class Location
     {
         /// <summary>
-        /// Gets or sets the file identifier.
+        /// Gets or sets the longitude.
         /// </summary>
-        /// <value>The file identifier.</value>
-        [DataMember(Name = "file_id")]
-        public string FileId { get; set; }
+        /// <value>The longitude.</value>
+        [DataMember(Name = "longitude")]
+        public float Longitude { get; set; }
 
         /// <summary>
-        /// Gets or sets the size of the file.
+        /// Gets or sets the latitude.
         /// </summary>
-        /// <value>The size of the file.</value>
-        [DataMember(Name = "file_size", IsRequired = false)]
-        public int FileSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the file path.
-        /// </summary>
-        /// <value>The file path.</value>
-        [DataMember(Name = "file_path", IsRequired = false)]
-        public string FilePath { get; set; }
+        /// <value>The latitude.</value>
+        [DataMember(Name = "latitude")]
+        public float Latitude { get; set; }
     }
 }

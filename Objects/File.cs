@@ -1,5 +1,5 @@
-//TelegramSharp - A library to make telegram bots
-//Copyright (C) 2016  Samuele Lorefice, Niccol� Mattei
+﻿//TelegramSharp - A library to make telegram bots
+//Copyright (C) 2016  Samuele Lorefice, Niccolò Mattei
 //
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -15,36 +15,33 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// Contact.
+    /// File.
     /// </summary>
     [DataContract]
-    public class Contact
+    public class File
     {
         /// <summary>
-        /// The phone number.
+        /// Gets or sets the file identifier.
         /// </summary>
-        [DataMember(Name = "phone_number")]
-        public string PhoneNumber;
+        /// <value>The file identifier.</value>
+        [DataMember(Name = "file_id")]
+        public string FileId { get; set; }
 
         /// <summary>
-        /// The first name.
+        /// Gets or sets the size of the file.
         /// </summary>
-        [DataMember(Name = "first_name")]
-        public string FirstName;
+        /// <value>The size of the file.</value>
+        [DataMember(Name = "file_size", IsRequired = false)]
+        public int FileSize { get; set; }
 
         /// <summary>
-        /// The last name.
+        /// Gets or sets the file path.
         /// </summary>
-        [DataMember(Name = "last_name", IsRequired = false)]
-        public string LastName;
-
-        /// <summary>
-        /// The user identifier.
-        /// </summary>
-        [DataMember(Name = "user_id", IsRequired = false)]
-        public int UserId;
+        /// <value>The file path.</value>
+        [DataMember(Name = "file_path", IsRequired = false)]
+        public string FilePath { get; set; }
     }
 }

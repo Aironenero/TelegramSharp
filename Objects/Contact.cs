@@ -15,26 +15,36 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// Location.
+    /// Contact.
     /// </summary>
     [DataContract]
-    public class Location
+    public class Contact
     {
         /// <summary>
-        /// Gets or sets the longitude.
+        /// The phone number.
         /// </summary>
-        /// <value>The longitude.</value>
-        [DataMember(Name = "longitude")]
-        public float Longitude { get; set; }
+        [DataMember(Name = "phone_number")]
+        public string PhoneNumber;
 
         /// <summary>
-        /// Gets or sets the latitude.
+        /// The first name.
         /// </summary>
-        /// <value>The latitude.</value>
-        [DataMember(Name = "latitude")]
-        public float Latitude { get; set; }
+        [DataMember(Name = "first_name")]
+        public string FirstName;
+
+        /// <summary>
+        /// The last name.
+        /// </summary>
+        [DataMember(Name = "last_name", IsRequired = false)]
+        public string LastName;
+
+        /// <summary>
+        /// The user identifier.
+        /// </summary>
+        [DataMember(Name = "user_id", IsRequired = false)]
+        public int UserId;
     }
 }

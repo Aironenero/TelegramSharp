@@ -15,39 +15,47 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects.NetAPI
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// Update.
+    /// Sticker.
     /// </summary>
     [DataContract]
-    public class Update
+    public class Sticker
     {
         /// <summary>
-        /// Gets or sets the update identifier.
+        /// Gets or sets the file identifier.
         /// </summary>
-        /// <value>The update identifier.</value>
-        [DataMember(Name = "update_id")]
-        public int UpdateId { get; set; }
+        /// <value>The file identifier.</value>
+        [DataMember(Name = "file_id")]
+        public string FileId { get; set; }
 
         /// <summary>
-        /// Gets or sets the message.
+        /// Gets or sets the width.
         /// </summary>
-        /// <value>The message.</value>
-        [DataMember(Name = "message", IsRequired = false)]
-        public Message Message { get; set; }
+        /// <value>The width.</value>
+        [DataMember(Name = "width")]
+        public int Width { get; set; }
 
         /// <summary>
-        /// An edited message.
+        /// Gets or sets the height.
         /// </summary>
-        [DataMember(Name = "edited_message", IsRequired = false)]
-        public Message EditedMessage { get; set; }
+        /// <value>The height.</value>
+        [DataMember(Name = "height")]
+        public int Height { get; set; }
 
         /// <summary>
-        /// Gets or sets the bot info.
+        /// Gets or sets the thumb.
         /// </summary>
-        /// <value>The bot info.</value>
-        [DataMember(Name = "bot_info", IsRequired = false)]
-        public User BotInfo { get; set; }
+        /// <value>The thumb.</value>
+        [DataMember(Name = "thumb", IsRequired = false)]
+        public PhotoSize Thumb { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size of the file.
+        /// </summary>
+        /// <value>The size of the file.</value>
+        [DataMember(Name = "file_size", IsRequired = false)]
+        public int FileSize { get; set; }
     }
 }

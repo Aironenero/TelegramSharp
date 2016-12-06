@@ -15,19 +15,39 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System.Runtime.Serialization;
 
-namespace TelegramSharp.Core.Objects
+namespace TelegramSharp.Objects
 {
     /// <summary>
-    /// Bot configuration.
+    /// Update.
     /// </summary>
     [DataContract]
-    public class BotSetup
+    public class Update
     {
         /// <summary>
-        /// Gets or sets the bot token.
+        /// Gets or sets the update identifier.
         /// </summary>
-        /// <value>The bot token.</value>
-        [DataMember]
-        public string BotToken { get; set; }
+        /// <value>The update identifier.</value>
+        [DataMember(Name = "update_id")]
+        public int UpdateId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
+        /// <value>The message.</value>
+        [DataMember(Name = "message", IsRequired = false)]
+        public Message Message { get; set; }
+
+        /// <summary>
+        /// An edited message.
+        /// </summary>
+        [DataMember(Name = "edited_message", IsRequired = false)]
+        public Message EditedMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the bot info.
+        /// </summary>
+        /// <value>The bot info.</value>
+        [DataMember(Name = "bot_info", IsRequired = false)]
+        public User BotInfo { get; set; }
     }
 }
