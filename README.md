@@ -1,2 +1,2 @@
 TelegramSharp
-Moved to GitLab, new link coming soon.
+Project terminated
